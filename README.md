@@ -7,7 +7,7 @@ Follow these steps to set up and run the project locally.
 **1. Clone the repository**
 
 ```
-git clone https://github.com/Maocampog1/Antioquia-Off-the-Map.git
+git clone https://github.com/SantiGomez2519/Magneto-ADS-Automation.git
 cd Magneto-ADS-Automation
 ```
 
