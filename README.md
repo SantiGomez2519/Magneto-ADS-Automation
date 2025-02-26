@@ -8,7 +8,7 @@ Follow these steps to set up and run the project locally.
 
 ```
 git clone https://github.com/Maocampog1/Antioquia-Off-the-Map.git
-cd Antiquia-Off-The-Map
+cd Magneto-ADS-Automation
 ```
 
 **2. Set up a virtual environment**
@@ -41,4 +41,8 @@ npm install
 
 ```
 python manage.py tailwind start
+```
+
+```
+python manage.py runserver
 ```
