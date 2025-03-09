@@ -9,13 +9,14 @@
         <!-- Sidebar / Menú lateral -->
         <aside class="w-64 bg-gray-200 p-4">
             <!-- Botón para crear nueva campaña -->
-            <button class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
-            Create New Campaign
-            </button>
+            <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
+    Create New Campaign
+</a>
+
         
             <!-- Secciones del menú lateral -->
             <nav class="space-y-1">
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">
+                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
                     <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -34,6 +35,16 @@
                     </svg>
                     Drafts
                 </a>
+                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
+                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round">
+                    <path d="M4 6h16"></path>
+                    <path d="M4 12h16"></path>
+                    <path d="M4 18h12"></path>
+                    </svg>
+                    Scheduled
+                </a>
                 <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">
                     <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
@@ -44,17 +55,6 @@
                     </svg>
                     Performance Metrics
                 </a>
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">
-                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M9 7a4 4 0 1 0-8 0 4 4 0 0 0 8 0z"></path>
-                    <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    <path d="M21 21v-2a4 4 0 0 0-3-3.85"></path>
-                    </svg>
-                    Audience Segmentation
-                </a>
             </nav>
         </aside>
         
@@ -62,77 +62,99 @@
         <main class="flex-1 flex flex-col">
             <!-- Barra de navegación superior -->
             <nav class="flex items-center justify-between bg-white px-6 py-4 shadow">
-                <!-- Secciones a la izquierda (Dashboard, Analytics, etc.) -->
                 <div>
                     <a href="#" class="mr-4 font-bold text-xl text-gray-700">Dashboard</a>
-                    <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Ad Campaigns</a>
+                    <a href="{% url 'add' %}" class="mr-4 text-gray-600 hover:text-gray-800">Ad Campaigns</a>
                     <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Analytics</a>
                     <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Settings</a>
                 </div>
-            
-                <!-- Secciones a la derecha (Logout, Avatar) -->
+
                 <div class="flex items-center space-x-4">
                     <button class="text-gray-600 hover:text-gray-800">Logout</button>
                     <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar"/>
                 </div>
             </nav>
         
-        <!-- Contenido de la página -->
-        <div class="flex-1 p-6">
-            <h1 class="text-3xl font-bold mb-4 text-center">Manage Your Ad Campaign</h1>
+            <!-- Contenido de la página -->
+            <div class="flex-1 p-6">
+                <h1 class="text-3xl font-bold mb-4 text-center">Manage Your Ad Campaign</h1>
         
-            <div class="max-w-3xl mx-auto bg-white rounded shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Campaign Details</h2>
-        
-                <!-- Nombre de campaña -->
-                <div class="mb-4">
-                    <label for="campaignName" class="block text-gray-700 font-medium mb-1">Campaign Name</label>
-                    <input type="text" id="campaignName" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your campaign name"/>
-                </div>
-        
-                <!-- Descripción de campaña -->
-                <div class="mb-4">
-                    <label for="campaignDescription" class="block text-gray-700 font-medium mb-1">Campaign Description</label>
-                    <textarea id="campaignDescription" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"placeholder="Enter a brief description of your campaign"></textarea>
-                </div>
-                    
-                <!-- Imagen de la campaña -->
-                <div class="mb-4">
-                    <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
-                    <input type="file" id="campaignImage" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                </div>
+                <div class="max-w-3xl mx-auto bg-white rounded shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4">Campaign Details</h2>
 
-                <!-- Integración de plataformas -->
-                <div class="mb-4">
-                <h3 class="text-lg font-semibold mb-2">Platform Integration</h3>
-                    <div class="flex flex-wrap gap-4">
-                        <label class="inline-flex items-center space-x-2">
-                            <input type="checkbox" class="form-checkbox" />
-                            <span>Facebook</span>
-                        </label>
-                        <label class="inline-flex items-center space-x-2">
-                            <input type="checkbox" class="form-checkbox" />
-                            <span>Instagram</span>
-                        </label>
-                        <label class="inline-flex items-center space-x-2">
-                            <input type="checkbox" class="form-checkbox" />
-                            <span>Google</span>
-                        </label>
+                    <!-- Mensajes de error del backend -->
+                    {% if messages %}
+                    <div class="mb-4">
+                        {% for message in messages %}
+                            <div class="text-red-500 font-semibold">{{ message }}</div>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+
+                    <!-- Mensajes de error del frontend -->
+                    <div id="error-message" class="hidden text-red-500 font-semibold mb-4"></div>
+
+                    <form id="campaignForm" method="POST" enctype="multipart/form-data" action="{% url 'create_campaign' %}">
+                        {% csrf_token %}
+                        
+                        <!-- Nombre de campaña -->
+                        <div class="mb-4">
+                            <label for="campaignName" class="block text-gray-700 font-medium mb-1">Campaign Name</label>
+                            <input type="text" id="campaignName" name="campaignName" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your campaign name"/>
+                        </div>
+                
+                        <!-- Descripción de campaña -->
+                        <div class="mb-4">
+                            <label for="campaignDescription" class="block text-gray-700 font-medium mb-1">Campaign Description</label>
+                            <textarea id="campaignDescription" name="campaignDescription" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter a brief description of your campaign"></textarea>
+                        </div>
+                            
+                        <!-- Imagen de la campaña -->
+                        <div class="mb-4">
+                            <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
+                            <input type="file" id="campaignImage" name="campaignImage" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+
+                        <!-- Fecha de programación -->
+                        <div class="mb-4">
+                            <label for="schedule" class="block text-gray-700 font-medium mb-1">Schedule</label>
+                            <input type="date" id="schedule" name="schedule" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+                
+                        <!-- Botón de guardado -->
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700 focus:outline-none">Save Campaign</button>
+                    </form>
                 </div>
-        
-                <!-- Fecha de programación -->
-                <div class="mb-4">
-                    <label for="schedule" class="block text-gray-700 font-medium mb-1">Schedule</label>
-                    <input type="date" id="schedule" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                </div>
-        
-                <!-- Botón de guardado -->
-                <button class="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700 focus:outline-none">Save Campaign</button>
             </div>
-        </div>
         </main>
     </div>
-</body>
 
+    <!-- Script de validación en JavaScript -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("campaignForm");
+        const campaignName = document.getElementById("campaignName");
+        const campaignDescription = document.getElementById("campaignDescription");
+        const campaignImage = document.getElementById("campaignImage");
+        const schedule = document.getElementById("schedule");
+        const errorMessage = document.getElementById("error-message");
+
+        form.addEventListener("submit", function (event) {
+            let errors = [];
+
+            if (campaignName.value.trim() === "") errors.push("Campaign Name is required.");
+            if (campaignDescription.value.trim() === "") errors.push("Campaign Description is required.");
+            if (!campaignImage.files.length) errors.push("Campaign Image is required.");
+            if (schedule.value.trim() === "") errors.push("Schedule Date is required.");
+
+            if (errors.length > 0) {
+                event.preventDefault();
+                errorMessage.innerHTML = errors.join("<br>");
+                errorMessage.classList.remove("hidden");
+            }
+        });
+    });
+    </script>
+
+</body>
 {% endblock %}

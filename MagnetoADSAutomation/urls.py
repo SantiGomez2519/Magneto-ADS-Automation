@@ -20,11 +20,23 @@ from django.urls import path, include
 from home.views import home
 from user.views import login_page
 from ad.views import add
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("home/", home, name="home"),
     path("login/", login_page, name="login"),
     path("add/", add, name="add"),
+    
+    path("ad/", include("ad.urls")),
 
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+# Agregar rutas estáticas después de definir urlpatterns
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
