@@ -20,6 +20,7 @@ from django.urls import path, include
 from home.views import home
 from user.views import login_page
 from ad.views import add
+from ad import views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,7 +32,7 @@ urlpatterns = [
     path("home/", home, name="home"),
     path("login/", login_page, name="login"),
     path("add/", add, name="add"),
-    
+    path('campaign/edit/<int:id>/', views.edit_campaign, name='edit_campaign'),
     path("ad/", include("ad.urls")),
 
     path("__reload__/", include("django_browser_reload.urls")),
