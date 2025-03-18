@@ -71,37 +71,37 @@
 
             <!-- Contenido de la página de edición -->
             <div class="flex-1 p-6">
-                <h1 class="text-3xl font-bold mb-4 text-center">Editar Campaña</h1>
+                <h1 class="text-3xl font-bold mb-4 text-center">Edit Campaign</h1>
                 <div class="max-w-2xl mx-auto bg-white rounded shadow p-6">
                     <form action="{% url 'edit_campaign' campaign.id %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <!-- Nombre de la campaña -->
                         <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-semibold mb-2">Nombre de la Campaña</label>
+                            <label for="name" class="block text-gray-700 font-semibold mb-2">Campaign Name</label>
                             <input type="text" name="name" id="name" value="{{ campaign.name }}" class="w-full border border-gray-300 rounded p-2">
                         </div>
                         <!-- Descripción -->
                         <div class="mb-4">
-                            <label for="description" class="block text-gray-700 font-semibold mb-2">Descripción</label>
+                            <label for="description" class="block text-gray-700 font-semibold mb-2">Campaign Description</label>
                             <textarea name="description" id="description" class="w-full border border-gray-300 rounded p-2" rows="4">{{ campaign.description }}</textarea>
-                        </div>
-                        <!-- Horario / Programación -->
-                        <div class="mb-4">
-                            <label for="schedule" class="block text-gray-700 font-semibold mb-2">Programación</label>
-                            <input type="date" name="schedule" id="schedule" value="{{ campaign.schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded p-2">
                         </div>
                         <!-- Imagen -->
                         <div class="mb-4">
-                            <label for="image" class="block text-gray-700 font-semibold mb-2">Imagen</label>
+                            <label for="image" class="block text-gray-700 font-semibold mb-2">Campaign Image</label>
                             {% if campaign.image %}
                                 <img src="{{ campaign.image.url }}" alt="{{ campaign.name }}" class="h-16 w-16 object-cover rounded mb-2">
                             {% endif %}
                             <input type="file" name="image" id="image" class="w-full">
                         </div>
+                        <!-- Programación -->
+                        <div class="mb-4">
+                            <label for="schedule" class="block text-gray-700 font-semibold mb-2">Schedule</label>
+                            <input type="date" name="schedule" id="schedule" value="{{ campaign.schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded p-2">
+                        </div>
                         <!-- Botón para actualizar -->
                         <div class="flex justify-end">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                                Actualizar Campaña
+                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                                Update Campaign
                             </button>
                         </div>
                     </form>
