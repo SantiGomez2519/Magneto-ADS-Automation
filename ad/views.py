@@ -53,3 +53,9 @@ def edit_campaign(request, id):
 def campaign_list(request):
     campaigns = Campaign.objects.all()
     return render(request, "campaign_list.html", {"campaigns": campaigns})
+
+def delete_campaign(request, campaign_id):
+    if request.method == 'POST':
+        campaign = get_object_or_404(Campaign, id=campaign_id)
+        campaign.delete()
+    return redirect('campaign_list')

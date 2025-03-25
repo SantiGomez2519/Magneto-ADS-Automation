@@ -109,10 +109,19 @@
                                         <img src="{{ campaign.image.url }}" alt="{{ campaign.name }}" class="h-16 w-16 object-cover rounded">
                                     </td>
                                     <td class="border px-4 py-2">
-                                        <!-- Botón para editar -->
-                                        <a href="{% url 'edit_campaign' campaign.id %}" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                                            Edit
-                                        </a>
+                                        <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                                            <!-- Botón para editar -->
+                                            <a href="{% url 'edit_campaign' campaign.id %}" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                                                Edit
+                                            </a>
+                                            <!-- Formulario para eliminar -->
+                                            <form action="{% url 'delete_campaign' campaign.id %}" method="post" onsubmit="return confirm('Are you sure of deleting this campaign?');">
+                                                {% csrf_token %}
+                                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 {% endfor %}
