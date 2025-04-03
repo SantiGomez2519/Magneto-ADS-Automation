@@ -3,6 +3,8 @@
 
 {% block content %}
 
+<title>Home</title>
+
 <div class="flex">
     <!-- Side navbar -->
     <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-gray-300 bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
@@ -287,12 +289,14 @@
                 data-twe-dropdown-menu-ref>
                 <!-- Second dropdown menu items -->
                 <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Action</a
-                >
+
+                    <a
+                        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                        href="{% url 'logout' %}"
+                        data-twe-dropdown-item-ref
+                        >Logout</a
+                    >
+
                 </li>
                 <li>
                 <a
@@ -311,9 +315,17 @@
                 >
                 </li>
             </ul>
-            </div>
+        </div>
+            <!-- Logout button -->
+            {% if user.is_authenticated %}
+            {% load static %}
+            <a href="{% url 'logout' %}">
+                <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+            </a>
+            {% endif %}
         </div>
         <!-- Right elements -->
+         
         </div>
         </nav>
         <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
