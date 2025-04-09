@@ -22,7 +22,9 @@
 
     <!-- Logout + avatar a la derecha -->
     <div class="flex items-center space-x-4">
-        <a href="#" class="text-gray-600 hover:text-gray-800">Logout</a>
+        <a href="{% url 'logout' %}">
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+        </a>
         <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
     </div>
 </nav>
@@ -57,7 +59,7 @@
                 <div>
                     <h2 class="text-lg font-semibold mb-4">Campaign Details</h2>
                         
-                    <form id="campaignForm" action="{% url 'schedule_ad' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
+                    <form id="campaignForm" action="{% url 'create_campaign' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
                         {% csrf_token %}
                     
                         <!-- Campaign Name -->
