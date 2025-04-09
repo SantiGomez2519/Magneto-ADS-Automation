@@ -59,30 +59,3 @@ def delete_campaign(request, campaign_id):
         campaign = get_object_or_404(Campaign, id=campaign_id)
         campaign.delete()
     return redirect('campaign_list')
-
-def schedule_ad(request):
-    if request.method == "POST":
-        name = request.POST.get("campaignName", "").strip()
-        description = request.POST.get("campaignDescription", "").strip()
-        image = request.FILES.get("campaignImage")
-        schedule = request.POST.get("schedule", "").strip()
-        end_schedule = request.POST.get("end_schedule", "").strip()
-
-        print("Data received:", name, description, image, schedule, end_schedule)  
-
-        # Validar que los campos no estén vacíos
-        if not name or not description or not image or not schedule:
-            messages.error(request, "All fields are required.")
-            return render(request, "ad/schedule_ad.html")
-
-        # Guardar la campaña
-        campaign = Campaign.objects.create(
-            name=name,
-            description=description,
-            image=image,
-            schedule=schedule,
-            end_schedule=end_schedule
-        )
-
-        return render(request, "campaign_success.html")
-    return render(request, "schedule_ad.html")
