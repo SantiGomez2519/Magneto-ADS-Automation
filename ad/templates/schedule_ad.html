@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Navbar superior flotante -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
+    <!-- Logo a la izquierda -->
+    <div class="flex-shrink-0">
+        <a href="{% url 'home' %}" class="flex items-center">
+        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
+        </a>
+    </div>
+
+    <!-- Links al centro -->
+    <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
+        <a href="#" class="font-bold text-gray-700">Dashboard</a>
+        <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Ad Campaigns</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Analytics</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Settings</a>
+    </div>
+
+    <!-- Logout + avatar a la derecha -->
+    <div class="flex items-center space-x-4">
+        <a href="#" class="text-gray-600 hover:text-gray-800">Logout</a>
+        <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
+    </div>
+</nav>
+
+<!-- Cuerpo principal con padding-top para que no quede detrás del navbar -->
+<div class="flex min-h-screen pt-4 mt-14">
+
+    <!-- Sidebar / Menú lateral -->
+    <aside class="w-64 bg-gray-200 p-4">
+        <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
+            Create New Campaign
+        </a>
+
+        <nav class="space-y-1">
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
+                <!-- icono -->
+                All Campaigns
+            </a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-6">
+        <div class="mx-auto px-6 py-10">
+            <h1 class="text-2xl font-semibold mb-8">Manage Your Ad Campaign</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Left Column - Campaign Details -->
+                <div>
+                    <h2 class="text-lg font-semibold mb-4">Campaign Details</h2>
+                        
+                    <form id="campaignForm" action="{% url 'schedule_ad' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
+                        {% csrf_token %}
+                    
+                        <!-- Campaign Name -->
+                        <input 
+                        type="text"
+                        id="campaignName" 
+                        name="campaignName" 
+                        placeholder="Campaign Name"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" 
+                        required 
+                        />
+                    
+                        <!-- Campaign Description -->
+                        <textarea 
+                        id="campaignDescription"
+                        name="campaignDescription" 
+                        placeholder="Campaign Description"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 h-28 focus:outline-none focus:ring-2 focus:ring-lime-400" 
+                        required
+                        ></textarea>
+                    
+                        <!-- Campaign Image Upload -->
+                        <div class="mb-4">
+                        <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
+                        <input 
+                            type="file" 
+                            id="campaignImage" 
+                            name="campaignImage" 
+                            accept="image/*"
+                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        </div>
+
+                        <!-- Schedule Section -->
+                        <div class="p-4
+                            <h2 class="text-lg font-semibold mb-4">Schedule</h2>
+                            <div class="flex flex-col md:flex-row gap-4">
+                            <input type="date" id="schedule" name="schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                            <input type="date" id="end_schedule" name="end_schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                            </div>
+                        </div>
+                    
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 w-full">
+                            Save Campaign
+                        </button>
+                  </form>
+                </div>                  
+            
+                <!-- Right Column - Platform Integration -->
+                <div>
+                    <h2 class="text-lg font-semibold mb-4">Platform Integration</h2>
+                    <div class="grid gap-3">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Meta" class="accent-lime-500 w-4 h-4" />
+                            <span>Meta</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Google" class="accent-lime-500 w-4 h-4" />
+                            <span>Google</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="TikTok" class="accent-lime-500 w-4 h-4" />
+                            <span>TikTok</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="X" class="accent-lime-500 w-4 h-4" />
+                            <span>X</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Snapchat" class="accent-lime-500 w-4 h-4" />
+                            <span>Snapchat</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+          
+    </main>
+</div>
+
+<!-- Script de validación en JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("campaignForm");
+        const campaignName = document.getElementById("campaignName");
+        const campaignDescription = document.getElementById("campaignDescription");
+        const campaignImage = document.getElementById("campaignImage");
+        const schedule = document.getElementById("schedule");
+        const errorMessage = document.getElementById("error-message");
+
+        form.addEventListener("submit", function (event) {
+            let errors = [];
+
+            if (campaignName.value.trim() === "") errors.push("Campaign Name is required.");
+            if (campaignDescription.value.trim() === "") errors.push("Campaign Description is required.");
+            if (!campaignImage.files.length) errors.push("Campaign Image is required.");
+            if (schedule.value.trim() === "") errors.push("Schedule Date is required.");
+
+            if (errors.length > 0) {
+                event.preventDefault();
+                errorMessage.innerHTML = errors.join("<br>");
+                errorMessage.classList.remove("hidden");
+            }
+        });
+    });
+</script>
+
+{% endblock %}
