@@ -6,6 +6,7 @@ class Campaign(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='campaign_images/')
     schedule = models.DateField()
+    end_schedule = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.name

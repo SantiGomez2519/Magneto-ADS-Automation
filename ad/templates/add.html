@@ -3,134 +3,150 @@
 
 {% block content %}
 
-<body class="bg-gray-50">
-    <div class="flex min-h-screen">
-    
-        <!-- Sidebar / Menú lateral -->
-        <aside class="w-64 bg-gray-200 p-4">
-            <!-- Botón para crear nueva campaña -->
-            <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
-    Create New Campaign
-</a>
+<title>Create campaign</title>
 
-        
-            <!-- Secciones del menú lateral -->
-            <nav class="space-y-1">
-                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
-                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M3 4h18v4H3z"></path>
-                    <path d="M3 12h18v8H3z"></path>
-                    </svg>
-                    All Campaigns
-                </a>
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">
-                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M7 10V3H3v7c0 2.21 3.58 4 8 4s8-1.79 8-4V3h-4v7"></path>
-                    <path d="M5 19h14"></path>
-                    <path d="M5 15h14"></path>
-                    </svg>
-                    Drafts
-                </a>
-                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
-                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M4 6h16"></path>
-                    <path d="M4 12h16"></path>
-                    <path d="M4 18h12"></path>
-                    </svg>
-                    Scheduled
-                </a>
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">
-                    <svg class="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M4 6h16"></path>
-                    <path d="M4 12h16"></path>
-                    <path d="M4 18h12"></path>
-                    </svg>
-                    Performance Metrics
-                </a>
-            </nav>
-        </aside>
-        
-        <!-- Contenido principal -->
-        <main class="flex-1 flex flex-col">
-            <!-- Barra de navegación superior -->
-            <nav class="flex items-center justify-between bg-white px-6 py-4 shadow">
-                <div>
-                    <a href="#" class="mr-4 font-bold text-xl text-gray-700">Dashboard</a>
-                    <a href="{% url 'add' %}" class="mr-4 text-gray-600 hover:text-gray-800">Ad Campaigns</a>
-                    <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Analytics</a>
-                    <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Settings</a>
-                </div>
-
-                <div class="flex items-center space-x-4">
-                    <button class="text-gray-600 hover:text-gray-800">Logout</button>
-                    <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar"/>
-                </div>
-            </nav>
-        
-            <!-- Contenido de la página -->
-            <div class="flex-1 p-6">
-                <h1 class="text-3xl font-bold mb-4 text-center">Manage Your Ad Campaign</h1>
-        
-                <div class="max-w-3xl mx-auto bg-white rounded shadow p-6">
-                    <h2 class="text-xl font-semibold mb-4">Campaign Details</h2>
-
-                    <!-- Mensajes de error del backend -->
-                    {% if messages %}
-                    <div class="mb-4">
-                        {% for message in messages %}
-                            <div class="text-red-500 font-semibold">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <!-- Mensajes de error del frontend -->
-                    <div id="error-message" class="hidden text-red-500 font-semibold mb-4"></div>
-
-                    <form id="campaignForm" method="POST" enctype="multipart/form-data" action="{% url 'create_campaign' %}">
-                        {% csrf_token %}
-                        
-                        <!-- Nombre de campaña -->
-                        <div class="mb-4">
-                            <label for="campaignName" class="block text-gray-700 font-medium mb-1">Campaign Name</label>
-                            <input type="text" id="campaignName" name="campaignName" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your campaign name"/>
-                        </div>
-                
-                        <!-- Descripción de campaña -->
-                        <div class="mb-4">
-                            <label for="campaignDescription" class="block text-gray-700 font-medium mb-1">Campaign Description</label>
-                            <textarea id="campaignDescription" name="campaignDescription" rows="3" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter a brief description of your campaign"></textarea>
-                        </div>
-                            
-                        <!-- Imagen de la campaña -->
-                        <div class="mb-4">
-                            <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
-                            <input type="file" id="campaignImage" name="campaignImage" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                        </div>
-
-                        <!-- Fecha de programación -->
-                        <div class="mb-4">
-                            <label for="schedule" class="block text-gray-700 font-medium mb-1">Schedule</label>
-                            <input type="date" id="schedule" name="schedule" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                        </div>
-                
-                        <!-- Botón de guardado -->
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700 focus:outline-none">Save Campaign</button>
-                    </form>
-                </div>
-            </div>
-        </main>
+<!-- Navbar superior flotante -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
+    <!-- Logo a la izquierda -->
+    <div class="flex-shrink-0">
+        <a href="{% url 'home' %}" class="flex items-center">
+        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
+        </a>
     </div>
 
-    <!-- Script de validación en JavaScript -->
-    <script>
+    <!-- Links al centro -->
+    <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
+        <a href="#" class="font-bold text-gray-700">Dashboard</a>
+        <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Ad Campaigns</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Analytics</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Settings</a>
+    </div>
+
+    <!-- Logout + avatar a la derecha -->
+    <div class="flex items-center space-x-4">
+        <a href="{% url 'logout' %}">
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+        </a>
+        <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
+    </div>
+</nav>
+
+<!-- Cuerpo principal con padding-top para que no quede detrás del navbar -->
+<div class="flex min-h-screen pt-4 mt-14">
+
+    <!-- Sidebar / Menú lateral -->
+    <aside class="w-64 bg-gray-200 p-4">
+        <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
+            Create New Campaign
+        </a>
+
+        <nav class="space-y-1">
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
+                <!-- icono -->
+                All Campaigns
+            </a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-6">
+        <div class="mx-auto px-6 py-10">
+            <h1 class="text-2xl font-semibold mb-8">Manage Your Ad Campaign</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Left Column - Campaign Details -->
+                <div>
+                    <h2 class="text-lg font-semibold mb-4">Campaign Details</h2>
+                        
+                    <form id="campaignForm" action="{% url 'create_campaign' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
+                        {% csrf_token %}
+                    
+                        <!-- Campaign Name -->
+                        <input 
+                        type="text"
+                        id="campaignName" 
+                        name="campaignName" 
+                        placeholder="Campaign Name"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" 
+                        required 
+                        />
+                    
+                        <!-- Campaign Description -->
+                        <textarea 
+                        id="campaignDescription"
+                        name="campaignDescription" 
+                        placeholder="Campaign Description"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 h-28 focus:outline-none focus:ring-2 focus:ring-lime-400" 
+                        required
+                        ></textarea>
+                    
+                        <!-- Campaign Image Upload -->
+                        <div class="mb-4">
+                        <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
+                        <input 
+                            type="file" 
+                            id="campaignImage" 
+                            name="campaignImage" 
+                            accept="image/*"
+                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        </div>
+
+                        <!-- Schedule Section -->
+                        <div class="p-4
+                            <h2 class="text-lg font-semibold mb-4">Schedule</h2>
+                            <div class="flex flex-col md:flex-row gap-4">
+                            <input type="date" id="schedule" name="schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                            <input type="date" id="end_schedule" name="end_schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                            </div>
+                        </div>
+                    
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 w-full">
+                            Save Campaign
+                        </button>
+                  </form>
+                </div>                  
+            
+                <!-- Right Column - Platform Integration -->
+                <div>
+                    <h2 class="text-lg font-semibold mb-4">Platform Integration</h2>
+                    <div class="grid gap-3">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Meta" class="accent-lime-500 w-4 h-4" />
+                            <span>Meta</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Google" class="accent-lime-500 w-4 h-4" />
+                            <span>Google</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="TikTok" class="accent-lime-500 w-4 h-4" />
+                            <span>TikTok</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="X" class="accent-lime-500 w-4 h-4" />
+                            <span>X</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="platforms" value="Snapchat" class="accent-lime-500 w-4 h-4" />
+                            <span>Snapchat</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+          
+    </main>
+</div>
+
+<!-- Script de validación en JavaScript -->
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("campaignForm");
         const campaignName = document.getElementById("campaignName");
@@ -154,7 +170,6 @@
             }
         });
     });
-    </script>
+</script>
 
-</body>
 {% endblock %}

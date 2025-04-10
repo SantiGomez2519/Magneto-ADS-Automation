@@ -16,8 +16,9 @@ def create_campaign(request):
         description = request.POST.get("campaignDescription", "").strip()
         image = request.FILES.get("campaignImage")
         schedule = request.POST.get("schedule", "").strip()
+        end_schedule = request.POST.get("end_schedule", "").strip()
 
-        print("Data received:", name, description, image, schedule)  
+        print("Data received:", name, description, image, schedule, end_schedule)  
 
         # Validar que los campos no estén vacíos
         if not name or not description or not image or not schedule:
@@ -29,11 +30,10 @@ def create_campaign(request):
             name=name,
             description=description,
             image=image,
-            schedule=schedule
+            schedule=schedule,
+            end_schedule=end_schedule
         )
-
         return render(request, "campaign_success.html")
-
     return render(request, "ad/add.html")
 
 def edit_campaign(request, id):

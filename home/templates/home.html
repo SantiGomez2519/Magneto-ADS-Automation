@@ -39,24 +39,11 @@
                 </div>
             </a>
     
-        <hr class="my-2 border-blue-gray-50" />
+            <hr class="my-2 border-blue-gray-50" />
     
             <!-- Title -->
             <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
                 <h2 class="text-xl font-bold">Edit AD</h2>
-            </div>
-    
-            <!-- Schedule AD button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M8 9h8"></path> <path d="M8 13h6"></path> <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z"></path> </svg> 
-                </div>
-                Schedule AD
-                <div class="grid ml-auto place-items-center justify-self-end">
-                <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                </div>
-                </div>
             </div>
     
             <!-- Audience button -->
@@ -155,14 +142,12 @@
             id="navbarSupportedContent1"
             data-twe-collapse-item>
             <!-- Logo -->
-            <a
-            class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-            href="#">
-            <img
-                src="{% static 'magneto_logo.png' %}"
-                class="h-10 w-auto"
-                alt="Magneto Logo"
-                loading="lazy" />
+            <a class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0" href="#">
+                <img
+                    src="{% static 'magneto_logo.png' %}"
+                    class="h-10 w-auto"
+                    alt="Magneto Logo"
+                    loading="lazy" />
             </a>
             
             <form class="flex items-left">   
@@ -172,7 +157,7 @@
                     </div>
                     <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-20 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for job ADS..." required />
                 </div>
-                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-green-500 rounded-lg border border-blue-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-5000 dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
@@ -328,7 +313,129 @@
          
         </div>
         </nav>
-        <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
+
+        <!-- Main content -->
+        <div class="font-sans text-gray-800 p-6 m-10">
+            <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
+              <!-- Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                    <h1 class="text-2xl font-bold">Good morning, Magneto user</h1>
+                    <p class="text-sm text-gray-500">Explore insights and progress</p>
+                    </div>
+                    <button class=" bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">Edit ads</button>
+                </div>
+
+                <!-- Upper Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                    <p class="font-semibold mb-2">Upcoming ad</p>
+                    <div class="w-full h-16 bg-gray-300 rounded-md flex items-center justify-center text-gray-600">Review</div>
+                    </div>
+                    <div class="col-span-2  bg-green-100 rounded-lg flex flex-col items-center justify-center p-6">
+                    <div class="text-center">
+                        <div class=" bg-green-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mx-auto">82%</div>
+                        <p class="mt-2 font-semibold">Track daily progress</p>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Section -->
+                <div class="mb-6">
+                    <h2 class="font-bold mb-2">March 2025 tasks</h2>
+                    <div class="flex gap-4">
+                    <div class="text-center"><p class="font-semibold">meta</p><p class="text-sm">2</p></div>
+                    <div class="text-center font-bold text-green-500"><p>googl</p><p class="text-sm">3</p></div>
+                    <div class="text-center"><p class="font-semibold">tiktok</p><p class="text-sm">4</p></div>
+                    <div class="text-center"><p class="font-semibold">snapch</p><p class="text-sm">5</p></div>
+                    <div class="text-center"><p class="font-semibold">audie</p><p class="text-sm">6</p></div>
+                    <div class="text-center"><p class="font-semibold">perfor</p><p class="text-sm">7</p></div>
+                    <div class="text-center"><p class="font-semibold">real-</p><p class="text-sm">8</p></div>
+                    </div>
+                </div>
+
+                <!-- Ad Performance Tracking -->
+                <div class="mb-8">
+                    <h2 class="font-bold mb-2">Ad performance tracking</h2>
+                    <div class="flex items-end gap-6 h-40">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">met</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">goo</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">tikto</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">snap</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">audi</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-26 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">perf</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">real</p>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Ads -->
+                <div>
+                    <h2 class="font-bold mb-4">Scheduled ads</h2>
+                    <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">05</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad For Google</span>
+                        <span class="text-sm text-gray-500">Ad for available jobs in el exito</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">14:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">06</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Facebook</span>
+                        <span class="text-sm text-gray-500">Ad for 5 available jobs in WOM</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">11:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">07</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Instagram</span>
+                        <span class="text-sm text-gray-500">Available jobs in claro</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">12:00-12:35</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">08</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Instagram</span>
+                        <span class="text-sm text-gray-500">Available jobs for software engineers in Alkosto</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">16:00-17:00</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">09</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Google</span>
+                        <span class="text-sm text-gray-500">Available jobs in alkomprar</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">16:00-16:30</div>
+                    </div>
+                    </div>
+                </div>
+        </div>
     </div>
 </div>
 
