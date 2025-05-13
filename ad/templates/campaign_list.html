@@ -51,7 +51,18 @@
     <main class="flex-1 p-6">
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-2xl font-bold">Campaign List</h1>
-            
+            <!-- Menú Lista Campañas -->
+            <div class="mb-6 border-b border-gray-200">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                    <li class="mr-2">
+                        <a href="#" class="inline-block p-4 border-b-2 border-emerald-500 text-emerald-600 rounded-t-lg active">Campaigns</a>
+                    </li>
+                    <li class="mr-2">
+                        <a href="#" class="inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 rounded-t-lg">Platforms Associated</a>
+                    </li>
+                </ul>
+            </div>
+
             <!-- Mobile menu button + search -->
             <div class="flex items-center gap-4">
                 <div class="relative hidden md:block">
@@ -221,7 +232,7 @@
         clearTimeout(timer);
         timer = setTimeout(() => {
             document.getElementById('searchForm').submit();
-        }, 300); // Espera 300ms después de dejar de escribir
+        }, 2000); // Espera 300ms después de dejar de escribir
     }
 </script>
 
