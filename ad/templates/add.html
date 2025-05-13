@@ -5,16 +5,16 @@
 
 <title>Create campaign</title>
 
-<!-- Navbar superior flotante -->
+<!-- Floating top navbar -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
-    <!-- Logo a la izquierda -->
+    <!-- Left logo -->
     <div class="flex-shrink-0">
         <a href="{% url 'home' %}" class="flex items-center">
         <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
         </a>
     </div>
 
-    <!-- Links al centro -->
+    <!-- Center links -->
     <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
         <a href="#" class="font-bold text-gray-700">Dashboard</a>
         <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Ad Campaigns</a>
@@ -22,36 +22,33 @@
         <a href="#" class="text-gray-600 hover:text-gray-800">Settings</a>
     </div>
 
-    <!-- Logout + avatar a la derecha -->
+    <!-- Logout + avatar -->
     <div class="flex items-center space-x-4">
         <a href="{% url 'logout' %}">
-            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
         </a>
         <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
     </div>
 </nav>
 
-<!-- Cuerpo principal con padding-top para que no quede detrás del navbar -->
+<!-- Main body with padding to avoid overlap -->
 <div class="flex min-h-screen pt-4 mt-14">
 
-    <!-- Sidebar / Menú lateral -->
+    <!-- Sidebar -->
     <aside class="w-64 bg-gray-200 p-4">
         <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
             Create New Campaign
         </a>
 
         <nav class="space-y-1">
-            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
-                <!-- icono -->
-                All Campaigns
-            </a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
             <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
         </nav>
     </aside>
 
-    <!-- Contenido principal -->
+    <!-- Main content -->
     <main class="flex-1 p-6">
         <div class="mx-auto px-6 py-10">
             <h1 class="text-2xl font-semibold mb-8">Manage Your Ad Campaign</h1>
@@ -63,7 +60,7 @@
                         
                     <form id="campaignForm" action="{% url 'create_campaign' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
                         {% csrf_token %}
-                    
+
                         <!-- Campaign Name -->
                         <input 
                         type="text"
@@ -73,7 +70,7 @@
                         class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" 
                         required 
                         />
-                    
+
                         <!-- Campaign Description -->
                         <textarea 
                         id="campaignDescription"
@@ -82,10 +79,102 @@
                         class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 h-28 focus:outline-none focus:ring-2 focus:ring-lime-400" 
                         required
                         ></textarea>
-                    
+
+                        <!-- Category -->
+                        <label for="category" class="text-lg font-semibold mb-4">Category</label>
+                        <select id="category" name="category"
+                            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="IT">Technology</option>
+                            <option value="MK">Marketing</option>
+                            <option value="AD">Administration</option>
+                            <option value="SL">Sales</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="FI">Finance</option>
+                            <option value="ED">Education</option>
+                            <option value="HL">Healthcare</option>
+                            <option value="OT">Other</option>
+                        </select>
+
+                        <!-- Education Level -->
+                        <label for="education_level" class="text-lg font-semibold mb-4">Required Education Level</label>
+                        <select id="education_level" name="education_level"
+                            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" required>
+                            <option value="" disabled selected>Select education level</option>
+                            <option value="NONE">None</option>
+                            <option value="HS">High School</option>
+                            <option value="TEC">College Degree</option>
+                            <option value="TCH">Technologist</option>
+                            <option value="UNI">University</option>
+                            <option value="POS">Postgraduate</option>
+                            <option value="PHD">Doctorate</option>
+                        </select>
+
+                        <!-- Modality -->
+                        <label for="modality" class="text-lg font-semibold mb-4">Modality</label>
+                        <select id="modality" name="modality"
+                            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" required>
+                            <option value="" disabled selected>Select modality</option>
+                            <option value="ONSITE">On-site</option>
+                            <option value="REMOTE">Remote</option>
+                            <option value="HYBRID">Hybrid</option>
+                            <option value="FLEX">Flexible</option>
+                        </select>
+
+                        <!-- Location -->
+                        <label for="location" class="text-lg font-semibold mb-4">Location</label>
+                        <select id="location" name="location"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" required>
+                            <option value="" disabled selected>Select country</option>
+
+                            <optgroup label="America">
+                            <option value="AR">Argentina</option>
+                            <option value="BR">Brazil</option>
+                            <option value="CA">Canada</option>
+                            <option value="CL">Chile</option>
+                            <option value="CO">Colombia</option>
+                            <option value="MX">Mexico</option>
+                            <option value="US">United States</option>
+                            <option value="VE">Venezuela</option>
+                        </optgroup>
+
+                        <optgroup label="Europe">
+                            <option value="DE">Germany</option>
+                            <option value="ES">Spain</option>
+                            <option value="FR">France</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="IT">Italy</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                        </optgroup>
+
+                        <optgroup label="Asia">
+                            <option value="CN">China</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="JP">Japan</option>
+                            <option value="KR">South Korea</option>
+                            <option value="PH">Philippines</option>
+                            <option value="SG">Singapore</option>
+                            <option value="TH">Thailand</option>
+                        </optgroup>
+                        </select>
+
+                        <!-- Experience -->
+                        <label for="experience" class="text-lg font-semibold mb-4">Experience</label>
+                        <select id="experience" name="experience"
+                            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" required>
+                            <option value="" disabled selected>Select experience level</option>
+                            <option value="NONE">No experience</option>
+                            <option value="1-3">1 to 3 years</option>
+                            <option value="4-7">4 to 7 years</option>
+                            <option value="8+">8 or more years</option>
+                        </select>
+
                         <!-- Campaign Image Upload -->
                         <div class="mb-4">
-                        <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
+                        <label for="campaignImage" class="text-lg font-semibold mb-4">Campaign Image</label>
                         <input 
                             type="file" 
                             id="campaignImage" 
@@ -96,22 +185,22 @@
                         </div>
 
                         <!-- Schedule Section -->
-                        <div class="p-4
+                        <div class="p-4">
                             <h2 class="text-lg font-semibold mb-4">Schedule</h2>
                             <div class="flex flex-col md:flex-row gap-4">
-                            <input type="date" id="schedule" name="schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
-                            <input type="date" id="end_schedule" name="end_schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                                <input type="date" id="schedule" name="schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                                <input type="date" id="end_schedule" name="end_schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
                             </div>
                         </div>
-                    
+
                         <!-- Submit Button -->
                         <button type="submit"
                             class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 w-full">
                             Save Campaign
                         </button>
-                  </form>
-                </div>                  
-            
+                    </form>
+                </div>
+
                 <!-- Right Column - Platform Integration -->
                 <div>
                     <h2 class="text-lg font-semibold mb-4">Platform Integration</h2>
@@ -131,13 +220,11 @@
                     </div>
                 </div>
             </div>
-            
         </div>
-          
     </main>
 </div>
 
-<!-- Script de validación en JavaScript -->
+<!-- JS Validation Script -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("campaignForm");
@@ -145,7 +232,6 @@
         const campaignDescription = document.getElementById("campaignDescription");
         const campaignImage = document.getElementById("campaignImage");
         const schedule = document.getElementById("schedule");
-        const errorMessage = document.getElementById("error-message");
 
         form.addEventListener("submit", function (event) {
             let errors = [];
@@ -157,8 +243,7 @@
 
             if (errors.length > 0) {
                 event.preventDefault();
-                errorMessage.innerHTML = errors.join("<br>");
-                errorMessage.classList.remove("hidden");
+                alert(errors.join("\n"));
             }
         });
     });

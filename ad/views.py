@@ -17,41 +17,68 @@ def create_campaign(request):
         image = request.FILES.get("campaignImage")
         schedule = request.POST.get("schedule", "").strip()
         end_schedule = request.POST.get("end_schedule", "").strip()
+        if end_schedule == "":
+            end_schedule = None
 
-        print("Data received:", name, description, image, schedule, end_schedule)  
+        category = request.POST.get("category", "").strip()
+        education_level = request.POST.get("education_level", "").strip()
+        modality = request.POST.get("modality", "").strip()
+        location = request.POST.get("location", "").strip()
+        experience = request.POST.get("experience", "").strip()
 
-        # Validar que los campos no estén vacíos
-        if not name or not description or not image or not schedule:
+        print("Data received:", name, description, image, schedule, end_schedule, category, education_level, modality, location, experience)
+
+        # Validations
+        if not all([name, description, image, schedule, category, education_level, modality, location, experience]):
             messages.error(request, "All fields are required.")
-            return render(request, "ad/add.html")
+            return render(request, "add.html")
 
-        # Guardar la campaña
         campaign = Campaign.objects.create(
             name=name,
             description=description,
             image=image,
             schedule=schedule,
-            end_schedule=end_schedule
+            end_schedule=end_schedule,
+            category=category,
+            education_level=education_level,
+            modality=modality,
+            location=location,
+            experience=experience
         )
         return render(request, "campaign_success.html")
-    return render(request, "ad/add.html")
+
+    return render(request, "add.html")
 
 def edit_campaign(request, id):
     campaign = get_object_or_404(Campaign, id=id)
+
     if request.method == 'POST':
-        # Actualizamos los datos de la campaña con lo recibido del formulario
-        campaign.name = request.POST.get('name')
-        campaign.description = request.POST.get('description')
-        campaign.schedule = request.POST.get('schedule')
+        campaign.name = request.POST.get('name', campaign.name)
+        campaign.description = request.POST.get('description', campaign.description)
+        campaign.schedule = request.POST.get('schedule', campaign.schedule)
+        end_schedule = request.POST.get('end_schedule')
+        campaign.end_schedule = end_schedule if end_schedule else None
+        campaign.category = request.POST.get('category', campaign.category)
+        campaign.education_level = request.POST.get('education_level', campaign.education_level)
+        campaign.modality = request.POST.get('modality', campaign.modality)
+        campaign.location = request.POST.get('location', campaign.location)
+        campaign.experience = request.POST.get('experience', campaign.experience)
+
         if request.FILES.get('image'):
             campaign.image = request.FILES.get('image')
+
         campaign.save()
-        messages.success(request, "Campaña actualizada correctamente.")
+        messages.success(request, "Campaign updated successfully.")
         return redirect('campaign_list')
+
     return render(request, 'edit_campaign.html', {'campaign': campaign})
 
 def campaign_list(request):
-    campaigns = Campaign.objects.all()
+    query = request.GET.get("q")
+    if query:
+        campaigns = Campaign.objects.filter(name__icontains=query)
+    else:
+        campaigns = Campaign.objects.all()
     return render(request, "campaign_list.html", {"campaigns": campaigns})
 
 def delete_campaign(request, campaign_id):
