@@ -77,8 +77,8 @@ def create_campaign(request):
 
     return render(request, "add.html")
 
-def edit_campaign(request, id):
-    campaign = get_object_or_404(Campaign, id=id)
+def edit_campaign(request, campaign_id):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
 
     if request.method == 'POST':
         campaign.name = request.POST.get('name', campaign.name)
@@ -95,9 +95,28 @@ def edit_campaign(request, id):
         if request.FILES.get('image'):
             campaign.image = request.FILES.get('image')
 
-        campaign.save()
-        messages.success(request, "Campaign updated successfully.")
-        return redirect('campaign_list')
+        # Handle platform changes
+        selected_platforms = request.POST.getlist('platforms')
+        
+        # Reset all platforms
+        campaign.platform1 = None
+        campaign.platform2 = None
+        campaign.platform3 = None
+        
+        # Assign platforms in order
+        if 'GOOGLE' in selected_platforms:
+            campaign.platform1 = 'GOOGLE'
+        if 'FACEBOOK' in selected_platforms:
+            campaign.platform2 = 'FACEBOOK'
+        if 'INSTAGRAM' in selected_platforms:
+            campaign.platform3 = 'INSTAGRAM'
+
+        try:
+            campaign.save()
+            messages.success(request, "Campaign updated successfully.")
+            return redirect('campaign_list')
+        except ValidationError as e:
+            messages.error(request, str(e))
 
     return render(request, 'edit_campaign.html', {'campaign': campaign})
 
@@ -126,3 +145,24 @@ def platforms_list(request):
         campaigns = Campaign.objects.all()
     
     return render(request, 'platforms_list.html', {'campaigns': campaigns})
+
+def ad_preview(request, campaign_id, platform):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
+    
+    # Verificar que la plataforma solicitada está activa para esta campaña
+    if platform == 'google' and not campaign.platform1:
+        messages.error(request, 'Google platform not enabled for this campaign')
+        return redirect('platforms_list')
+    elif platform == 'facebook' and not campaign.platform2:
+        messages.error(request, 'Facebook platform not enabled for this campaign')
+        return redirect('platforms_list')
+    elif platform == 'instagram' and not campaign.platform3:
+        messages.error(request, 'Instagram platform not enabled for this campaign')
+        return redirect('platforms_list')
+    
+    context = {
+        'campaign': campaign,
+        'platform': platform.upper(),
+    }
+    
+    return render(request, 'ad_preview_page.html', context)

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-8">
+    <div class="max-w-3xl mx-auto">
+        <!-- Encabezado -->
+        <div class="bg-white p-4 rounded-lg shadow mb-6 flex items-center justify-between">
+            <div class="flex items-center">
+                {% if platform == 'GOOGLE' %}
+                    <img src="{% static 'logo google.png' %}" class="h-8 w-8 mr-3" alt="Google">
+                    <h1 class="text-xl font-semibold">Google Ad Preview</h1>
+                {% elif platform == 'FACEBOOK' %}
+                    <img src="{% static 'logo facebook.png' %}" class="h-8 w-8 mr-3" alt="Facebook">
+                    <h1 class="text-xl font-semibold">Facebook Ad Preview</h1>
+                {% else %}
+                    <img src="{% static 'logo instagram.png' %}" class="h-8 w-8 mr-3" alt="Instagram">
+                    <h1 class="text-xl font-semibold">Instagram Ad Preview</h1>
+                {% endif %}
+            </div>
+            <a href="{% url 'platforms_list' %}" class="text-gray-600 hover:text-gray-800">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Contenido del Preview -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            {% if platform == 'GOOGLE' %}
+                <!-- Preview de Google -->
+                <div class="p-6">
+                    <div class="flex gap-6">
+                        {% if campaign.image %}
+                            <div class="w-1/3 max-w-[200px]">
+                                <img src="{{ campaign.image.url }}" class="w-full h-40 object-cover rounded" alt="{{ campaign.name }}">
+                            </div>
+                        {% endif %}
+                        <div class="flex-1">
+                            <div class="text-green-800 text-sm mb-1">Ad · www.magneto-ads.com</div>
+                            <h2 class="text-blue-700 text-xl font-medium mb-1 hover:underline cursor-pointer">{{ campaign.name }}</h2>
+                            <p class="text-gray-600 text-sm mb-4">{{ campaign.description }}</p>
+                            
+                            <div class="bg-gray-50 p-4 rounded">
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <p><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                    <p><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                    <p><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                    <p><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% elif platform == 'FACEBOOK' %}
+                <!-- Preview de Facebook -->
+                <div class="max-w-xl mx-auto p-4">
+                    <div class="border-b pb-3">
+                        <div class="flex items-center">
+                            <img src="{% static 'magneto_logo.png' %}" class="h-8 w-8 rounded-full" alt="Magneto">
+                            <div class="ml-3">
+                                <p class="font-semibold text-sm">Magneto Ads</p>
+                                <p class="text-gray-500 text-xs">Sponsored · <i class="fas fa-globe"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="py-3">
+                        <h2 class="text-lg font-semibold mb-2">{{ campaign.name }}</h2>
+                        <p class="text-gray-600 text-sm mb-3">{{ campaign.description }}</p>
+                        
+                        {% if campaign.image %}
+                            <div class="aspect-[16/9] mb-3">
+                                <img src="{{ campaign.image.url }}" class="w-full h-full object-cover rounded-lg" alt="{{ campaign.name }}">
+                            </div>
+                        {% endif %}
+                        
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <p><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                <p><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                <p><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                <p><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 mt-3 text-sm">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+            {% else %}
+                <!-- Preview de Instagram -->
+                <div class="max-w-md mx-auto">
+                    <div class="border-b p-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="{% static 'magneto_logo.png' %}" class="h-6 w-6 rounded-full" alt="Magneto">
+                                <div class="ml-2">
+                                    <p class="font-semibold text-sm">magneto.ads</p>
+                                    <p class="text-gray-500 text-xs">Sponsored</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-600 text-lg">•••</button>
+                        </div>
+                    </div>
+
+                    {% if campaign.image %}
+                        <div class="aspect-square max-h-[350px]">
+                            <img src="{{ campaign.image.url }}" class="w-full h-full object-cover" alt="{{ campaign.name }}">
+                        </div>
+                    {% endif %}
+
+                    <div class="p-3">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex space-x-3">
+                                <button class="text-gray-800">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-800">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-800">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <p class="mb-1 text-sm"><span class="font-semibold">magneto.ads</span> {{ campaign.name }}</p>
+                                <p class="text-gray-600 text-xs">{{ campaign.description }}</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <p><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                    <p><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                    <p><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                    <p><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                                </div>
+                            </div>
+
+                            <button class="w-full bg-blue-500 text-white py-1.5 rounded-lg hover:bg-blue-600 text-sm">
+                                Apply Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -210,7 +210,7 @@
                                                 <img src="{% static 'logo google.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform1_display }}">
                                                 {{ campaign.get_platform1_display }} Preview
                                             </h4>
-                                            <button class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</button>
+                                            <a href="{% url 'ad_preview' campaign.id 'google' %}" class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</a>
                                         </div>
                                         <div class="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
                                             <p class="text-gray-500">Preview placeholder</p>
@@ -225,7 +225,7 @@
                                                 <img src="{% static 'logo facebook.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform2_display }}">
                                                 {{ campaign.get_platform2_display }} Preview
                                             </h4>
-                                            <button class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</button>
+                                            <a href="{% url 'ad_preview' campaign.id 'facebook' %}" class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</a>
                                         </div>
                                         <div class="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
                                             <p class="text-gray-500">Preview placeholder</p>
@@ -240,7 +240,7 @@
                                                 <img src="{% static 'logo instagram.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform3_display }}">
                                                 {{ campaign.get_platform3_display }} Preview
                                             </h4>
-                                            <button class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</button>
+                                            <a href="{% url 'ad_preview' campaign.id 'instagram' %}" class="text-emerald-600 hover:text-emerald-700 text-sm">View Full Preview</a>
                                         </div>
                                         <div class="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
                                             <p class="text-gray-500">Preview placeholder</p>
