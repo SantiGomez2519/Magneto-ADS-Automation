@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Campaign
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
@@ -26,26 +28,52 @@ def create_campaign(request):
         location = request.POST.get("location", "").strip()
         experience = request.POST.get("experience", "").strip()
 
-        print("Data received:", name, description, image, schedule, end_schedule, category, education_level, modality, location, experience)
+        # Get selected platforms as a list
+        selected_platforms = request.POST.getlist("platforms")
 
         # Validations
         if not all([name, description, image, schedule, category, education_level, modality, location, experience]):
             messages.error(request, "All fields are required.")
             return render(request, "add.html")
 
-        campaign = Campaign.objects.create(
-            name=name,
-            description=description,
-            image=image,
-            schedule=schedule,
-            end_schedule=end_schedule,
-            category=category,
-            education_level=education_level,
-            modality=modality,
-            location=location,
-            experience=experience
-        )
-        return render(request, "campaign_success.html")
+        # Validate at least one platform is selected
+        if not selected_platforms:
+            messages.error(request, "Please select at least one platform.")
+            return render(request, "add.html")
+
+        # Initialize platform variables as None
+        platform1 = None
+        platform2 = None
+        platform3 = None
+
+        # Sort platforms to ensure consistent order
+        if 'GOOGLE' in selected_platforms:
+            platform1 = 'GOOGLE'
+        if 'FACEBOOK' in selected_platforms:
+            platform2 = 'FACEBOOK'
+        if 'INSTAGRAM' in selected_platforms:
+            platform3 = 'INSTAGRAM'
+
+        try:
+            campaign = Campaign.objects.create(
+                name=name,
+                description=description,
+                image=image,
+                schedule=schedule,
+                end_schedule=end_schedule,
+                category=category,
+                education_level=education_level,
+                modality=modality,
+                location=location,
+                experience=experience,
+                platform1=platform1,
+                platform2=platform2,
+                platform3=platform3
+            )
+            return render(request, "campaign_success.html")
+        except ValidationError as e:
+            messages.error(request, str(e))
+            return render(request, "add.html")
 
     return render(request, "add.html")
 
@@ -86,3 +114,15 @@ def delete_campaign(request, campaign_id):
         campaign = get_object_or_404(Campaign, id=campaign_id)
         campaign.delete()
     return redirect('campaign_list')
+
+def platforms_list(request):
+    query = request.GET.get('q', '')
+    if query:
+        campaigns = Campaign.objects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        )
+    else:
+        campaigns = Campaign.objects.all()
+    
+    return render(request, 'platforms_list.html', {'campaigns': campaigns})

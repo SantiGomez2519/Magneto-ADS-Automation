@@ -43,7 +43,7 @@
         <nav class="space-y-1">
             <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
-            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Platforms Associated</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
         </nav>
     </aside>
@@ -206,15 +206,15 @@
                     <h2 class="text-lg font-semibold mb-4">Platform Integration</h2>
                     <div class="grid gap-3">
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Facebook" class="accent-lime-500 w-4 h-4" />
-                            <span>Facebook</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Google" class="accent-lime-500 w-4 h-4" />
+                            <input type="checkbox" form="campaignForm" name="platforms" value="GOOGLE" class="accent-lime-500 w-4 h-4" />
                             <span>Google</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Instagram" class="accent-lime-500 w-4 h-4" />
+                            <input type="checkbox" form="campaignForm" name="platforms" value="FACEBOOK" class="accent-lime-500 w-4 h-4" />
+                            <span>Facebook</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" form="campaignForm" name="platforms" value="INSTAGRAM" class="accent-lime-500 w-4 h-4" />
                             <span>Instagram</span>
                         </label>
                     </div>

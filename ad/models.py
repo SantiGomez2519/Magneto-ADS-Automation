@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Campaign(models.Model):
@@ -67,6 +68,11 @@ class Campaign(models.Model):
     ('TH', 'Thailand'),
     ]
 
+    PLATFORM_CHOICES = [
+        ('GOOGLE', 'Google'),
+        ('FACEBOOK', 'Facebook'),
+        ('INSTAGRAM', 'Instagram'),
+    ]
     
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -78,6 +84,25 @@ class Campaign(models.Model):
     modality = models.CharField(max_length=10, choices=MODALITY_CHOICES)
     location = models.CharField(max_length=2, choices=LOCATION_CHOICES, default= 'Colmbia')
     experience = models.CharField(max_length=10, choices=EXPERIENCE_CHOICES)
+    
+    # Nuevos campos para plataformas
+    platform1 = models.CharField(max_length=10, choices=PLATFORM_CHOICES, null=True, blank=True)
+    platform2 = models.CharField(max_length=10, choices=PLATFORM_CHOICES, null=True, blank=True)
+    platform3 = models.CharField(max_length=10, choices=PLATFORM_CHOICES, null=True, blank=True)
+
+    def clean(self):
+        # Validar que al menos una plataforma esté seleccionada
+        if not self.platform1 and not self.platform2 and not self.platform3:
+            raise ValidationError('At least one platform must be selected.')
+        
+        # Validar que no haya plataformas duplicadas
+        platforms = [p for p in [self.platform1, self.platform2, self.platform3] if p]
+        if len(platforms) != len(set(platforms)):
+            raise ValidationError('Each platform can only be selected once.')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
