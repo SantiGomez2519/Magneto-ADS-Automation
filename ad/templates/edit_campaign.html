@@ -9,14 +9,34 @@
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="w-64 bg-gray-200 p-4">
-            <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
+            <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4 transition duration-150 ease-in-out">
                 Create New Campaign
             </a>
             <nav class="space-y-1">
-                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
-                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
-                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50 transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    All Campaigns
+                </a>
+                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50 transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Drafts
+                </a>
+                <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50 transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Scheduled
+                </a>
+                <a href="#" class="flex items-center p-2 rounded hover:bg-green-50 transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Performance Metrics
+                </a>
             </nav>
         </aside>
 
@@ -30,48 +50,111 @@
                     <a href="#" class="mr-4 text-gray-600 hover:text-gray-800">Settings</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="text-gray-600 hover:text-gray-800">Logout</button>
-                    <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar"/>
+                    <button class="text-gray-600 hover:text-gray-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </button>
+                    <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full border-2 border-gray-200" alt="User Avatar"/>
                 </div>
             </nav>
 
             <div class="flex-1 p-6">
-                <h1 class="text-3xl font-bold mb-4 text-center">Edit Campaign</h1>
-                <div class="max-w-2xl mx-auto bg-white rounded shadow p-6">
-                    <form action="{% url 'edit_campaign' campaign.id %}" method="post" enctype="multipart/form-data">
+                <div class="flex items-center justify-between mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800">Edit Campaign</h1>
+                    <a href="{% url 'campaign_list' %}" class="flex items-center text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Campaigns
+                    </a>
+                </div>
+                
+                <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+                        <div class="flex items-center text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            <span>Edit campaign details and settings</span>
+                        </div>
+                    </div>
+                    
+                    <form action="{% url 'edit_campaign' campaign.id %}" method="post" enctype="multipart/form-data" class="p-6">
                         {% csrf_token %}
 
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-semibold mb-2">Campaign Name</label>
-                            <input type="text" name="name" id="name" value="{{ campaign.name }}" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="name" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Campaign Name
+                            </label>
+                            <input type="text" name="name" id="name" value="{{ campaign.name }}" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out">
                         </div>
 
-                        <div class="mb-4">
-                            <label for="description" class="block text-gray-700 font-semibold mb-2">Campaign Description</label>
-                            <textarea name="description" id="description" class="w-full border border-gray-300 rounded p-2" rows="4">{{ campaign.description }}</textarea>
+                        <div class="mb-5">
+                            <label for="description" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                                </svg>
+                                Campaign Description
+                            </label>
+                            <textarea name="description" id="description" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out" rows="4">{{ campaign.description }}</textarea>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="image" class="block text-gray-700 font-semibold mb-2">Campaign Image</label>
-                            {% if campaign.image %}
-                                <img src="{{ campaign.image.url }}" alt="{{ campaign.name }}" class="h-16 w-16 object-cover rounded mb-2">
-                            {% endif %}
-                            <input type="file" name="image" id="image" class="w-full">
+                        <div class="mb-5">
+                            <label for="image" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Campaign Image
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                {% if campaign.image %}
+                                    <img src="{{ campaign.image.url }}" alt="{{ campaign.name }}" class="h-16 w-16 object-cover rounded-md border border-gray-200">
+                                {% else %}
+                                    <div class="h-16 w-16 bg-gray-100 flex items-center justify-center rounded-md border border-gray-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                {% endif %}
+                                <input type="file" name="image" id="image" class="w-full border border-gray-300 rounded-md p-2 bg-white">
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="schedule" class="block text-gray-700 font-semibold mb-2">Schedule</label>
-                            <input type="date" name="schedule" id="schedule" value="{{ campaign.schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded p-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div>
+                                <label for="schedule" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    Schedule
+                                </label>
+                                <input type="date" name="schedule" id="schedule" value="{{ campaign.schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out">
+                            </div>
+
+                            <div>
+                                <label for="end_schedule" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    End Schedule
+                                </label>
+                                <input type="date" name="end_schedule" id="end_schedule" value="{{ campaign.end_schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out">
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="end_schedule" class="block text-gray-700 font-semibold mb-2">End Schedule</label>
-                            <input type="date" name="end_schedule" id="end_schedule" value="{{ campaign.end_schedule|date:'Y-m-d' }}" class="w-full border border-gray-300 rounded p-2">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="category" class="block text-gray-700 font-semibold mb-2">Category</label>
-                            <select name="category" id="category" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="category" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                </svg>
+                                Category
+                            </label>
+                            <select name="category" id="category" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out bg-white">
                                 <option value="" disabled>Select category</option>
                                 {% for code, label in campaign.CATEGORY_CHOICES %}
                                 <option value="{{ code }}" {% if campaign.category == code %}selected{% endif %}>{{ label }}</option>
@@ -79,9 +162,16 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="education_level" class="block text-gray-700 font-semibold mb-2">Education Level</label>
-                            <select name="education_level" id="education_level" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="education_level" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                </svg>
+                                Education Level
+                            </label>
+                            <select name="education_level" id="education_level" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out bg-white">
                                 <option value="" disabled>Select education level</option>
                                 {% for code, label in campaign.EDUCATION_LEVEL_CHOICES %}
                                 <option value="{{ code }}" {% if campaign.education_level == code %}selected{% endif %}>{{ label }}</option>
@@ -89,9 +179,14 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="modality" class="block text-gray-700 font-semibold mb-2">Modality</label>
-                            <select name="modality" id="modality" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="modality" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                </svg>
+                                Modality
+                            </label>
+                            <select name="modality" id="modality" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out bg-white">
                                 <option value="" disabled>Select modality</option>
                                 {% for code, label in campaign.MODALITY_CHOICES %}
                                 <option value="{{ code }}" {% if campaign.modality == code %}selected{% endif %}>{{ label }}</option>
@@ -99,9 +194,15 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="location" class="block text-gray-700 font-semibold mb-2">Location</label>
-                            <select name="location" id="location" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="location" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Location
+                            </label>
+                            <select name="location" id="location" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out bg-white">
                                 <option value="" disabled>Select location</option>
                                 {% for code, label in campaign.LOCATION_CHOICES %}
                                 <option value="{{ code }}" {% if campaign.location == code %}selected{% endif %}>{{ label }}</option>
@@ -109,9 +210,14 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="experience" class="block text-gray-700 font-semibold mb-2">Experience</label>
-                            <select name="experience" id="experience" class="w-full border border-gray-300 rounded p-2">
+                        <div class="mb-5">
+                            <label for="experience" class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Experience
+                            </label>
+                            <select name="experience" id="experience" class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-200 focus:border-green-500 transition duration-150 ease-in-out bg-white">
                                 <option value="" disabled>Select experience</option>
                                 {% for code, label in campaign.EXPERIENCE_CHOICES %}
                                 <option value="{{ code }}" {% if campaign.experience == code %}selected{% endif %}>{{ label }}</option>
@@ -119,35 +225,64 @@
                             </select>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-semibold mb-2">Platforms</label>
-                            <div class="space-y-2">
+                        <div class="mb-5">
+                            <label class="block text-gray-700 font-semibold mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Platforms
+                            </label>
+                            <div class="space-y-3 bg-gray-50 p-4 rounded-md border border-gray-200">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="platforms" value="GOOGLE" id="google" 
                                            {% if campaign.platform1 == 'GOOGLE' %}checked{% endif %}
                                            class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-                                    <label for="google" class="ml-2 block text-sm text-gray-900">Google</label>
+                                    <label for="google" class="ml-2 block text-sm text-gray-900 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="mr-2">
+                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                        </svg>
+                                        Google
+                                    </label>
                                 </div>
                                 <div class="flex items-center">
                                     <input type="checkbox" name="platforms" value="FACEBOOK" id="facebook"
                                            {% if campaign.platform2 == 'FACEBOOK' %}checked{% endif %}
                                            class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-                                    <label for="facebook" class="ml-2 block text-sm text-gray-900">Facebook</label>
+                                    <label for="facebook" class="ml-2 block text-sm text-gray-900 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="mr-2">
+                                            <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                        </svg>
+                                        Facebook
+                                    </label>
                                 </div>
                                 <div class="flex items-center">
                                     <input type="checkbox" name="platforms" value="INSTAGRAM" id="instagram"
                                            {% if campaign.platform3 == 'INSTAGRAM' %}checked{% endif %}
                                            class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-                                    <label for="instagram" class="ml-2 block text-sm text-gray-900">Instagram</label>
+                                    <label for="instagram" class="ml-2 block text-sm text-gray-900 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="mr-2">
+                                            <path fill="#E4405F" d="M12,2.163c3.204,0,3.584,0.012,4.85,0.07c3.252,0.148,4.771,1.691,4.919,4.919c0.058,1.265,0.069,1.645,0.069,4.849c0,3.205-0.012,3.584-0.069,4.849c-0.149,3.225-1.664,4.771-4.919,4.919c-1.266,0.058-1.644,0.07-4.85,0.07c-3.204,0-3.584-0.012-4.849-0.07c-3.26-0.149-4.771-1.699-4.919-4.92c-0.058-1.265-0.07-1.644-0.07-4.849c0-3.204,0.013-3.583,0.07-4.849c0.149-3.227,1.664-4.771,4.919-4.919c1.266-0.057,1.645-0.069,4.849-0.069zM12,0c-3.26,0-3.667,0.014-4.947,0.072c-4.358,0.2-6.78,2.618-6.98,6.98c-0.059,1.281-0.073,1.689-0.073,4.948c0,3.259,0.014,3.668,0.072,4.948c0.2,4.358,2.618,6.78,6.98,6.98c1.281,0.058,1.689,0.072,4.948,0.072c3.259,0,3.668-0.014,4.948-0.072c4.354-0.2,6.782-2.618,6.979-6.98c0.059-1.28,0.073-1.689,0.073-4.948c0-3.259-0.014-3.667-0.072-4.947c-0.196-4.354-2.617-6.78-6.979-6.98c-1.281-0.059-1.69-0.073-4.949-0.073zM12,5.838c-3.403,0-6.162,2.759-6.162,6.162s2.759,6.163,6.162,6.163s6.162-2.759,6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12,16c-2.209,0-4-1.79-4-4c0-2.209,1.791-4,4-4s4,1.791,4,4c0,2.21-1.791,4-4,4zM18.406,4.155c-0.796,0-1.441,0.645-1.441,1.44s0.645,1.44,1.441,1.44c0.795,0,1.439-0.645,1.439-1.44s-0.644-1.44-1.439-1.44z"/>
+                                        </svg>
+                                        Instagram
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex justify-between">
-                            <a href="{% url 'campaign_list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded">
+                        <div class="flex justify-between pt-4 border-t border-gray-100">
+                            <a href="{% url 'campaign_list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-md flex items-center transition duration-150 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
                                 Cancel
                             </a>
-                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md flex items-center transition duration-150 ease-in-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
                                 Update Campaign
                             </button>
                         </div>
