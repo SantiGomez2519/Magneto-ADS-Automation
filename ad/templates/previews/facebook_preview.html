@@ -1,0 +1,37 @@
+{% load static %}
+
+<!-- Facebook Ad Preview -->
+<div class="border rounded-lg overflow-hidden">
+    <!-- Header -->
+    <div class="p-4 bg-white border-b">
+        <div class="flex items-center">
+            <img src="{% static 'magneto_logo.png' %}" class="h-10 w-10 rounded-full" alt="Magneto">
+            <div class="ml-3">
+                <div class="font-semibold">Magneto Ads</div>
+                <div class="text-gray-500 text-sm">Sponsored · <i class="fas fa-globe"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="bg-white">
+        {% if image_url %}
+        <img src="{{ image_url }}" class="w-full h-64 object-cover" alt="{{ campaign_name }}">
+        {% else %}
+        <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+            <p class="text-gray-500">No image available</p>
+        </div>
+        {% endif %}
+        
+        <!-- Texto del anuncio -->
+        <div class="p-4">
+            <h3 class="font-semibold text-lg mb-2">{{ campaign_name }}</h3>
+            <p class="text-gray-600">{{ description }}</p>
+            
+            <!-- Call to Action -->
+            <button class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                Learn More
+            </button>
+        </div>
+    </div>
+</div> 

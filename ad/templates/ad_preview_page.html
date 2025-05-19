@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <!-- Header with platform branding -->
+        <div class="bg-white rounded-xl shadow-md mb-8 overflow-hidden">
+            <div class="flex items-center justify-between p-5">
+                <div class="flex items-center space-x-4">
+                    {% if platform == 'GOOGLE' %}
+                        <div class="bg-white p-2 rounded-full shadow-sm">
+                            <img src="{% static 'logo google.png' %}" class="h-10 w-10" alt="Google">
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-800">Google Ad Preview</h1>
+                    {% elif platform == 'FACEBOOK' %}
+                        <div class="bg-white p-2 rounded-full shadow-sm">
+                            <img src="{% static 'logo facebook.png' %}" class="h-10 w-10" alt="Facebook">
+                        </div>
+                        <h1 class="text-2xl font-bold text-blue-600">Facebook Ad Preview</h1>
+                    {% else %}
+                        <div class="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 p-2 rounded-full shadow-sm">
+                            <img src="{% static 'logo instagram.png' %}" class="h-10 w-10" alt="Instagram">
+                        </div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">Instagram Ad Preview</h1>
+                    {% endif %}
+                </div>
+                <a href="{% url 'platforms_list' %}" class="flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Ad Preview Content -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+            {% if platform == 'GOOGLE' %}
+                <!-- Google Ad Preview -->
+                <div class="p-6">
+                    <div class="flex flex-col md:flex-row md:gap-8">
+                        {% if campaign.image %}
+                            <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                                <img src="{{ campaign.image.url }}" class="w-full h-auto object-cover rounded-lg shadow-sm" alt="{{ campaign.name }}">
+                            </div>
+                        {% endif %}
+                        <div class="flex-1">
+                            <div class="text-green-700 text-sm font-medium mb-1">Ad · www.magneto-ads.com</div>
+                            <h2 class="text-blue-700 text-xl font-semibold mb-2 hover:underline cursor-pointer">{{ campaign.name }}</h2>
+                            <p class="text-gray-700 mb-5 leading-relaxed">{{ campaign.description }}</p>
+                            
+                            <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                                <h3 class="text-gray-700 font-medium mb-3 text-sm uppercase tracking-wide">Campaign Details</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% elif platform == 'FACEBOOK' %}
+                <!-- Facebook Ad Preview -->
+                <div class="max-w-xl mx-auto">
+                    <div class="border-b border-gray-200">
+                        <div class="flex items-center p-4">
+                            <img src="{% static 'magneto_logo.png' %}" class="h-10 w-10 rounded-full border border-gray-200" alt="Magneto">
+                            <div class="ml-3">
+                                <p class="font-semibold text-sm">Magneto Ads</p>
+                                <div class="flex items-center text-gray-500 text-xs">
+                                    <span>Sponsored</span>
+                                    <span class="mx-1">·</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold mb-2">{{ campaign.name }}</h2>
+                        <p class="text-gray-700 mb-4 leading-relaxed">{{ campaign.description }}</p>
+                        
+                        {% if campaign.image %}
+                            <div class="rounded-lg overflow-hidden mb-4 shadow-sm">
+                                <img src="{{ campaign.image.url }}" class="w-full h-auto object-cover" alt="{{ campaign.name }}">
+                            </div>
+                        {% endif %}
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4">
+                            <h3 class="text-gray-700 font-medium mb-3 text-sm uppercase tracking-wide">Campaign Details</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </span>
+                                    <p class="text-sm"><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </span>
+                                    <p class="text-sm"><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                        </svg>
+                                    </span>
+                                    <p class="text-sm"><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </span>
+                                    <p class="text-sm"><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium flex items-center justify-center">
+                            <span>Learn More</span>
+                        </button>
+                    </div>
+                </div>
+
+            {% else %}
+                <!-- Instagram Ad Preview -->
+                <div class="max-w-md mx-auto">
+                    <div class="border-b border-gray-200">
+                        <div class="flex items-center justify-between p-3">
+                            <div class="flex items-center">
+                                <div class="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center">
+                                    <img src="{% static 'magneto_logo.png' %}" class="h-7 w-7 rounded-full border border-white" alt="Magneto">
+                                </div>
+                                <div class="ml-2">
+                                    <p class="font-semibold text-sm">magneto.ads</p>
+                                    <p class="text-gray-500 text-xs">Sponsored</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {% if campaign.image %}
+                        <div class="aspect-square">
+                            <img src="{{ campaign.image.url }}" class="w-full h-full object-cover" alt="{{ campaign.name }}">
+                        </div>
+                    {% endif %}
+
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex space-x-4">
+                                <button class="text-gray-800 hover:text-red-500 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-800 hover:text-gray-600 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                </button>
+                                <button class="text-gray-800 hover:text-gray-600 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <button class="text-gray-800 hover:text-gray-600 transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <p class="mb-1"><span class="font-semibold">magneto.ads</span> {{ campaign.name }}</p>
+                                <p class="text-gray-600 text-sm">{{ campaign.description }}</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <h3 class="text-gray-700 font-medium mb-3 text-xs uppercase tracking-wide">Campaign Details</h3>
+                                <div class="grid grid-cols-2 gap-3 text-xs">
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Modality:</span> {{ campaign.get_modality_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Location:</span> {{ campaign.get_location_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Education:</span> {{ campaign.get_education_level_display }}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 mr-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                        </span>
+                                        <p><span class="font-medium">Experience:</span> {{ campaign.get_experience_display }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white py-2 rounded-lg hover:opacity-90 transition-opacity duration-200 font-medium flex items-center justify-center">
+                                <span>Apply Now</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
