@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home',
     'user',
     'ad',
+    'user_segmentation',
 ]
 
 TAILWIND_APP_NAME = 'theme'
