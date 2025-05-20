@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<title>Home</title>
+
+<div class="flex">
+    <!-- Side navbar -->
+    <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-gray-300 bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+        <!-- Nav Menu -->
+        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-black">
+    
+            <!-- Dashboard button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path> <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path> <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path> </svg> 
+                </div>
+                Dashboard
+                <div class="grid ml-auto place-items-center justify-self-end">
+                    <div
+                        class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                    </div>
+                </div>
+            </div>
+    
+            <a href="{% url 'add' %}" class="block">
+                <!-- Create AD button -->
+                <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                    <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path> <path d="M15 12h-6"></path> <path d="M12 9v6"></path> </svg> 
+                    </div>
+                    Create AD
+                    <div class="grid ml-auto place-items-center justify-self-end">
+                    <div
+                        class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                    </div>
+                    </div>
+                </div>
+            </a>
+    
+            <hr class="my-2 border-blue-gray-50" />
+    
+            <!-- Title -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold">Edit AD</h2>
+            </div>
+    
+            <!-- Audience button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path> <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path> <path d="M16 3.13a4 4 0 0 1 0 7.75"></path> <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path> </svg> 
+                </div>
+                Audience
+                <div class="grid ml-auto place-items-center justify-self-end">
+                <div
+                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                </div>
+                </div>
+            </div>
+    
+            <!-- Performance button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M4 6l16 0"></path> <path d="M4 12l16 0"></path> <path d="M4 18l12 0"></path> </svg> 
+                </div>
+                Performance
+                <div class="grid ml-auto place-items-center justify-self-end">
+                <div
+                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                </div>
+                </div>
+            </div>
+    
+            <!-- Real Time Insights button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M19.03 17.818a3 3 0 0 0 1.97 -2.818v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8c0 1.317 .85 2.436 2.03 2.84"></path> <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path> <path d="M8 21a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2"></path> </svg> 
+                </div>
+                Real-time Insights
+                <div class="grid ml-auto place-items-center justify-self-end">
+                <div
+                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                </div>
+                </div>
+            </div>
+    
+        <hr class="my-2 border-blue-gray-50" />
+    
+            <!-- Title -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold">Meta and Google</h2>
+            </div>
+    
+            <!-- Job Seekers button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path> <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path> <path d="M12 12l0 .01"></path> <path d="M3 13a20 20 0 0 0 18 0"></path> </svg> 
+                </div>
+                Real-time Insights
+                <div class="grid ml-auto place-items-center justify-self-end">
+                <div
+                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
+                </div>
+                </div>
+            </div>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="w-full">
+        <!-- Main navigation container -->
+        <nav
+        class="flex-no-wrap relative flex w-full items-center justify-between bg-zinc-50 py-2 lg:flex-wrap lg:justify-start lg:py-4">
+        <div class="flex w-full flex-wrap items-center justify-between px-3">
+        <!-- Hamburger button for mobile view -->
+        <button
+            class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+            type="button"
+            data-twe-collapse-init
+            data-twe-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <!-- Hamburger icon -->
+            <span
+            class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                fill-rule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clip-rule="evenodd" />
+            </svg>
+            </span>
+        </button>
+
+        <!-- Collapsible navigation container -->
+        <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+            id="navbarSupportedContent1"
+            data-twe-collapse-item>
+            <!-- Logo -->
+            <a class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0" href="#">
+                <img
+                    src="{% static 'magneto_logo.png' %}"
+                    class="h-10 w-auto"
+                    alt="Magneto Logo"
+                    loading="lazy" />
+            </a>
+            
+            <form class="flex items-left">   
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
+                    </div>
+                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-20 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for job ADS..." required />
+                </div>
+                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-green-500 rounded-lg border border-blue-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-5000 dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </form>
+
+        </div>
+
+        <!-- Right elements -->
+        <div class="relative flex items-center">
+            <!-- Icon -->
+            <a class="me-4 text-neutral-600 dark:text-white" href="#">
+            <span class="[&>svg]:w-5">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="black">
+                <path
+                    d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                </svg>
+            </span>
+            </a>
+
+            <!-- First dropdown container -->
+            <div
+            class="relative"
+            data-twe-dropdown-ref
+            data-twe-dropdown-alignment="end">
+            <!-- First dropdown trigger -->
+            <a
+                class="me-4 flex items-center text-neutral-600 dark:text-white"
+                href="#"
+                id="dropdownMenuButton1"
+                role="button"
+                data-twe-dropdown-toggle-ref
+                aria-expanded="false">
+                <!-- Dropdown trigger icon -->
+                <span class="[&>svg]:w-5">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="black">
+                    <path
+                    fill-rule="evenodd"
+                    d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
+                    clip-rule="evenodd" />
+                </svg>
+                </span>
+                <!-- Notification counter -->
+                <span
+                class="absolute -mt-4 ms-2.5 rounded-full bg-danger px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-white"
+                >1</span
+                >
+            </a>
+            <!-- First dropdown menu -->
+            <ul
+                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+                aria-labelledby="dropdownMenuButton1"
+                data-twe-dropdown-menu-ref>
+                <!-- First dropdown menu items -->
+                <li>
+                <a
+                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                    href="#"
+                    data-twe-dropdown-item-ref
+                    >Action</a
+                >
+                </li>
+                <li>
+                <a
+                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                    href="#"
+                    data-twe-dropdown-item-ref
+                    >Another action</a
+                >
+                </li>
+                <li>
+                <a
+                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                    href="#"
+                    data-twe-dropdown-item-ref
+                    >Something else here</a
+                >
+                </li>
+            </ul>
+            </div>
+
+            <!-- Second dropdown container -->
+            <div
+            class="relative"
+            data-twe-dropdown-ref
+            data-twe-dropdown-alignment="end">
+            <!-- Second dropdown trigger -->
+            <a
+                class="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
+                href="#"
+                id="dropdownMenuButton2"
+                role="button"
+                data-twe-dropdown-toggle-ref
+                aria-expanded="false">
+                <!-- User avatar -->
+                <img
+                src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
+                class="rounded-full"
+                style="height: 25px; width: 25px"
+                alt=""
+                loading="lazy" />
+            </a>
+            <!-- Second dropdown menu -->
+            <ul
+                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+                aria-labelledby="dropdownMenuButton2"
+                data-twe-dropdown-menu-ref>
+                <!-- Second dropdown menu items -->
+                <li>
+
+                    <a
+                        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                        href="{% url 'logout' %}"
+                        data-twe-dropdown-item-ref
+                        >Logout</a
+                    >
+
+                </li>
+                <li>
+                <a
+                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                    href="#"
+                    data-twe-dropdown-item-ref
+                    >Another action</a
+                >
+                </li>
+                <li>
+                <a
+                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                    href="#"
+                    data-twe-dropdown-item-ref
+                    >Something else here</a
+                >
+                </li>
+            </ul>
+        </div>
+            <!-- Logout button -->
+            {% if user.is_authenticated %}
+            {% load static %}
+            <a href="{% url 'logout' %}">
+                <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+            </a>
+            {% endif %}
+        </div>
+        <!-- Right elements -->
+         
+        </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="font-sans text-gray-800 p-6 m-10">
+            <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
+              <!-- Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                    <h1 class="text-2xl font-bold">Good morning, Magneto user</h1>
+                    <p class="text-sm text-gray-500">Explore insights and progress</p>
+                    </div>
+                    <button class=" bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">Edit ads</button>
+                </div>
+
+                <!-- Upper Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                    <p class="font-semibold mb-2">Upcoming ad</p>
+                    <div class="w-full h-16 bg-gray-300 rounded-md flex items-center justify-center text-gray-600">Review</div>
+                    </div>
+                    <div class="col-span-2  bg-green-100 rounded-lg flex flex-col items-center justify-center p-6">
+                    <div class="text-center">
+                        <div class=" bg-green-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mx-auto">82%</div>
+                        <p class="mt-2 font-semibold">Track daily progress</p>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Section -->
+                <div class="mb-6">
+                    <h2 class="font-bold mb-2">March 2025 tasks</h2>
+                    <div class="flex gap-4">
+                    <div class="text-center"><p class="font-semibold">meta</p><p class="text-sm">2</p></div>
+                    <div class="text-center font-bold text-green-500"><p>googl</p><p class="text-sm">3</p></div>
+                    <div class="text-center"><p class="font-semibold">tiktok</p><p class="text-sm">4</p></div>
+                    <div class="text-center"><p class="font-semibold">snapch</p><p class="text-sm">5</p></div>
+                    <div class="text-center"><p class="font-semibold">audie</p><p class="text-sm">6</p></div>
+                    <div class="text-center"><p class="font-semibold">perfor</p><p class="text-sm">7</p></div>
+                    <div class="text-center"><p class="font-semibold">real-</p><p class="text-sm">8</p></div>
+                    </div>
+                </div>
+
+                <!-- Ad Performance Tracking -->
+                <div class="mb-8">
+                    <h2 class="font-bold mb-2">Ad performance tracking</h2>
+                    <div class="flex items-end gap-6 h-40">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">met</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">goo</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">tikto</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">snap</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">audi</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-26 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">perf</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
+                        <p class="mt-1 text-sm">real</p>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Ads -->
+                <div>
+                    <h2 class="font-bold mb-4">Scheduled ads</h2>
+                    <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">05</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad For Google</span>
+                        <span class="text-sm text-gray-500">Ad for available jobs in el exito</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">14:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">06</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Facebook</span>
+                        <span class="text-sm text-gray-500">Ad for 5 available jobs in WOM</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">11:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">07</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Instagram</span>
+                        <span class="text-sm text-gray-500">Available jobs in claro</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">12:00-12:35</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">08</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Instagram</span>
+                        <span class="text-sm text-gray-500">Available jobs for software engineers in Alkosto</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">16:00-17:00</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">09</div>
+                        <div class="flex flex-col">
+                        <span class="font-semibold">Ad for Google</span>
+                        <span class="text-sm text-gray-500">Available jobs in alkomprar</span>
+                        </div>
+                        <div class="ml-auto text-sm text-gray-600">16:00-16:30</div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

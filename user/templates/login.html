@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Login Page</title>
+<!-- Alpine.js for transitions -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<div class="flex justify-center items-center h-screen" style="background-color: #E0F3FB;" x-data="{ showLogin: false }">
+    <!-- Left: Image -->
+    <div class="w-1/2 h-screen hidden lg:block overflow-hidden rounded-2xl p-4">
+        <img src="{% static 'login.jpg' %}" alt="Placeholder Image" class="object-cover rounded-lg w-full h-full rounded-2xl">
+    </div>
+    
+    <!-- Right: Welcome Screen & Login Form -->
+    <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
+        <!-- Welcome Screen -->
+        <div x-show="!showLogin"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 scale-90"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-90"
+            class="text-center"
+        >
+            <img src="{% static 'magneto_logo.png' %}" alt="" class="mx-auto mb-4 position:absolute">
+            <h1 class="text-3xl font-semibold mb-4 p-5">Welcome to Magneto's ADS Automation</h1>
+            <button @click="showLogin = true" class="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md py-2 px-4">
+                Create
+            </button>
+        </div>
+
+        <!-- Login Form -->
+        <div x-show="showLogin"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-5"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-5"
+            class="mt-4"
+        >
+            <h1 class="text-2xl font-semibold mb-4">Login</h1>
+
+            <!-- Error Messages -->
+            {% if messages %}
+                <div class="mb-4 text-red-500 text-center">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-600">Username</label>
+                    <input type="text" id="username" name="username" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+                </div>
+                <!-- Password Input -->
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-800">Password</label>
+                    <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+                </div>
+                <!-- Login Button -->
+                <button type="submit" class="bg-green-500 hover:bg-green-500 text-white font-semibold rounded-md py-2 px-4 w-full">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

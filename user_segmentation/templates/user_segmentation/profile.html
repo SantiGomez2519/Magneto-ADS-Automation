@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Encabezado con Navegación -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Mi Perfil</h1>
+            <a href="{% url 'user_segmentation:dashboard' %}" 
+               class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">
+                Volver al Dashboard
+            </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Información Personal -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Edad</label>
+                        <input type="number" name="edad" value="{{ profile.edad|default:'' }}" 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Género</label>
+                        <select name="genero" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="M" {% if profile.genero == 'M' %}selected{% endif %}>Masculino</option>
+                            <option value="F" {% if profile.genero == 'F' %}selected{% endif %}>Femenino</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Intereses y Actividad -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Interés Principal</label>
+                        <input type="text" name="interes" value="{{ profile.interes|default:'' }}" 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nivel de Actividad</label>
+                        <select name="actividad" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="alta" {% if profile.actividad == 'alta' %}selected{% endif %}>Alta</option>
+                            <option value="media" {% if profile.actividad == 'media' %}selected{% endif %}>Media</option>
+                            <option value="baja" {% if profile.actividad == 'baja' %}selected{% endif %}>Baja</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dispositivo y Horarios -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Dispositivo Preferido</label>
+                        <select name="dispositivo" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="movil" {% if profile.dispositivo == 'movil' %}selected{% endif %}>Móvil</option>
+                            <option value="tablet" {% if profile.dispositivo == 'tablet' %}selected{% endif %}>Tablet</option>
+                            <option value="pc" {% if profile.dispositivo == 'pc' %}selected{% endif %}>PC</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Hora Activa (0-23)</label>
+                        <input type="number" name="hora_activa" value="{{ profile.hora_activa|default:'' }}" min="0" max="23"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                </div>
+
+                <!-- Comportamiento de Compra -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Días Activos por Semana</label>
+                        <input type="number" name="dias_activos" value="{{ profile.dias_activos|default:'' }}" min="1" max="7"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Gasto Promedio</label>
+                        <input type="number" name="gasto_promedio" value="{{ profile.gasto_promedio|default:'' }}" step="0.01"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                </div>
+
+                <!-- Historial de Compras -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Frecuencia de Compra (compras/mes)</label>
+                        <input type="number" name="frecuencia_compra" value="{{ profile.frecuencia_compra|default:'' }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Días desde Última Compra</label>
+                        <input type="number" name="ultima_compra" value="{{ profile.ultima_compra|default:'' }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                </div>
+
+                <!-- Interacción con Anuncios -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Clicks Previos en Anuncios</label>
+                        <input type="number" name="clicks_previos" value="{{ profile.clicks_previos|default:'' }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="conversion_previo" {% if profile.conversion_previo %}checked{% endif %}
+                               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                        <label class="ml-2 block text-sm text-gray-700">Ha realizado conversiones previas</label>
+                    </div>
+                </div>
+
+                <!-- Botón de Guardar -->
+                <div class="flex justify-end">
+                    <button type="submit" 
+                            class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
