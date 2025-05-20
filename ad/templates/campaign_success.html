@@ -3,30 +3,98 @@
 
 {% block content %}
 
-<title>Campaign success</title>
+<title>Campaign Success</title>
 
-<body class="bg-gray-50">
-    <div class="flex min-h-screen flex-col items-center justify-center">
+<body class="bg-gradient-to-b from-gray-50 to-gray-100">
+    <div class="flex min-h-screen flex-col items-center justify-center p-4">
         
-        <!-- Contenedor principal -->
-        <div class="max-w-2xl bg-white rounded shadow-lg p-8 text-center">
-            <h1 class="text-3xl font-bold text-green-600 mb-4">Campaign Registered Successfully!</h1>
-            <p class="text-gray-700 mb-6">Your campaign has been created successfully. What would you like to do next?</p>
+        <!-- Main container with enhanced styling -->
+        <div class="max-w-2xl w-full bg-white rounded-lg shadow-xl overflow-hidden">
+            <!-- Success banner -->
+            <div class="bg-green-500 h-2 w-full"></div>
             
-            <!-- Opciones de navegación -->
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <a href="{% url 'add' %}" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded text-center">
-                    Create Another Campaign
-                </a>
-                <a href="{% url 'home' %}" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded text-center">
-                    Go to Home
-                </a>
-                <a href="{% url 'campaign_list' %}" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded text-center">
-                    View Campaign List
-                </a>
+            <!-- Content section -->
+            <div class="p-8 md:p-10">
+                <!-- Success icon -->
+                <div class="mx-auto w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                
+                <!-- Success message -->
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Campaign Registered Successfully!</h1>
+                    <div class="h-1 w-16 bg-green-500 mx-auto mb-4"></div>
+                    <p class="text-gray-600 text-lg">Your campaign has been created and is now ready to be managed.</p>
+                </div>
+                
+                <!-- Campaign details summary -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8 text-left">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">What happens next?</h2>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-gray-600">Your campaign is now visible in your campaign list</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-gray-600">You can edit or update your campaign details anytime</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-gray-600">Track performance metrics in your dashboard</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Navigation options with improved styling -->
+                <h2 class="text-lg font-semibold text-gray-700 mb-4 text-center">What would you like to do next?</h2>
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <a href="{% url 'add' %}" class="flex items-center justify-center bg-white border-2 border-green-500 hover:bg-green-50 text-green-600 font-medium py-3 px-4 rounded-lg transition-colors duration-200 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Create Another
+                    </a>
+                    <a href="{% url 'home' %}" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Go to Home
+                    </a>
+                    <a href="{% url 'campaign_list' %}" class="flex items-center justify-center bg-white border-2 border-green-500 hover:bg-green-50 text-green-600 font-medium py-3 px-4 rounded-lg transition-colors duration-200 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        View Campaigns
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Footer with additional info -->
+            <div class="bg-gray-50 px-8 py-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500 text-center">
+                    Campaign ID: #<span class="font-mono">{{ campaign.id|default:"12345" }}</span> • Created on: <span>{{ campaign.created_at|date:"F j, Y"|default:"May 18, 2025" }}</span>
+                </p>
             </div>
         </div>
-
+        
+        <!-- Return to dashboard link -->
+        <div class="mt-6">
+            <a href="{% url 'home' %}" class="text-sm text-gray-500 hover:text-green-600 flex items-center transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Return to Dashboard
+            </a>
+        </div>
     </div>
 </body>
 

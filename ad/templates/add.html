@@ -5,16 +5,16 @@
 
 <title>Create campaign</title>
 
-<!-- Navbar superior flotante -->
+<!-- Floating top navbar -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
-    <!-- Logo a la izquierda -->
+    <!-- Left logo -->
     <div class="flex-shrink-0">
         <a href="{% url 'home' %}" class="flex items-center">
         <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
         </a>
     </div>
 
-    <!-- Links al centro -->
+    <!-- Center links -->
     <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
         <a href="#" class="font-bold text-gray-700">Dashboard</a>
         <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Ad Campaigns</a>
@@ -22,122 +22,347 @@
         <a href="#" class="text-gray-600 hover:text-gray-800">Settings</a>
     </div>
 
-    <!-- Logout + avatar a la derecha -->
+    <!-- Logout + avatar -->
     <div class="flex items-center space-x-4">
         <a href="{% url 'logout' %}">
-            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
         </a>
         <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
     </div>
 </nav>
 
-<!-- Cuerpo principal con padding-top para que no quede detrás del navbar -->
+<!-- Main body with padding to avoid overlap -->
 <div class="flex min-h-screen pt-4 mt-14">
 
-    <!-- Sidebar / Menú lateral -->
+    <!-- Sidebar -->
     <aside class="w-64 bg-gray-200 p-4">
         <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
             Create New Campaign
         </a>
 
         <nav class="space-y-1">
-            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">
-                <!-- icono -->
-                All Campaigns
-            </a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
-            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Scheduled</a>
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Platforms Associated</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
         </nav>
     </aside>
 
-    <!-- Contenido principal -->
+    <!-- Main content -->
     <main class="flex-1 p-6">
         <div class="mx-auto px-6 py-10">
-            <h1 class="text-2xl font-semibold mb-8">Manage Your Ad Campaign</h1>
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">Manage Your Ad Campaign</h1>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Left Column - Campaign Details -->
-                <div>
-                    <h2 class="text-lg font-semibold mb-4">Campaign Details</h2>
-                        
-                    <form id="campaignForm" action="{% url 'create_campaign' %}" method="POST" enctype="multipart/form-data" class="mx-auto">
-                        {% csrf_token %}
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-800">Campaign Details</h2>
+                        <p class="text-sm text-gray-500 mt-1">Enter the details for your new campaign</p>
+                    </div>
                     
-                        <!-- Campaign Name -->
-                        <input 
-                        type="text"
-                        id="campaignName" 
-                        name="campaignName" 
-                        placeholder="Campaign Name"
-                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-lime-400" 
-                        required 
-                        />
-                    
-                        <!-- Campaign Description -->
-                        <textarea 
-                        id="campaignDescription"
-                        name="campaignDescription" 
-                        placeholder="Campaign Description"
-                        class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 h-28 focus:outline-none focus:ring-2 focus:ring-lime-400" 
-                        required
-                        ></textarea>
-                    
-                        <!-- Campaign Image Upload -->
-                        <div class="mb-4">
-                        <label for="campaignImage" class="block text-gray-700 font-medium mb-1">Campaign Image</label>
-                        <input 
-                            type="file" 
-                            id="campaignImage" 
-                            name="campaignImage" 
-                            accept="image/*"
-                            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        </div>
+                    <div class="p-6">
+                        <form id="campaignForm" action="{% url 'create_campaign' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            {% csrf_token %}
 
-                        <!-- Schedule Section -->
-                        <div class="p-4
-                            <h2 class="text-lg font-semibold mb-4">Schedule</h2>
-                            <div class="flex flex-col md:flex-row gap-4">
-                            <input type="date" id="schedule" name="schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
-                            <input type="date" id="end_schedule" name="end_schedule" class="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-400" />
+                            <!-- Campaign Name -->
+                            <div class="space-y-2">
+                                <label for="campaignName" class="block text-sm font-medium text-gray-700">Campaign Name</label>
+                                <input 
+                                    type="text"
+                                    id="campaignName" 
+                                    name="campaignName" 
+                                    placeholder="Enter campaign name"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required 
+                                />
                             </div>
-                        </div>
-                    
-                        <!-- Submit Button -->
-                        <button type="submit"
-                            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 w-full">
-                            Save Campaign
-                        </button>
-                  </form>
-                </div>                  
-            
-                <!-- Right Column - Platform Integration -->
-                <div>
-                    <h2 class="text-lg font-semibold mb-4">Platform Integration</h2>
-                    <div class="grid gap-3">
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Facebook" class="accent-lime-500 w-4 h-4" />
-                            <span>Facebook</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Google" class="accent-lime-500 w-4 h-4" />
-                            <span>Google</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="platforms" value="Instagram" class="accent-lime-500 w-4 h-4" />
-                            <span>Instagram</span>
-                        </label>
+
+                            <!-- Campaign Description -->
+                            <div class="space-y-2">
+                                <label for="campaignDescription" class="block text-sm font-medium text-gray-700">Campaign Description</label>
+                                <textarea 
+                                    id="campaignDescription"
+                                    name="campaignDescription" 
+                                    placeholder="Describe your campaign"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 min-h-[120px] focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="space-y-2">
+                                <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                                <select 
+                                    id="category" 
+                                    name="category"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                >
+                                    <option value="" disabled selected>Select a category</option>
+                                    <option value="IT">Technology</option>
+                                    <option value="MK">Marketing</option>
+                                    <option value="AD">Administration</option>
+                                    <option value="SL">Sales</option>
+                                    <option value="HR">Human Resources</option>
+                                    <option value="FI">Finance</option>
+                                    <option value="ED">Education</option>
+                                    <option value="HL">Healthcare</option>
+                                    <option value="OT">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Education Level -->
+                            <div class="space-y-2">
+                                <label for="education_level" class="block text-sm font-medium text-gray-700">Required Education Level</label>
+                                <select 
+                                    id="education_level" 
+                                    name="education_level"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                >
+                                    <option value="" disabled selected>Select education level</option>
+                                    <option value="NONE">None</option>
+                                    <option value="HS">High School</option>
+                                    <option value="TEC">College Degree</option>
+                                    <option value="TCH">Technologist</option>
+                                    <option value="UNI">University</option>
+                                    <option value="POS">Postgraduate</option>
+                                    <option value="PHD">Doctorate</option>
+                                </select>
+                            </div>
+
+                            <!-- Modality -->
+                            <div class="space-y-2">
+                                <label for="modality" class="block text-sm font-medium text-gray-700">Modality</label>
+                                <select 
+                                    id="modality" 
+                                    name="modality"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                >
+                                    <option value="" disabled selected>Select modality</option>
+                                    <option value="ONSITE">On-site</option>
+                                    <option value="REMOTE">Remote</option>
+                                    <option value="HYBRID">Hybrid</option>
+                                    <option value="FLEX">Flexible</option>
+                                </select>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="space-y-2">
+                                <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                                <select 
+                                    id="location" 
+                                    name="location"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                >
+                                    <option value="" disabled selected>Select country</option>
+                                    <optgroup label="America">
+                                        <option value="AR">Argentina</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="US">United States</option>
+                                        <option value="VE">Venezuela</option>
+                                    </optgroup>
+                                    <optgroup label="Europe">
+                                        <option value="DE">Germany</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="FR">France</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                    </optgroup>
+                                    <optgroup label="Asia">
+                                        <option value="CN">China</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="KR">South Korea</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="TH">Thailand</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!-- Experience -->
+                            <div class="space-y-2">
+                                <label for="experience" class="block text-sm font-medium text-gray-700">Experience</label>
+                                <select 
+                                    id="experience" 
+                                    name="experience"
+                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                    required
+                                >
+                                    <option value="" disabled selected>Select experience level</option>
+                                    <option value="NONE">No experience</option>
+                                    <option value="1-3">1 to 3 years</option>
+                                    <option value="4-7">4 to 7 years</option>
+                                    <option value="8+">8 or more years</option>
+                                </select>
+                            </div>
+
+                            <!-- Campaign Image Upload -->
+                            <div class="space-y-2">
+                                <label for="campaignImage" class="block text-sm font-medium text-gray-700">Campaign Image</label>
+                                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                                    <div class="space-y-1 text-center">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <div class="flex text-sm text-gray-600">
+                                            <label for="campaignImage" class="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500">
+                                                <span>Upload a file</span>
+                                                <input id="campaignImage" name="campaignImage" type="file" class="sr-only" accept="image/*" required>
+                                            </label>
+                                            <p class="pl-1">or drag and drop</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 2MB</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Section -->
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">Schedule</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="schedule" class="block text-xs font-medium text-gray-500">Start Date</label>
+                                        <input 
+                                            type="date" 
+                                            id="schedule" 
+                                            name="schedule" 
+                                            class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label for="end_schedule" class="block text-xs font-medium text-gray-500">End Date</label>
+                                        <input 
+                                            type="date" 
+                                            id="end_schedule" 
+                                            name="end_schedule" 
+                                            class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" 
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button 
+                                type="submit"
+                                class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                            >
+                                Save Campaign
+                            </button>
+                        </form>
                     </div>
                 </div>
+
+                <!-- Right Column - Platform Integration -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-800">Platform Integration</h2>
+                        <p class="text-sm text-gray-500 mt-1">Select platforms to publish your campaign</p>
+                    </div>
+                    
+                    <div class="p-6 space-y-4">
+                        <!-- Google -->
+                        <div class="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                            <input 
+                                type="checkbox" 
+                                id="google" 
+                                name="platforms" 
+                                value="GOOGLE" 
+                                form="campaignForm"
+                                class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                            />
+                            <label for="google" class="flex items-center gap-2 cursor-pointer w-full">
+                                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                                    <!-- Inline Google "G" logo SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Google</p>
+                                    <p class="text-sm text-gray-500">Reach millions of users</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Facebook -->
+                        <div class="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                            <input 
+                                type="checkbox" 
+                                id="facebook" 
+                                name="platforms" 
+                                value="FACEBOOK" 
+                                form="campaignForm"
+                                class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                            />
+                            <label for="facebook" class="flex items-center gap-2 cursor-pointer w-full">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" class="w-5 h-5">
+                                </div>
+                                <div>
+                                    <p class="font-medium">Facebook</p>
+                                    <p class="text-sm text-gray-500">Connect with your audience</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Instagram -->
+                        <div class="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                            <input 
+                                type="checkbox" 
+                                id="instagram" 
+                                name="platforms" 
+                                value="INSTAGRAM" 
+                                form="campaignForm"
+                                class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                            />
+                            <label for="instagram" class="flex items-center gap-2 cursor-pointer w-full">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram logo" class="w-5 h-5">
+                                </div>
+                                <div>
+                                    <p class="font-medium">Instagram</p>
+                                    <p class="text-sm text-gray-500">Visual engagement platform</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Campaign Reach Info -->
+                        <div class="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="font-medium text-gray-800 mb-2">Campaign Reach</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Select multiple platforms to maximize your campaign's visibility and reach.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium">Estimated audience</span>
+                                <span class="text-sm font-bold">10K - 50K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-            
         </div>
-          
     </main>
 </div>
 
-<!-- Script de validación en JavaScript -->
+<!-- JS Validation Script -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("campaignForm");
@@ -145,7 +370,6 @@
         const campaignDescription = document.getElementById("campaignDescription");
         const campaignImage = document.getElementById("campaignImage");
         const schedule = document.getElementById("schedule");
-        const errorMessage = document.getElementById("error-message");
 
         form.addEventListener("submit", function (event) {
             let errors = [];
@@ -157,8 +381,7 @@
 
             if (errors.length > 0) {
                 event.preventDefault();
-                errorMessage.innerHTML = errors.join("<br>");
-                errorMessage.classList.remove("hidden");
+                alert(errors.join("\n"));
             }
         });
     });

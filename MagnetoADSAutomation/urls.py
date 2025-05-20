@@ -37,6 +37,7 @@ urlpatterns = [
     path('campaign/edit/<int:id>/', views.edit_campaign, name='edit_campaign'),
     path('campaign/delete/<int:campaign_id>/', views.delete_campaign, name='delete_campaign'),
     path("ad/", include("ad.urls")),
+    path("segmentation/", include("user_segmentation.urls")),
 
     path("__reload__/", include("django_browser_reload.urls")),
 ]
