@@ -10,7 +10,7 @@
     <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-gray-300 bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
         <!-- Nav Menu -->
         <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-black">
-            <!-- Sección: Campañas -->
+            <!-- Section: Campaigns -->
             <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Campaigns</div>
             <a href="{% url 'campaign_list' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
                 <div class="grid mr-4 place-items-center">
@@ -25,7 +25,7 @@
                 Create Campaign
             </a>
             <hr class="my-2 border-gray-700" />
-            <!-- Sección: Plataformas y Métricas -->
+            <!-- Section: Platforms & Metrics -->
             <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Platforms & Metrics</div>
             <a href="{% url 'platforms_list' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
                 <div class="grid mr-4 place-items-center">
@@ -40,7 +40,7 @@
                 Performance Metrics
             </a>
             <hr class="my-2 border-gray-700" />
-            <!-- Sección: Segmentación -->
+            <!-- Section: Segmentation -->
             <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Segmentation</div>
             <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
                 <div class="grid mr-4 place-items-center">
@@ -62,7 +62,7 @@
                         <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" loading="lazy" />
                     </a>
                     <div class="flex items-center gap-6">
-                        <!-- Notificaciones -->
+                        <!-- Notifications -->
                         <a class="relative group" href="#">
                             <span class="[&>svg]:w-7 transition-colors group-hover:text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="#222" class="w-7 h-7">
@@ -70,7 +70,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a1.5 1.5 0 0 0 1.5-1.5h-3A1.5 1.5 0 0 0 12 21z" />
                                 </svg>
                             </span>
-                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center shadow group-hover:scale-110 transition-transform">1</span>
+                            <span class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center shadow group-hover:scale-110 transition-transform">1</span>
                         </a>
                         <!-- Logout -->
                         <a href="{% url 'logout' %}">
@@ -87,127 +87,70 @@
             </nav>
         </div>
 
-        <!-- Main content -->
-        <div class="font-sans text-gray-800 p-6 m-10">
-            <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
-              <!-- Header -->
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                    <h1 class="text-2xl font-bold">Good morning, Magneto user</h1>
-                    <p class="text-sm text-gray-500">Explore insights and progress</p>
-                    </div>
-                    <button class=" bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">Edit ads</button>
+        <!-- Dashboard Welcome -->
+        <div class="font-sans text-gray-800 py-10 px-4 flex flex-col items-center justify-center w-full bg-transparent">
+            <div class="w-full max-w-7xl mx-auto flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center justify-center mb-10 w-full">
+                    <img src="{% static 'magneto_logo.png' %}" class="h-16 w-auto mb-2" alt="Magneto Logo" />
+                    <h1 class="text-3xl font-bold mb-2 text-center">Welcome to Magneto ADS Automation</h1>
+                    <p class="text-gray-500 text-center mb-4">Manage, segment, and optimize your ad campaigns intelligently.</p>
                 </div>
-
-                <!-- Upper Section -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                    <p class="font-semibold mb-2">Upcoming ad</p>
-                    <div class="w-full h-16 bg-gray-300 rounded-md flex items-center justify-center text-gray-600">Review</div>
+                <!-- KPIs Minimalist -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 w-full">
+                    <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center">
+                        <span class="text-4xl font-bold text-magnetoGreen-500">{{ total_campaigns }}</span>
+                        <span class="text-gray-500 mt-1">Campaigns</span>
                     </div>
-                    <div class="col-span-2  bg-green-100 rounded-lg flex flex-col items-center justify-center p-6">
-                    <div class="text-center">
-                        <div class=" bg-green-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mx-auto">82%</div>
-                        <p class="mt-2 font-semibold">Track daily progress</p>
+                    <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center">
+                        <span class="text-4xl font-bold text-magnetoBlue-500">{{ total_users }}</span>
+                        <span class="text-gray-500 mt-1">Users</span>
                     </div>
+                    <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center">
+                        <span class="text-4xl font-bold text-magnetoDarkBlue-500">{{ total_segments }}</span>
+                        <span class="text-gray-500 mt-1">Segmentations</span>
                     </div>
-                </div>
-
-                <!-- Tasks Section -->
-                <div class="mb-6">
-                    <h2 class="font-bold mb-2">March 2025 tasks</h2>
-                    <div class="flex gap-4">
-                    <div class="text-center"><p class="font-semibold">meta</p><p class="text-sm">2</p></div>
-                    <div class="text-center font-bold text-green-500"><p>googl</p><p class="text-sm">3</p></div>
-                    <div class="text-center"><p class="font-semibold">tiktok</p><p class="text-sm">4</p></div>
-                    <div class="text-center"><p class="font-semibold">snapch</p><p class="text-sm">5</p></div>
-                    <div class="text-center"><p class="font-semibold">audie</p><p class="text-sm">6</p></div>
-                    <div class="text-center"><p class="font-semibold">perfor</p><p class="text-sm">7</p></div>
-                    <div class="text-center"><p class="font-semibold">real-</p><p class="text-sm">8</p></div>
+                    <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center">
+                        <span class="text-4xl font-bold text-magnetoGreen-400">{{ total_conversions }}</span>
+                        <span class="text-gray-500 mt-1">Conversions</span>
                     </div>
                 </div>
-
-                <!-- Ad Performance Tracking -->
-                <div class="mb-8">
-                    <h2 class="font-bold mb-2">Ad performance tracking</h2>
-                    <div class="flex items-end gap-6 h-40">
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">met</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">goo</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">tikto</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">snap</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">audi</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-26 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">perf</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">real</p>
-                    </div>
-                    </div>
+                <!-- Quick Actions -->
+                <div class="flex flex-wrap justify-center gap-6 mb-12 w-full">
+                    <a href="{% url 'add' %}" class="bg-magnetoGreen-500 hover:bg-magnetoGreen-600 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                        Create Campaign
+                    </a>
+                    <a href="{% url 'campaign_list' %}" class="bg-magnetoGreen-600 hover:bg-magnetoGreen-700 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" /></svg>
+                        View Campaigns
+                    </a>
+                    <a href="{% url 'user_segmentation:dashboard' %}" class="bg-magnetoBlue-500 hover:bg-magnetoBlue-600 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 0 0-4-4h-1M9 20H4v-2a4 4 0 0 1 4-4h1m0-4a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" /></svg>
+                        Segmentation Dashboard
+                    </a>
+                    <a href="{% url 'performance_metrics' %}" class="bg-magnetoDarkBlue-500 hover:bg-magnetoDarkBlue-600 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17a2 2 0 1 0 2-2 2 2 0 0 0-2 2zm-7 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" /></svg>
+                        Performance Metrics
+                    </a>
                 </div>
-
-                <!-- Scheduled Ads -->
-                <div>
-                    <h2 class="font-bold mb-4">Scheduled ads</h2>
-                    <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">05</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad For Google</span>
-                        <span class="text-sm text-gray-500">Ad for available jobs in el exito</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">14:00-14:45</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">06</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Facebook</span>
-                        <span class="text-sm text-gray-500">Ad for 5 available jobs in WOM</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">11:00-14:45</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">07</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Instagram</span>
-                        <span class="text-sm text-gray-500">Available jobs in claro</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">12:00-12:35</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">08</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Instagram</span>
-                        <span class="text-sm text-gray-500">Available jobs for software engineers in Alkosto</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">16:00-17:00</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">09</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Google</span>
-                        <span class="text-sm text-gray-500">Available jobs in alkomprar</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">16:00-16:30</div>
-                    </div>
-                    </div>
+                <!-- Recent Campaigns -->
+                <div class="bg-white shadow rounded-lg p-8 mb-12 w-full">
+                    <h2 class="text-xl font-bold mb-6 text-center">Recent Campaigns</h2>
+                    <ul class="divide-y divide-gray-200">
+                        {% for item in recent_campaigns %}
+                        <li class="py-4 flex flex-col md:flex-row items-center justify-between">
+                            <div class="flex flex-col md:flex-row items-center gap-2">
+                                <span class="font-semibold">{{ item.name }}</span>
+                                <span class="ml-2 text-gray-500 text-sm">{{ item.schedule|date:'d M Y' }}</span>
+                            </div>
+                            <a href="{% url 'performance_metrics' %}" class="text-magnetoGreen-600 hover:underline text-sm mt-2 md:mt-0">View Details</a>
+                        </li>
+                        {% empty %}
+                        <li class="py-8 text-gray-400 text-center">No recent campaigns.</li>
+                        {% endfor %}
+                    </ul>
                 </div>
+            </div>
         </div>
     </div>
 </div>

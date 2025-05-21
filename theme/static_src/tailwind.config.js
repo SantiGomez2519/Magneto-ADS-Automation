@@ -44,7 +44,33 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                magnetoGreen: {
+                    600: '#07BC3B',
+                    500: '#0CB84E',
+                    400: '#3DC971',
+                    300: '#60D695',
+                    200: '#9EEBBA',
+                    100: '#CEF1DC',
+                },
+                magnetoBlue: {
+                    500: '#007DAF',
+                    400: '#00A7E1',
+                    300: '#6C6EEA',
+                    200: '#A1D6F2',
+                    100: '#E0F3FB',
+                },
+                magnetoDarkBlue: {
+                    500: '#001D2D',
+                    400: '#001B38',
+                    300: '#1A324C',
+                    200: '#334260',
+                    100: '#64768E',
+                    50:  '#979AAF',
+                },
+            },
+        },
     },
     plugins: [
         /**
