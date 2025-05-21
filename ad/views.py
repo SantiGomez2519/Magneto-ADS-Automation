@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Campaign
+from .models import Campaign, AdMetrics, PlatformMetrics
 from django.db.models import Q
 from django.core.exceptions import ValidationError
+import random
 
 
 # Create your views here.
@@ -143,7 +144,64 @@ def platforms_list(request):
         )
     else:
         campaigns = Campaign.objects.all()
-    
+    campaigns = campaigns.prefetch_related('platform_metrics')
+
+    for campaign in campaigns:
+        active_platforms = [p for p in [campaign.platform1, campaign.platform2, campaign.platform3] if p]
+        n = len(active_platforms)
+        if n == 0:
+            continue
+        # SIEMPRE sincronizar PlatformMetrics con AdMetrics
+        # Buscar métricas totales existentes
+        total_metrics = None
+        if hasattr(campaign, 'metrics'):
+            total_metrics = {
+                'impressions': campaign.metrics.impressions,
+                'clicks': campaign.metrics.clicks,
+                'ctr': campaign.metrics.ctr,
+                'conversions': campaign.metrics.conversions,
+                'conversion_rate': campaign.metrics.conversion_rate,
+                'cpc': campaign.metrics.cpc,
+                'cpa': campaign.metrics.cpa,
+                'spend': campaign.metrics.spend,
+            }
+        else:
+            # Simular y crear AdMetrics
+            total_metrics = simulate_campaign_metrics(campaign)
+            AdMetrics.objects.create(campaign=campaign, **total_metrics)
+        # Repartir aleatoriamente pero consistente
+        def random_partition(total, parts):
+            cuts = sorted([0] + [random.randint(0, total) for _ in range(parts-1)] + [total])
+            return [cuts[i+1] - cuts[i] for i in range(parts)]
+        def random_partition_float(total, parts):
+            cuts = sorted([0] + [random.uniform(0, total) for _ in range(parts-1)] + [total])
+            return [cuts[i+1] - cuts[i] for i in range(parts)]
+        clicks_parts = random_partition(total_metrics['clicks'], n)
+        impressions_parts = random_partition(total_metrics['impressions'], n)
+        conversions_parts = random_partition(total_metrics['conversions'], n)
+        spend_parts = random_partition_float(total_metrics['spend'], n)
+        for i, plat in enumerate(active_platforms):
+            clicks = clicks_parts[i]
+            impressions = impressions_parts[i]
+            conversions = conversions_parts[i]
+            ctr = (clicks / impressions * 100) if impressions else 0
+            conversion_rate = (conversions / clicks * 100) if clicks else 0
+            cpc = (spend_parts[i] / clicks) if clicks else 0
+            cpa = (spend_parts[i] / conversions) if conversions else 0
+            PlatformMetrics.objects.update_or_create(
+                campaign=campaign,
+                platform=plat,
+                defaults={
+                    'impressions': impressions,
+                    'clicks': clicks,
+                    'ctr': ctr,
+                    'conversions': conversions,
+                    'conversion_rate': conversion_rate,
+                    'cpc': cpc,
+                    'cpa': cpa,
+                    'spend': spend_parts[i],
+                }
+            )
     return render(request, 'platforms_list.html', {'campaigns': campaigns})
 
 def ad_preview(request, campaign_id, platform):
@@ -166,3 +224,67 @@ def ad_preview(request, campaign_id, platform):
     }
     
     return render(request, 'ad_preview_page.html', context)
+
+def simulate_campaign_metrics(campaign):
+    # Simulación basada en la categoría y plataformas
+    impressions = random.randint(2000, 20000)
+    clicks = random.randint(int(impressions * 0.01), int(impressions * 0.15))
+    ctr = (clicks / impressions) * 100 if impressions else 0
+    conversions = random.randint(int(clicks * 0.05), max(1, int(clicks * 0.25)))
+    conversion_rate = (conversions / clicks) * 100 if clicks else 0
+    cpc = round(random.uniform(0.1, 2.0), 2)
+    cpa = round(random.uniform(1.0, 10.0), 2)
+    spend = round(clicks * cpc, 2)
+    return {
+        'impressions': impressions,
+        'clicks': clicks,
+        'ctr': ctr,
+        'conversions': conversions,
+        'conversion_rate': conversion_rate,
+        'cpc': cpc,
+        'cpa': cpa,
+        'spend': spend,
+    }
+
+def simulate_metrics_view(request, campaign_id):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
+    # Si ya existen métricas, actualízalas; si no, créalas
+    data = simulate_campaign_metrics(campaign)
+    metrics, created = AdMetrics.objects.update_or_create(
+        campaign=campaign,
+        defaults=data
+    )
+    messages.success(request, 'Metrics simulated successfully!')
+    # Redirigir al referer si existe, si no a performance_metrics
+    next_url = request.META.get('HTTP_REFERER')
+    if next_url and 'performance-metrics' in next_url:
+        return redirect('performance_metrics')
+    return redirect('campaign_list')
+
+def performance_metrics_view(request):
+    campaigns = Campaign.objects.all().select_related('metrics')
+    return render(request, 'performance_metrics.html', {'campaigns': campaigns})
+
+def simulate_platform_metrics(request, campaign_id, platform):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
+    metrics, created = PlatformMetrics.objects.get_or_create(campaign=campaign, platform=platform)
+    
+    # Simulate metrics with platform-specific variations
+    base_metrics = simulate_campaign_metrics(campaign)
+    
+    # Adjust metrics based on platform
+    if platform == 'GOOGLE':
+        base_metrics['ctr'] *= 1.2  # Google typically has higher CTR
+        base_metrics['cpc'] *= 1.1  # Google typically has higher CPC
+    elif platform == 'FACEBOOK':
+        base_metrics['conversion_rate'] *= 1.15  # Facebook typically has better conversion rates
+    elif platform == 'INSTAGRAM':
+        base_metrics['impressions'] *= 1.3  # Instagram typically has higher reach
+    
+    # Update the metrics
+    for key, value in base_metrics.items():
+        setattr(metrics, key, value)
+    metrics.save()
+    
+    messages.success(request, f'Metrics simulated successfully for {platform}!')
+    return redirect('platforms_list')

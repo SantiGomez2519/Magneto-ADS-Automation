@@ -106,3 +106,37 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+class AdMetrics(models.Model):
+    campaign = models.OneToOneField(Campaign, on_delete=models.CASCADE, related_name='metrics')
+    impressions = models.IntegerField()
+    clicks = models.IntegerField()
+    ctr = models.FloatField()
+    conversions = models.IntegerField()
+    conversion_rate = models.FloatField()
+    cpc = models.FloatField()
+    cpa = models.FloatField()
+    spend = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Metrics for {self.campaign.name}"
+
+class PlatformMetrics(models.Model):
+    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name='platform_metrics')
+    platform = models.CharField(max_length=10, choices=Campaign.PLATFORM_CHOICES)
+    impressions = models.IntegerField()
+    clicks = models.IntegerField()
+    ctr = models.FloatField()
+    conversions = models.IntegerField()
+    conversion_rate = models.FloatField()
+    cpc = models.FloatField()
+    cpa = models.FloatField()
+    spend = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('campaign', 'platform')
+
+    def __str__(self):
+        return f"Metrics for {self.campaign.name} on {self.platform}"
