@@ -34,44 +34,6 @@ def segment_campaign(request, campaign_id):
     })
 
 @login_required
-def user_profile(request):
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        profile = None
-    
-    if request.method == 'POST':
-        if profile:
-            # Actualizar perfil existente
-            for field in request.POST:
-                if hasattr(profile, field):
-                    setattr(profile, field, request.POST[field])
-            profile.save()
-        else:
-            # Crear nuevo perfil
-            profile = UserProfile.objects.create(
-                user=request.user,
-                edad=request.POST.get('edad'),
-                genero=request.POST.get('genero'),
-                interes=request.POST.get('interes'),
-                actividad=request.POST.get('actividad'),
-                dispositivo=request.POST.get('dispositivo'),
-                hora_activa=request.POST.get('hora_activa'),
-                dias_activos=request.POST.get('dias_activos'),
-                gasto_promedio=request.POST.get('gasto_promedio'),
-                frecuencia_compra=request.POST.get('frecuencia_compra'),
-                ultima_compra=request.POST.get('ultima_compra'),
-                clicks_previos=request.POST.get('clicks_previos'),
-                conversion_previo=request.POST.get('conversion_previo') == 'on'
-            )
-        messages.success(request, 'Perfil actualizado exitosamente')
-        return redirect('user_segmentation:user_profile')
-    
-    return render(request, 'user_segmentation/profile.html', {
-        'profile': profile
-    })
-
-@login_required
 def campaign_metrics(request, campaign_id):
     campaign = Campaign.objects.get(id=campaign_id)
     

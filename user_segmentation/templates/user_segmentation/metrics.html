@@ -1,113 +1,154 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Encabezado con Navegación -->
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-800">Métricas de Campaña: {{ campaign.name }}</h2>
-                <p class="text-gray-600">Última actualización: {{ metrics.created_at|date:"d/m/Y H:i" }}</p>
-            </div>
-            <div class="flex space-x-4">
-                <a href="{% url 'user_segmentation:segment_campaign' campaign.id %}" 
-                   class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-                    Ejecutar Segmentación
-                </a>
-                <a href="{% url 'user_segmentation:dashboard' %}" 
-                   class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">
-                    Volver al Dashboard
-                </a>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            {% if metrics %}
-            <!-- Métricas del Modelo -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div class="bg-indigo-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-indigo-700">Precisión</h3>
-                    <p class="text-3xl font-bold text-indigo-900">{{ metrics.accuracy|floatformat:2 }}</p>
-                </div>
-                <div class="bg-green-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-green-700">Recall</h3>
-                    <p class="text-3xl font-bold text-green-900">{{ metrics.recall|floatformat:2 }}</p>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-purple-700">F1-Score</h3>
-                    <p class="text-3xl font-bold text-purple-900">{{ metrics.f1_score|floatformat:2 }}</p>
-                </div>
-                <div class="bg-blue-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-blue-700">AUC Score</h3>
-                    <p class="text-3xl font-bold text-blue-900">{{ metrics.auc_score|floatformat:2 }}</p>
-                </div>
-            </div>
-            
-            <!-- Estadísticas de Segmentación -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-700">Total Usuarios</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ total_users }}</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-700">Usuarios Objetivo</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ targeted_users }}</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-700">Conversiones</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ conversions }}</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-700">Tasa de Conversión</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ metrics.conversion_rate|floatformat:2 }}%</p>
-                </div>
-            </div>
-            
-            <!-- Importancia de Características -->
-            <div class="mb-8">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Importancia de Características</h3>
-                <div class="space-y-4">
-                    {% for feature in features %}
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span class="text-sm font-medium text-gray-700">{{ feature.name }}</span>
-                            <span class="text-sm font-medium text-gray-700">{{ feature.importance|floatformat:2 }}</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ feature.importance|floatformat:0 }}%"></div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Distribución de Probabilidades -->
-            <div>
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Distribución de Probabilidades</h3>
-                <div class="space-y-4">
-                    {% for item in probability_distribution %}
-                    <div>
-                        <div class="flex justify-between mb-1">
-                            <span class="text-sm font-medium text-gray-700">{{ item.range }}</span>
-                            <span class="text-sm font-medium text-gray-700">{{ item.count }} usuarios</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ item.percent|floatformat:0 }}%"></div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% else %}
-            <div class="text-center py-8">
-                <p class="text-gray-500 mb-4">No hay métricas disponibles para esta campaña.</p>
-                <a href="{% url 'user_segmentation:segment_campaign' campaign.id %}" 
-                   class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors">
-                    Ejecutar Segmentación
-                </a>
-            </div>
-            {% endif %}
-        </div>
+<!-- Floating top navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
+    <!-- Left logo -->
+    <div class="flex-shrink-0">
+        <a href="{% url 'home' %}" class="flex items-center">
+        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
+        </a>
     </div>
+    <!-- Center links -->
+    <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
+        <a href="{% url 'user_segmentation:dashboard' %}" class="font-bold text-gray-700">Segmentation Dashboard</a>
+        <a href="{% url 'user_segmentation:user_profile' %}" class="text-gray-600 hover:text-gray-800">User Profile</a>
+        <a href="{% url 'campaign_list' %}" class="text-gray-600 hover:text-gray-800">All Campaigns</a>
+        <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Create Campaign</a>
+        <a href="{% url 'platforms_list' %}" class="text-gray-600 hover:text-gray-800">Platforms Associated</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Performance Metrics</a>
+    </div>
+    <!-- Logout + avatar -->
+    <div class="flex items-center space-x-4">
+        <a href="{% url 'logout' %}">
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
+        </a>
+        <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
+    </div>
+</nav>
+<div class="flex min-h-screen py-4 mt-14">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-200 p-4">
+        <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">Create New Campaign</a>
+        <nav class="space-y-1">
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
+            <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center p-2 rounded hover:bg-green-50">Segmentation</a>
+            <a href="{% url 'platforms_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Platforms Associated</a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+        </nav>
+    </aside>
+    <!-- Main content -->
+    <main class="flex-1 p-6">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-6xl mx-auto">
+                <!-- Header with Navigation -->
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Campaign Metrics: {{ campaign.name }}</h2>
+                        <p class="text-gray-600">Last update: {{ metrics.created_at|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="{% url 'user_segmentation:segment_campaign' campaign.id %}" 
+                           class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors">
+                            Run Segmentation
+                        </a>
+                        <a href="{% url 'user_segmentation:dashboard' %}" 
+                           class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">
+                            Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    {% if metrics %}
+                    <!-- Model Metrics -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-indigo-700">Precision</h3>
+                            <p class="text-3xl font-bold text-indigo-900">{{ metrics.accuracy|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-green-700">Recall</h3>
+                            <p class="text-3xl font-bold text-green-900">{{ metrics.recall|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-purple-700">F1-Score</h3>
+                            <p class="text-3xl font-bold text-purple-900">{{ metrics.f1_score|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-blue-700">AUC Score</h3>
+                            <p class="text-3xl font-bold text-blue-900">{{ metrics.auc_score|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Segmentation Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-700">Total Users</h3>
+                            <p class="text-3xl font-bold text-gray-900">{{ total_users }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-700">Targeted Users</h3>
+                            <p class="text-3xl font-bold text-gray-900">{{ targeted_users }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-700">Conversions</h3>
+                            <p class="text-3xl font-bold text-gray-900">{{ conversions }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-700">Conversion Rate</h3>
+                            <p class="text-3xl font-bold text-gray-900">{{ metrics.conversion_rate|floatformat:2 }}%</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Importance -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Feature Importance</h3>
+                        <div class="space-y-4">
+                            {% for feature in features %}
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-700">{{ feature.name }}</span>
+                                    <span class="text-sm font-medium text-gray-700">{{ feature.importance|floatformat:2 }}</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ feature.importance|floatformat:0 }}%"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Probability Distribution -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Probability Distribution</h3>
+                        <div class="space-y-4">
+                            {% for item in probability_distribution %}
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-700">{{ item.range }}</span>
+                                    <span class="text-sm font-medium text-gray-700">{{ item.count }} users</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ item.percent|floatformat:0 }}%"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-8">
+                        <p class="text-gray-500 mb-4">No metrics available for this campaign.</p>
+                        <a href="{% url 'user_segmentation:segment_campaign' campaign.id %}" 
+                           class="inline-block bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors">
+                            Run Segmentation
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 {% endblock %} 

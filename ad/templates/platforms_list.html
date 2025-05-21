@@ -32,7 +32,7 @@
 </nav>
 
 <body class="bg-gray-50">
-<div class="flex min-h-screen pt-4 mt-14">
+<div class="flex min-h-screen py-4 mt-14">
     <!-- Sidebar -->
     <aside class="w-64 bg-gray-200 p-4">
         <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">
@@ -41,7 +41,7 @@
 
         <nav class="space-y-1">
             <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
-            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Drafts</a>
+            <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center p-2 rounded hover:bg-green-50">Segmentation</a>
             <a href="{% url 'platforms_list' %}" class="flex items-center p-2 rounded bg-green-50">Platforms Associated</a>
             <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
         </nav>

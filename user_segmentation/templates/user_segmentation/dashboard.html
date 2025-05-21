@@ -1,127 +1,161 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-7xl mx-auto">
-        <!-- Encabezado con Acciones -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-            <div class="flex space-x-4">
-                <a href="{% url 'user_segmentation:user_profile' %}" 
-                   class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-                    Mi Perfil
-                </a>
-            </div>
-        </div>
+<!-- Floating top navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow px-6 py-4 flex items-center justify-between">
+    <!-- Left logo -->
+    <div class="flex-shrink-0">
+        <a href="{% url 'home' %}" class="flex items-center">
+        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" />
+        </a>
+    </div>
+    <!-- Center links -->
+    <div class="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
+        <a href="{% url 'user_segmentation:dashboard' %}" class="font-bold text-gray-700">Segmentation Dashboard</a>
+        <a href="{% url 'campaign_list' %}" class="text-gray-600 hover:text-gray-800">All Campaigns</a>
+        <a href="{% url 'add' %}" class="text-gray-600 hover:text-gray-800">Create Campaign</a>
+        <a href="{% url 'platforms_list' %}" class="text-gray-600 hover:text-gray-800">Platforms Associated</a>
+        <a href="#" class="text-gray-600 hover:text-gray-800">Performance Metrics</a>
+    </div>
+    <!-- Logout + avatar -->
+    <div class="flex items-center space-x-4">
+        <a href="{% url 'logout' %}">
+            <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
+        </a>
+        <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="h-8 w-8 rounded-full" alt="User Avatar" />
+    </div>
+</nav>
+<div class="flex min-h-screen py-4 mt-14">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-200 p-4">
+        <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">Create New Campaign</a>
+        <nav class="space-y-1">
+            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
+            <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center p-2 rounded hover:bg-green-50">Segmentation</a>
+            <a href="{% url 'platforms_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Platforms Associated</a>
+            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+        </nav>
+    </aside>
+    <!-- Main content -->
+    <main class="flex-1 p-6">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header with Actions -->
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800">Segmentation Dashboard</h1>
+                </div>
 
-        <!-- Resumen General -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Total de Campañas</h3>
-                <p class="text-3xl font-bold text-indigo-600">{{ total_campaigns }}</p>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Total de Usuarios</h3>
-                <p class="text-3xl font-bold text-indigo-600">{{ total_users }}</p>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Total de Segmentaciones</h3>
-                <p class="text-3xl font-bold text-indigo-600">{{ total_segments }}</p>
-            </div>
-        </div>
+                <!-- General Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Campaigns</h3>
+                        <p class="text-3xl font-bold text-indigo-600">{{ total_campaigns }}</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Users</h3>
+                        <p class="text-3xl font-bold text-indigo-600">{{ total_users }}</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Segmentations</h3>
+                        <p class="text-3xl font-bold text-indigo-600">{{ total_segments }}</p>
+                    </div>
+                </div>
 
-        <!-- Métricas Promedio -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Métricas Promedio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div class="bg-indigo-50 p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-indigo-700">Precisión</h3>
-                    <p class="text-2xl font-bold text-indigo-900">{{ avg_metrics.avg_accuracy|floatformat:2 }}</p>
-                </div>
-                <div class="bg-green-50 p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-green-700">Recall</h3>
-                    <p class="text-2xl font-bold text-green-900">{{ avg_metrics.avg_recall|floatformat:2 }}</p>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-purple-700">F1-Score</h3>
-                    <p class="text-2xl font-bold text-purple-900">{{ avg_metrics.avg_f1_score|floatformat:2 }}</p>
-                </div>
-                <div class="bg-blue-50 p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-blue-700">AUC Score</h3>
-                    <p class="text-2xl font-bold text-blue-900">
-                        {% if avg_metrics.avg_auc_score is not None %}
-                            {{ avg_metrics.avg_auc_score|floatformat:2 }}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-sm font-semibold text-gray-700">Tasa de Conversión</h3>
-                    <p class="text-2xl font-bold text-gray-900">{{ avg_metrics.avg_conversion_rate|floatformat:2 }}%</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Campañas Recientes -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">Campañas Recientes</h2>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Campaña</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precisión</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recall</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">F1-Score</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Conversión</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AUC Score</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        {% for item in campaign_metrics %}
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ item.campaign.name }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ item.metrics.accuracy|floatformat:2 }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ item.metrics.recall|floatformat:2 }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ item.metrics.f1_score|floatformat:2 }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ item.metrics.conversion_rate|floatformat:2 }}%</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                {% if item.metrics.auc_score is not None %}
-                                    {{ item.metrics.auc_score|floatformat:2 }}
+                <!-- Average Metrics -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800">Average Metrics</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h3 class="text-sm font-semibold text-indigo-700">Precision</h3>
+                            <p class="text-2xl font-bold text-indigo-900">{{ avg_metrics.avg_accuracy|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="text-sm font-semibold text-green-700">Recall</h3>
+                            <p class="text-2xl font-bold text-green-900">{{ avg_metrics.avg_recall|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="text-sm font-semibold text-purple-700">F1-Score</h3>
+                            <p class="text-2xl font-bold text-purple-900">{{ avg_metrics.avg_f1_score|floatformat:2 }}</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="text-sm font-semibold text-blue-700">AUC Score</h3>
+                            <p class="text-2xl font-bold text-blue-900">
+                                {% if avg_metrics.avg_auc_score is not None %}
+                                    {{ avg_metrics.avg_auc_score|floatformat:2 }}
                                 {% else %}
                                     N/A
                                 {% endif %}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{% url 'user_segmentation:campaign_metrics' item.campaign.id %}" 
-                                   class="text-indigo-600 hover:text-indigo-900 mr-3">
-                                    Ver Detalles
-                                </a>
-                                <a href="{% url 'user_segmentation:segment_campaign' item.campaign.id %}" 
-                                   class="text-green-600 hover:text-green-900">
-                                    Segmentar
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="text-sm font-semibold text-gray-700">Conversion Rate</h3>
+                            <p class="text-2xl font-bold text-gray-900">{{ avg_metrics.avg_conversion_rate|floatformat:2 }}%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Campaigns -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Recent Campaigns</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Campaign</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precision</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recall</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">F1-Score</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Conversion</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AUC Score</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                {% for item in campaign_metrics %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">{{ item.campaign.name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ item.metrics.accuracy|floatformat:2 }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ item.metrics.recall|floatformat:2 }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ item.metrics.f1_score|floatformat:2 }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ item.metrics.conversion_rate|floatformat:2 }}%</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {% if item.metrics.auc_score is not None %}
+                                            {{ item.metrics.auc_score|floatformat:2 }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="{% url 'user_segmentation:campaign_metrics' item.campaign.id %}" 
+                                           class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                            Details
+                                        </a>
+                                        <a href="{% url 'user_segmentation:segment_campaign' item.campaign.id %}" 
+                                           class="text-green-600 hover:text-green-900">
+                                            Segment
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </div>
 {% endblock %} 
