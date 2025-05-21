@@ -115,14 +115,17 @@ class SegmentationService:
         if segments.filter(conversion_actual__isnull=False).exists():
             y_true = list(segments.filter(conversion_actual__isnull=False).values_list('conversion_actual', flat=True))
             y_pred = list(segments.filter(conversion_actual__isnull=False).values_list('is_targeted', flat=True))
-            
+            try:
+                auc = roc_auc_score(y_true, y_pred)
+            except Exception:
+                auc = 0.0
             metrics = ModelMetrics.objects.create(
                 campaign=self.campaign,
                 accuracy=accuracy_score(y_true, y_pred),
                 precision=precision_score(y_true, y_pred, zero_division=0),
                 recall=recall_score(y_true, y_pred, zero_division=0),
                 f1_score=f1_score(y_true, y_pred, zero_division=0),
-                auc_score=roc_auc_score(y_true, y_pred),
+                auc_score=auc,
                 total_users=total_users,
                 targeted_users=targeted_users,
                 conversions=conversions,
