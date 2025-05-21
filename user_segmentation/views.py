@@ -88,6 +88,7 @@ def dashboard(request):
         avg_precision=Avg('precision'),
         avg_recall=Avg('recall'),
         avg_f1_score=Avg('f1_score'),
+        avg_auc_score=Avg('auc_score'),
         avg_conversion_rate=Avg('conversion_rate')
     )
     

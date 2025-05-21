@@ -57,6 +57,8 @@ class SegmentationService:
         X, y = self.prepare_data()
         self.model.fit(X, y)
         
+        # Eliminar importancias anteriores para esta campaña
+        ModelFeature.objects.filter(campaign=self.campaign).delete()
         # Guardar importancia de características
         feature_importances = self.model.feature_importances_
         for name, importance in zip(self.feature_names, feature_importances):

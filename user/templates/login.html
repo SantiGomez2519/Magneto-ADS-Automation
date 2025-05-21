@@ -6,71 +6,96 @@
 <!-- Alpine.js for transitions -->
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-<div class="flex justify-center items-center h-screen" style="background-color: #E0F3FB;" x-data="{ showLogin: false }">
-    <!-- Left: Image -->
-    <div class="w-1/2 h-screen hidden lg:block overflow-hidden rounded-2xl p-4">
-        <img src="{% static 'login.jpg' %}" alt="Placeholder Image" class="object-cover rounded-lg w-full h-full rounded-2xl">
-    </div>
-    
-    <!-- Right: Welcome Screen & Login Form -->
-    <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-        <!-- Welcome Screen -->
-        <div x-show="!showLogin"
-            x-transition:enter="transition ease-out duration-500"
-            x-transition:enter-start="opacity-0 scale-90"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-300"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-90"
-            class="text-center"
-        >
-            <img src="{% static 'magneto_logo.png' %}" alt="" class="mx-auto mb-4 position:absolute">
-            <h1 class="text-3xl font-semibold mb-4 p-5">Welcome to Magneto's ADS Automation</h1>
-            <button @click="showLogin = true" class="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md py-2 px-4">
-                Create
-            </button>
+<style>
+  body {
+    background: linear-gradient(120deg, #e0f3fb 0%, #f8fafc 100%);
+    min-height: 100vh;
+  }
+  .login-card {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+    border-radius: 2rem;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    max-width: 950px;
+    min-height: 520px;
+  }
+  @media (max-width: 1023px) {
+    .login-card { flex-direction: column; min-height: unset; max-width: 95vw; }
+    .login-img { border-radius: 2rem 2rem 0 0 !important; }
+    .login-form { border-radius: 0 0 2rem 2rem !important; }
+  }
+</style>
+
+<div class="flex justify-center items-center min-h-screen py-8 px-2">
+    <div class="login-card w-full">
+        <!-- Imagen -->
+        <div class="hidden lg:flex w-1/2 h-auto items-center justify-center bg-gradient-to-tr from-blue-100 to-purple-100 login-img" style="border-radius: 2rem 0 0 2rem;">
+            <img src="{% static 'login.jpg' %}" alt="Login visual" class="object-contain w-full h-[420px] max-h-[520px] p-8">
         </div>
-
-        <!-- Login Form -->
-        <div x-show="showLogin"
-            x-transition:enter="transition ease-out duration-500"
-            x-transition:enter-start="opacity-0 scale-95 translate-y-5"
-            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-            x-transition:leave="transition ease-in duration-300"
-            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-            x-transition:leave-end="opacity-0 scale-95 translate-y-5"
-            class="mt-4"
-        >
-            <h1 class="text-2xl font-semibold mb-4">Login</h1>
-
+        <!-- Formulario -->
+        <div class="flex flex-col justify-center w-full lg:w-1/2 bg-white login-form p-8 relative animate-fade-in" style="border-radius: 0 2rem 2rem 0;">
+            <div class="flex flex-col items-center mb-6">
+                <img src="{% static 'magneto_logo.png' %}" alt="Magneto Logo" class="h-16 w-auto mb-2">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2 text-center">Bienvenido a Magneto ADS Automation</h1>
+                <p class="text-gray-500 text-center mb-2">Inicia sesión para continuar</p>
+            </div>
             <!-- Error Messages -->
             {% if messages %}
-                <div class="mb-4 text-red-500 text-center">
+                <div class="mb-4 text-red-600 text-center font-semibold bg-red-50 border border-red-200 rounded p-2">
                     {% for message in messages %}
                         <p>{{ message }}</p>
                     {% endfor %}
                 </div>
             {% endif %}
-
-
-            <form action="{% url 'login' %}" method="POST">
+            <form action="{% url 'login' %}" method="POST" class="space-y-5" x-data="{ show: false }">
                 {% csrf_token %}
                 <!-- Username Input -->
-                <div class="mb-4">
-                    <label for="username" class="block text-gray-600">Username</label>
-                    <input type="text" id="username" name="username" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+                <div>
+                    <label for="username" class="block text-gray-700 font-medium mb-1">Usuario</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </span>
+                        <input type="text" id="username" name="username" placeholder="Tu usuario" class="w-full border border-gray-300 rounded-md py-2 pl-10 pr-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition" autocomplete="off" required>
+                    </div>
                 </div>
                 <!-- Password Input -->
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-800">Password</label>
-                    <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+                <div>
+                    <label for="password" class="block text-gray-700 font-medium mb-1">Contraseña</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 0v2m0 4h.01" /></svg>
+                        </span>
+                        <input :type="show ? 'text' : 'password'" id="password" name="password" placeholder="Tu contraseña" class="w-full border border-gray-300 rounded-md py-2 pl-10 pr-10 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition" autocomplete="off" required>
+                        <button type="button" @click="show = !show" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 focus:outline-none">
+                            <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9.707 9.293a1 1 0 01-1.414-1.414l16-16a1 1 0 011.414 1.414l-16 16z" /></svg>
+                            <svg x-show="show" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9.707 9.293a1 1 0 01-1.414-1.414l16-16a1 1 0 011.414 1.414l-16 16z" /></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Forgot password -->
+                <div class="flex justify-end">
+                    <a href="#" class="text-sm text-green-600 hover:underline">¿Olvidaste tu contraseña?</a>
                 </div>
                 <!-- Login Button -->
-                <button type="submit" class="bg-green-500 hover:bg-green-500 text-white font-semibold rounded-md py-2 px-4 w-full">
-                    Login
+                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md py-2 px-4 shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-offset-2 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Ingresar
                 </button>
             </form>
         </div>
     </div>
 </div>
+
+<style>
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.98) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
 {% endblock %}
