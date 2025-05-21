@@ -7,12 +7,45 @@
 <div class="flex min-h-screen bg-gray-50">
     <!-- Sidebar -->
     <aside class="w-64 bg-gray-200 p-4">
-        <a href="{% url 'add' %}" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mb-4">Create New Campaign</a>
-        <nav class="space-y-1">
-            <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
-            <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center p-2 rounded hover:bg-green-50">Segmentation</a>
-            <a href="{% url 'platforms_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">Platforms Associated</a>
-            <a href="{% url 'performance_metrics' %}" class="flex items-center p-2 rounded bg-green-50 font-semibold">Performance Metrics</a>
+        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-black">
+            <!-- Sección: Campañas -->
+            <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Campaigns</div>
+            <a href="{% url 'campaign_list' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h18M3 17h18" /></svg>
+                </div>
+                All Campaigns
+            </a>
+            <a href="{% url 'add' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                </div>
+                Create Campaign
+            </a>
+            <hr class="my-2 border-gray-700" />
+            <!-- Sección: Plataformas y Métricas -->
+            <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Platforms & Metrics</div>
+            <a href="{% url 'platforms_list' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 0 0-4-4h-1M9 20H4v-2a4 4 0 0 1 4-4h1m0-4a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" /></svg>
+                </div>
+                Platforms Associated
+            </a>
+            <a href="{% url 'performance_metrics' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M11 17a2 2 0 1 0 2-2 2 2 0 0 0-2 2zm-7 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" /></svg>
+                </div>
+                Performance Metrics
+            </a>
+            <hr class="my-2 border-gray-700" />
+            <!-- Sección: Segmentación -->
+            <div class="flex items-center w-full p-3 text-xl font-bold text-gray-700">Segmentation</div>
+            <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-green-100 hover:text-green-800">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 0 0-4-4h-1M9 20H4v-2a4 4 0 0 1 4-4h1m0-4a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" /></svg>
+                </div>
+                Segmentation
+            </a>
         </nav>
     </aside>
     <!-- Main content -->
