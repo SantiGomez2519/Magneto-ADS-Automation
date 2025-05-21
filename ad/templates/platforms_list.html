@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load get_platform %}
 
 {% block content %}
 
@@ -43,7 +44,7 @@
             <a href="{% url 'campaign_list' %}" class="flex items-center p-2 rounded hover:bg-green-50">All Campaigns</a>
             <a href="{% url 'user_segmentation:dashboard' %}" class="flex items-center p-2 rounded hover:bg-green-50">Segmentation</a>
             <a href="{% url 'platforms_list' %}" class="flex items-center p-2 rounded bg-green-50">Platforms Associated</a>
-            <a href="#" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
+            <a href="{% url 'performance_metrics' %}" class="flex items-center p-2 rounded hover:bg-green-50">Performance Metrics</a>
         </nav>
     </aside>
 
@@ -118,84 +119,96 @@
                             <!-- Métricas -->
                             <div class="space-y-6">
                                 {% if campaign.platform1 %}
+                                {% with metrics=campaign.platform_metrics.all|get_platform:'GOOGLE' %}
                                 <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="font-semibold flex items-center">
-                                        <img src="{% static 'logo google.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform1_display }}">
-                                        {{ campaign.get_platform1_display }} Metrics
-                                    </h3>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h3 class="font-semibold flex items-center">
+                                            <img src="{% static 'logo google.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform1_display }}">
+                                            {{ campaign.get_platform1_display }} Metrics
+                                        </h3>
+                                    </div>
                                     <div class="mt-3 grid grid-cols-2 gap-4">
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Clicks</p>
-                                            <p class="text-lg font-semibold">1,234</p>
+                                            <p class="text-lg font-semibold">{{ metrics.clicks|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
-                                            <p class="text-sm text-gray-500">Views</p>
-                                            <p class="text-lg font-semibold">5,678</p>
+                                            <p class="text-sm text-gray-500">Impressions</p>
+                                            <p class="text-lg font-semibold">{{ metrics.impressions|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">CTR</p>
-                                            <p class="text-lg font-semibold">2.45%</p>
+                                            <p class="text-lg font-semibold">{{ metrics.ctr|floatformat:2 }}%</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Conversions</p>
-                                            <p class="text-lg font-semibold">89</p>
+                                            <p class="text-lg font-semibold">{{ metrics.conversions|default:"0" }}</p>
                                         </div>
                                     </div>
                                 </div>
+                                {% endwith %}
                                 {% endif %}
 
                                 {% if campaign.platform2 %}
+                                {% with metrics=campaign.platform_metrics.all|get_platform:'FACEBOOK' %}
                                 <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="font-semibold flex items-center">
-                                        <img src="{% static 'logo facebook.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform2_display }}">
-                                        {{ campaign.get_platform2_display }} Metrics
-                                    </h3>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h3 class="font-semibold flex items-center">
+                                            <img src="{% static 'logo facebook.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform2_display }}">
+                                            {{ campaign.get_platform2_display }} Metrics
+                                        </h3>
+                                    </div>
                                     <div class="mt-3 grid grid-cols-2 gap-4">
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Clicks</p>
-                                            <p class="text-lg font-semibold">987</p>
+                                            <p class="text-lg font-semibold">{{ metrics.clicks|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
-                                            <p class="text-sm text-gray-500">Views</p>
-                                            <p class="text-lg font-semibold">4,321</p>
+                                            <p class="text-sm text-gray-500">Impressions</p>
+                                            <p class="text-lg font-semibold">{{ metrics.impressions|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">CTR</p>
-                                            <p class="text-lg font-semibold">1.98%</p>
+                                            <p class="text-lg font-semibold">{{ metrics.ctr|floatformat:2 }}%</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Conversions</p>
-                                            <p class="text-lg font-semibold">67</p>
+                                            <p class="text-lg font-semibold">{{ metrics.conversions|default:"0" }}</p>
                                         </div>
                                     </div>
                                 </div>
+                                {% endwith %}
                                 {% endif %}
 
                                 {% if campaign.platform3 %}
+                                {% with metrics=campaign.platform_metrics.all|get_platform:'INSTAGRAM' %}
                                 <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="font-semibold flex items-center">
-                                        <img src="{% static 'logo instagram.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform3_display }}">
-                                        {{ campaign.get_platform3_display }} Metrics
-                                    </h3>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <h3 class="font-semibold flex items-center">
+                                            <img src="{% static 'logo instagram.png' %}" class="h-5 w-5 mr-2" alt="{{ campaign.get_platform3_display }}">
+                                            {{ campaign.get_platform3_display }} Metrics
+                                        </h3>
+                                    </div>
                                     <div class="mt-3 grid grid-cols-2 gap-4">
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Clicks</p>
-                                            <p class="text-lg font-semibold">765</p>
+                                            <p class="text-lg font-semibold">{{ metrics.clicks|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
-                                            <p class="text-sm text-gray-500">Views</p>
-                                            <p class="text-lg font-semibold">3,456</p>
+                                            <p class="text-sm text-gray-500">Impressions</p>
+                                            <p class="text-lg font-semibold">{{ metrics.impressions|default:"0" }}</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">CTR</p>
-                                            <p class="text-lg font-semibold">1.76%</p>
+                                            <p class="text-lg font-semibold">{{ metrics.ctr|floatformat:2 }}%</p>
                                         </div>
                                         <div class="bg-white p-3 rounded-md">
                                             <p class="text-sm text-gray-500">Conversions</p>
-                                            <p class="text-lg font-semibold">45</p>
+                                            <p class="text-lg font-semibold">{{ metrics.conversions|default:"0" }}</p>
                                         </div>
                                     </div>
                                 </div>
+                                {% endwith %}
                                 {% endif %}
                             </div>
 
