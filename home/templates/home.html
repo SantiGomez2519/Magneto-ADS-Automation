@@ -114,6 +114,7 @@
                         <span class="text-gray-500 mt-1">Conversions</span>
                     </div>
                 </div>
+
                 <!-- Quick Actions -->
                 <div class="flex flex-wrap justify-center gap-6 mb-12 w-full">
                     <a href="{% url 'add' %}" class="bg-magnetoGreen-500 hover:bg-magnetoGreen-600 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
@@ -133,6 +134,7 @@
                         Performance Metrics
                     </a>
                 </div>
+                
                 <!-- Recent Campaigns -->
                 <div class="bg-white shadow rounded-lg p-8 mb-12 w-full">
                     <h2 class="text-xl font-bold mb-6 text-center">Recent Campaigns</h2>
@@ -150,6 +152,79 @@
                         {% endfor %}
                     </ul>
                 </div>
+                <!-- KPIs por plataforma y gráfico -->
+                <div class="mb-12 w-full">
+                    <h2 class="text-xl font-bold mb-6 text-center">Ad Performance by Platform</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        {% for code, kpi in kpi_data.items %}
+                        <div class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col items-center shadow-sm">
+                            <span class="text-lg font-semibold text-gray-800 mb-2">{{ kpi.name }}</span>
+                            <div class="flex flex-col gap-3 w-full">
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Impressions:</span>
+                                    <span class="font-bold text-blue-600">{{ kpi.impressions }}</span>
+                                </div>
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Clicks:</span>
+                                    <span class="font-bold text-green-600">{{ kpi.clicks }}</span>
+                                </div>
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Conversions:</span>
+                                    <span class="font-bold text-cyan-600">{{ kpi.conversions }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Gráfico de barras por plataforma -->
+                    <div class="bg-white rounded-xl shadow p-8 mb-8">
+                        <h2 class="text-lg font-semibold mb-4">Performance by Platform</h2>
+                        <canvas id="platformBarChart" height="120"></canvas>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                    const barLabels = {{ bar_labels|safe }};
+                    const barImpressions = {{ bar_impressions|safe }};
+                    const barClicks = {{ bar_clicks|safe }};
+                    const barConversions = {{ bar_conversions|safe }};
+                    const ctxBar = document.getElementById('platformBarChart').getContext('2d');
+                    new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: barLabels,
+                            datasets: [
+                                {
+                                    label: 'Impressions',
+                                    data: barImpressions,
+                                    backgroundColor: '#38bdf8',
+                                },
+                                {
+                                    label: 'Clicks',
+                                    data: barClicks,
+                                    backgroundColor: '#22c55e',
+                                },
+                                {
+                                    label: 'Conversions',
+                                    data: barConversions,
+                                    backgroundColor: '#60a5fa',
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    </script>
+                </div>
+                
             </div>
         </div>
     </div>
