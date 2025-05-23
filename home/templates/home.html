@@ -63,14 +63,14 @@
                     </a>
                     <div class="flex items-center gap-6">
                         <!-- Notifications -->
-                        <a class="relative group" href="#">
+                        <a class="relative group" href="#" id="notificationButton" style="position: relative;">
                             <span class="[&>svg]:w-7 transition-colors group-hover:text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="#222" class="w-7 h-7">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 1-5.714 0A4.5 4.5 0 0 1 3 12.75V11a7.5 7.5 0 1 1 15 0v1.75a4.5 4.5 0 0 1-3.143 4.332z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a1.5 1.5 0 0 0 1.5-1.5h-3A1.5 1.5 0 0 0 12 21z" />
                                 </svg>
                             </span>
-                            <span class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center shadow group-hover:scale-110 transition-transform">1</span>
+                            <span class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center shadow group-hover:scale-110 transition-transform">3</span>
                         </a>
                         <!-- Logout -->
                         <a href="{% url 'logout' %}">
@@ -114,6 +114,7 @@
                         <span class="text-gray-500 mt-1">Conversions</span>
                     </div>
                 </div>
+
                 <!-- Quick Actions -->
                 <div class="flex flex-wrap justify-center gap-6 mb-12 w-full">
                     <a href="{% url 'add' %}" class="bg-magnetoGreen-500 hover:bg-magnetoGreen-600 text-white font-semibold py-2.5 px-7 rounded-lg shadow transition flex items-center gap-2 text-base">
@@ -133,6 +134,7 @@
                         Performance Metrics
                     </a>
                 </div>
+                
                 <!-- Recent Campaigns -->
                 <div class="bg-white shadow rounded-lg p-8 mb-12 w-full">
                     <h2 class="text-xl font-bold mb-6 text-center">Recent Campaigns</h2>
@@ -150,9 +152,154 @@
                         {% endfor %}
                     </ul>
                 </div>
+                <!-- KPIs por plataforma y gráfico -->
+                <div class="mb-12 w-full">
+                    <h2 class="text-xl font-bold mb-6 text-center">Ad Performance by Platform</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        {% for code, kpi in kpi_data.items %}
+                        <div class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col items-center shadow-sm">
+                            <span class="text-lg font-semibold text-gray-800 mb-2">{{ kpi.name }}</span>
+                            <div class="flex flex-col gap-3 w-full">
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Impressions:</span>
+                                    <span class="font-bold text-blue-600">{{ kpi.impressions }}</span>
+                                </div>
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Clicks:</span>
+                                    <span class="font-bold text-green-600">{{ kpi.clicks }}</span>
+                                </div>
+                                <div class="flex justify-between w-full text-lg">
+                                    <span class="text-gray-500">Conversions:</span>
+                                    <span class="font-bold text-cyan-600">{{ kpi.conversions }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Gráfico de barras por plataforma -->
+                    <div class="bg-white rounded-xl shadow p-8 mb-8">
+                        <h2 class="text-lg font-semibold mb-4">Performance by Platform</h2>
+                        <canvas id="platformBarChart" height="120"></canvas>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                    const barLabels = {{ bar_labels|safe }};
+                    const barImpressions = {{ bar_impressions|safe }};
+                    const barClicks = {{ bar_clicks|safe }};
+                    const barConversions = {{ bar_conversions|safe }};
+                    const ctxBar = document.getElementById('platformBarChart').getContext('2d');
+                    new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: barLabels,
+                            datasets: [
+                                {
+                                    label: 'Impressions',
+                                    data: barImpressions,
+                                    backgroundColor: '#38bdf8',
+                                },
+                                {
+                                    label: 'Clicks',
+                                    data: barClicks,
+                                    backgroundColor: '#22c55e',
+                                },
+                                {
+                                    label: 'Conversions',
+                                    data: barConversions,
+                                    backgroundColor: '#60a5fa',
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    </script>
+                </div>
+                
             </div>
         </div>
     </div>
 </div>
+
+<!-- Popup de notificaciones: fixed respecto a la ventana -->
+<div id="notificationPopup"
+     class="fixed z-[1000] mt-2 w-80 rounded-lg border border-[#A3DAF2] bg-white shadow-lg hidden"
+     style="top: 70px; right: 40px;">
+    <!-- Notification header -->
+    <div class="px-4 py-3 font-semibold text-[#007DA9] border-b border-[#E0F3FB] flex justify-between items-center">
+        <span>Notifications</span>
+        <button id="closeNotifications" class="text-[#007DA9] hover:text-[#00A7E1] focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+    <!-- Notification items -->
+    <div class="max-h-[300px] overflow-y-auto">
+        <!-- Notification 1: good performance -->
+        <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+            <div class="bg-[#CEF1DC] rounded-full p-2 mr-3 text-[#0CBB4E]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">Campaign Success</p>
+                <p>Your Facebook campaign surpassed <span class="font-semibold">50,000 clicks</span>!</p>
+                <p class="text-xs text-[#00A7E1] mt-1">2 hours ago</p>
+            </div>
+        </div>
+        <!-- Notification 2: low performance -->
+        <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+            <div class="bg-[#FFF3CD] rounded-full p-2 mr-3 text-[#FFC107]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">Performance Alert</p>
+                <p>Instagram ads have <span class="font-semibold">low conversions</span>. Consider reviewing your CTA.</p>
+                <p class="text-xs text-[#00A7E1] mt-1">5 hours ago</p>
+            </div>
+        </div>
+        <!-- Notification 3: recommendation -->
+        <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] flex items-start">
+            <div class="bg-[#E0F3FB] rounded-full p-2 mr-3 text-[#00A7E1]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div>
+                <p class="font-medium">Optimization Tip</p>
+                <p>Try running your campaign at peak hours (2-5 PM) for better engagement.</p>
+                <p class="text-xs text-[#00A7E1] mt-1">1 day ago</p>
+            </div>
+        </div>
+    </div>
+    <!-- View all link -->
+    <div class="px-4 py-3 text-center border-t border-[#E0F3FB]">
+        <a href="#" class="text-[#00A7E1] text-sm font-medium hover:underline">View all notifications</a>
+    </div>
+</div>
+
+<script>
+const btn = document.getElementById('notificationButton');
+const popup = document.getElementById('notificationPopup');
+const closeBtn = document.getElementById('closeNotifications');
+btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popup.classList.toggle('hidden');
+});
+closeBtn.addEventListener('click', () => popup.classList.add('hidden'));
+</script>
 
 {% endblock %}
