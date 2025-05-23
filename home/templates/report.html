@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-6 flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M3 12h4v8H3zM9 8h4v12H9zM15 4h4v16h-4zM4 20h16" />
+  </svg>
+  <h2 class="text-2xl font-bold text-gray-800">Detailed Performance Report</h2>
+  <a href="{% url 'home' %}" class="ml-auto bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded shadow flex items-center gap-1">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m0 0h4m-4 0H9" />
+  </svg>
+  Home
+</a>
+</div>
+
+<form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-8 bg-gray-50 p-4 rounded shadow">
+  <div>
+    <label for="start_date" class="block mb-1 text-sm font-medium text-gray-700">From:</label>
+    <input type="date" name="start_date" value="{{ start_date }}" class="w-full border border-gray-300 p-2 rounded shadow-sm">
+  </div>
+  <div>
+    <label for="end_date" class="block mb-1 text-sm font-medium text-gray-700">To:</label>
+    <input type="date" name="end_date" value="{{ end_date }}" class="w-full border border-gray-300 p-2 rounded shadow-sm">
+  </div>
+  <div>
+    <label for="category" class="block mb-1 text-sm font-medium text-gray-700">Campaign type:</label>
+    <select name="category" class="w-full border border-gray-300 p-2 rounded shadow-sm">
+      <option value="">All</option>
+      {% for c in categories %}
+        <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="flex gap-2">
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-1 shadow">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7" /></svg>
+      Filter
+    </button>
+    {% if interactions %}
+      <a href="?{% if start_date %}start_date={{ start_date }}&{% endif %}{% if end_date %}end_date={{ end_date }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}export=csv" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-1 shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4" /></svg>
+        Export CSV
+      </a>
+    {% endif %}
+  </div>
+</form>
+
+{% if summary.total_impressions %}
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-blue-500">
+      <p class="text-sm text-gray-600">Total Impressions</p>
+      <p class="text-2xl font-bold text-blue-600">{{ summary.total_impressions }}</p>
+    </div>
+    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-green-500">
+      <p class="text-sm text-gray-600">Total Clicks</p>
+      <p class="text-2xl font-bold text-green-600">{{ summary.total_clicks }}</p>
+    </div>
+    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-pink-500">
+      <p class="text-sm text-gray-600">Total Conversions</p>
+      <p class="text-2xl font-bold text-pink-600">{{ summary.total_conversions }}</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded shadow p-6 mb-8">
+    <canvas id="metricsChart" height="100"></canvas>
+  </div>
+{% else %}
+  <div class="text-center text-gray-600 italic">
+    No data found for the selected filters.
+  </div>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('metricsChart');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Impressions', 'Clicks', 'Conversions'],
+        datasets: [{
+          label: 'Metrics',
+          data: [
+            {{ summary.total_impressions|default:0 }},
+            {{ summary.total_clicks|default:0 }},
+            {{ summary.total_conversions|default:0 }}
+          ],
+          backgroundColor: ['#3B82F6', '#10B981', '#EC4899']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+</script>
+{% endblock %}

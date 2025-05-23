@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # Create your models here.
 class Campaign(models.Model):
@@ -106,3 +107,14 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+class AdInteraction(models.Model):
+    ad = models.ForeignKey(Campaign, on_delete=models.CASCADE)
+    platform = models.CharField(max_length=20) 
+    impressions = models.IntegerField(default=0)
+    clicks = models.IntegerField(default=0)
+    conversions = models.IntegerField(default=0)
+    date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.ad.name} - {self.date}"

@@ -3,438 +3,644 @@
 
 {% block content %}
 
-<title>Home</title>
+<title>Magneto Dashboard</title>
 
 <div class="flex">
-    <!-- Side navbar -->
-    <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-gray-300 bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+    <!-- Side navbar with brand colors -->
+    <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-[#E0F3FB] bg-clip-border p-4 text-[#007DA9] shadow-xl shadow-blue-gray-900/5">
         <!-- Nav Menu -->
-        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-black">
+        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-[#007DA9]">
+            <!-- Logo container -->
+            <div class="flex items-center justify-center mb-6 mt-2">
+                <img src="{% static 'magneto_logo.png' %}" class="h-12 w-auto" alt="Magneto Logo" loading="lazy" />
+            </div>
     
             <!-- Dashboard button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path> <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path> <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path> </svg> 
                 </div>
-                Dashboard
-                <div class="grid ml-auto place-items-center justify-self-end">
-                    <div
-                        class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                    </div>
-                </div>
+                <span class="font-medium">Dashboard</span>
             </div>
     
             <a href="{% url 'add' %}" class="block">
                 <!-- Create AD button -->
-                <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                    <div class="grid mr-4 place-items-center">
+                <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                    <div class="grid mr-4 place-items-center text-[#00A7E1]">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path> <path d="M15 12h-6"></path> <path d="M12 9v6"></path> </svg> 
                     </div>
-                    Create AD
-                    <div class="grid ml-auto place-items-center justify-self-end">
-                    <div
-                        class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                    </div>
-                    </div>
+                    <span class="font-medium">Create AD</span>
                 </div>
             </a>
     
-            <hr class="my-2 border-blue-gray-50" />
+            <hr class="my-2 border-[#A3DAF2]" />
     
             <!-- Title -->
             <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
-                <h2 class="text-xl font-bold">Edit AD</h2>
+                <h2 class="text-xl font-bold text-[#007DA9]">Edit AD</h2>
             </div>
     
             <!-- Audience button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path> <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path> <path d="M16 3.13a4 4 0 0 1 0 7.75"></path> <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path> </svg> 
                 </div>
-                Audience
-                <div class="grid ml-auto place-items-center justify-self-end">
-                <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                </div>
-                </div>
+                <span class="font-medium">Audience</span>
             </div>
     
             <!-- Performance button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M4 6l16 0"></path> <path d="M4 12l16 0"></path> <path d="M4 18l12 0"></path> </svg> 
                 </div>
-                Performance
-                <div class="grid ml-auto place-items-center justify-self-end">
-                <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                </div>
-                </div>
+                <span class="font-medium">Performance</span>
             </div>
     
             <!-- Real Time Insights button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M19.03 17.818a3 3 0 0 0 1.97 -2.818v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8c0 1.317 .85 2.436 2.03 2.84"></path> <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path> <path d="M8 21a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2"></path> </svg> 
                 </div>
-                Real-time Insights
-                <div class="grid ml-auto place-items-center justify-self-end">
-                <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                </div>
-                </div>
+                <span class="font-medium">Real-time Insights</span>
             </div>
-    
-        <hr class="my-2 border-blue-gray-50" />
+
+            <!-- Title Detailed Reports -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold text-[#007DA9]">Detailed Reports</h2>
+            </div>
+
+            <!-- Reports button -->
+            <a href="{% url 'report' %}" 
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bar" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 12h4v8h-4z" />
+                        <path d="M9 8h4v12h-4z" />
+                        <path d="M15 4h4v16h-4z" />
+                        <path d="M4 20h16" />
+                    </svg>
+                </div>
+                <span class="font-medium">Reports</span>
+            </a>
+
+            
+        <hr class="my-2 border-[#A3DAF2]" />
     
             <!-- Title -->
             <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
-                <h2 class="text-xl font-bold">Meta and Google</h2>
+                <h2 class="text-xl font-bold text-[#007DA9]">Meta and Google</h2>
             </div>
     
             <!-- Job Seekers button -->
-            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path> <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path> <path d="M12 12l0 .01"></path> <path d="M3 13a20 20 0 0 0 18 0"></path> </svg> 
                 </div>
-                Real-time Insights
-                <div class="grid ml-auto place-items-center justify-self-end">
-                <div
-                    class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-full select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                </div>
-                </div>
+                <span class="font-medium">Real-time Insights</span>
             </div>
       </nav>
     </div>
 
     <!-- Main content -->
-    <div class="w-full">
+    <div class="w-full bg-white">
         <!-- Main navigation container -->
-        <nav
-        class="flex-no-wrap relative flex w-full items-center justify-between bg-zinc-50 py-2 lg:flex-wrap lg:justify-start lg:py-4">
-        <div class="flex w-full flex-wrap items-center justify-between px-3">
-        <!-- Hamburger button for mobile view -->
-        <button
-            class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
-            type="button"
-            data-twe-collapse-init
-            data-twe-target="#navbarSupportedContent1"
-            aria-controls="navbarSupportedContent1"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <!-- Hamburger icon -->
-            <span
-            class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor">
-                <path
-                fill-rule="evenodd"
-                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                clip-rule="evenodd" />
-            </svg>
-            </span>
-        </button>
-
-        <!-- Collapsible navigation container -->
-        <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
-            id="navbarSupportedContent1"
-            data-twe-collapse-item>
-            <!-- Logo -->
-            <a class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0" href="#">
-                <img
-                    src="{% static 'magneto_logo.png' %}"
-                    class="h-10 w-auto"
-                    alt="Magneto Logo"
-                    loading="lazy" />
-            </a>
-            
-            <form class="flex items-left">   
-                <label for="simple-search" class="sr-only">Search</label>
-                <div class="relative w-full">
-                    <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
-                    </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-20 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for job ADS..." required />
-                </div>
-                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-green-500 rounded-lg border border-blue-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-5000 dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                    <span class="sr-only">Search</span>
+        <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-[#E0F3FB] py-2 shadow-md lg:flex-wrap lg:justify-start lg:py-4">
+            <div class="flex w-full flex-wrap items-center justify-between px-3">
+                <!-- Hamburger button for mobile view -->
+                <button
+                    class="block border-0 bg-transparent px-2 text-[#007DA9] hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
+                    type="button"
+                    data-twe-collapse-init
+                    data-twe-target="#navbarSupportedContent1"
+                    aria-controls="navbarSupportedContent1"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <!-- Hamburger icon -->
+                    <span class="[&>svg]:w-7 [&>svg]:stroke-[#007DA9]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
                 </button>
-            </form>
 
-        </div>
+                <!-- Collapsible navigation container -->
+                <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+                    id="navbarSupportedContent1"
+                    data-twe-collapse-item>
+                    <!-- Logo -->
+                    <a class="mb-4 me-5 ms-2 mt-3 flex items-center text-[#007DA9] hover:text-[#00A7E1] focus:text-[#00A7E1] lg:mb-0 lg:mt-0" href="#">
+                        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" loading="lazy" />
+                    </a>
+                    
+                    <form class="flex items-left">   
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
+                            </div>
+                            <input type="text" id="simple-search" class="bg-white border border-[#A3DAF2] text-[#007DA9] text-sm rounded-lg focus:ring-[#00A7E1] focus:border-[#00A7E1] block w-full p-2.5 pr-20" placeholder="Search for job ADS..." required />
+                        </div>
+                        <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-[#0CBB4E] rounded-lg border border-[#09C83B] hover:bg-[#3DC971] focus:ring-4 focus:outline-none focus:ring-[#6DD695]">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                </div>
 
-        <!-- Right elements -->
-        <div class="relative flex items-center">
-            <!-- Icon -->
-            <a class="me-4 text-neutral-600 dark:text-white" href="#">
-            <span class="[&>svg]:w-5">
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="black">
-                <path
-                    d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                </svg>
-            </span>
-            </a>
+                <!-- Right elements -->
+                <div class="relative flex items-center">
+                    <!-- Icon -->
+                    <a class="me-4 text-[#007DA9] hover:text-[#00A7E1]" href="#">
+                        <span class="[&>svg]:w-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                            </svg>
+                        </span>
+                    </a>
 
-            <!-- First dropdown container -->
-            <div
-            class="relative"
-            data-twe-dropdown-ref
-            data-twe-dropdown-alignment="end">
-            <!-- First dropdown trigger -->
-            <a
-                class="me-4 flex items-center text-neutral-600 dark:text-white"
-                href="#"
-                id="dropdownMenuButton1"
-                role="button"
-                data-twe-dropdown-toggle-ref
-                aria-expanded="false">
-                <!-- Dropdown trigger icon -->
-                <span class="[&>svg]:w-5">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="black">
-                    <path
-                    fill-rule="evenodd"
-                    d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-                    clip-rule="evenodd" />
-                </svg>
-                </span>
-                <!-- Notification counter -->
-                <span
-                class="absolute -mt-4 ms-2.5 rounded-full bg-danger px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-white"
-                >1</span
-                >
-            </a>
-            <!-- First dropdown menu -->
-            <ul
-                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-                aria-labelledby="dropdownMenuButton1"
-                data-twe-dropdown-menu-ref>
-                <!-- First dropdown menu items -->
-                <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Action</a
-                >
-                </li>
-                <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Another action</a
-                >
-                </li>
-                <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Something else here</a
-                >
-                </li>
-            </ul>
+                    <!-- Notification button and popup -->
+                    <div class="relative" id="notificationContainer">
+                        <!-- Notification button -->
+                        <button id="notificationButton" class="me-4 flex items-center text-[#007DA9] hover:text-[#00A7E1] focus:outline-none">
+                            <span class="[&>svg]:w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            <!-- Notification counter -->
+                            <span class="absolute -mt-4 ms-2.5 rounded-full bg-[#09C83B] px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-white">1</span>
+                        </button>
+                        
+                        <!-- Notification popup -->
+                        <div id="notificationPopup" class="absolute right-0 z-[1000] mt-2 w-80 rounded-lg border border-[#A3DAF2] bg-white shadow-lg hidden">
+                            <!-- Notification header -->
+                            <div class="px-4 py-3 font-semibold text-[#007DA9] border-b border-[#E0F3FB] flex justify-between items-center">
+                                <span>Notifications</span>
+                                <button id="closeNotifications" class="text-[#007DA9] hover:text-[#00A7E1] focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Notification items -->
+                            <div class="max-h-[300px] overflow-y-auto">
+                                <!-- Notification 1: good performance -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#CEF1DC] rounded-full p-2 mr-3 text-[#0CBB4E]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Campaign Success</p>
+                                        <p>Your Facebook campaign surpassed <span class="font-semibold">50,000 clicks</span>!</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">2 hours ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 2: low performance -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#FFF3CD] rounded-full p-2 mr-3 text-[#FFC107]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Performance Alert</p>
+                                        <p>Instagram ads have <span class="font-semibold">low conversions</span>. Consider reviewing your CTA.</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">5 hours ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 3: recommendation -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#E0F3FB] rounded-full p-2 mr-3 text-[#00A7E1]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Optimization Tip</p>
+                                        <p>Try running your campaign at peak hours (2-5 PM) for better engagement.</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- View all link -->
+                            <div class="px-4 py-3 text-center border-t border-[#E0F3FB]">
+                                <a href="#" class="text-[#00A7E1] text-sm font-medium hover:underline">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second dropdown container -->
+                    <div class="relative" data-twe-dropdown-ref data-twe-dropdown-alignment="end">
+                        <!-- Second dropdown trigger -->
+                        <a class="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none" href="#" id="dropdownMenuButton2" role="button" data-twe-dropdown-toggle-ref aria-expanded="false">
+                            <!-- User avatar -->
+                            <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="rounded-full" style="height: 25px; width: 25px" alt="" loading="lazy" />
+                        </a>
+                        <!-- Second dropdown menu -->
+                        <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block" aria-labelledby="dropdownMenuButton2" data-twe-dropdown-menu-ref>
+                            <!-- Second dropdown menu items -->
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="{% url 'logout' %}" data-twe-dropdown-item-ref>Logout</a>
+                            </li>
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="#" data-twe-dropdown-item-ref>Another action</a>
+                            </li>
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="#" data-twe-dropdown-item-ref>Something else here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Logout button -->
+                    {% if user.is_authenticated %}
+                    {% load static %}
+                    <a href="{% url 'logout' %}">
+                        <button type="button" class="focus:outline-none text-white bg-[#0CBB4E] hover:bg-[#3DC971] focus:ring-4 focus:ring-[#6DD695] font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <!-- Right elements -->
             </div>
-
-            <!-- Second dropdown container -->
-            <div
-            class="relative"
-            data-twe-dropdown-ref
-            data-twe-dropdown-alignment="end">
-            <!-- Second dropdown trigger -->
-            <a
-                class="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
-                href="#"
-                id="dropdownMenuButton2"
-                role="button"
-                data-twe-dropdown-toggle-ref
-                aria-expanded="false">
-                <!-- User avatar -->
-                <img
-                src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
-                class="rounded-full"
-                style="height: 25px; width: 25px"
-                alt=""
-                loading="lazy" />
-            </a>
-            <!-- Second dropdown menu -->
-            <ul
-                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-                aria-labelledby="dropdownMenuButton2"
-                data-twe-dropdown-menu-ref>
-                <!-- Second dropdown menu items -->
-                <li>
-
-                    <a
-                        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                        href="{% url 'logout' %}"
-                        data-twe-dropdown-item-ref
-                        >Logout</a
-                    >
-
-                </li>
-                <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Another action</a
-                >
-                </li>
-                <li>
-                <a
-                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                    href="#"
-                    data-twe-dropdown-item-ref
-                    >Something else here</a
-                >
-                </li>
-            </ul>
-        </div>
-            <!-- Logout button -->
-            {% if user.is_authenticated %}
-            {% load static %}
-            <a href="{% url 'logout' %}">
-                <button type="button" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ml-3">Logout</button>
-            </a>
-            {% endif %}
-        </div>
-        <!-- Right elements -->
-         
-        </div>
         </nav>
 
         <!-- Main content -->
-        <div class="font-sans text-gray-800 p-6 m-10">
-            <h1 class="text-3xl font-bold text-center p-2">Welcome to Magneto's ADS Automation</h1>
-              <!-- Header -->
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                    <h1 class="text-2xl font-bold">Good morning, Magneto user</h1>
-                    <p class="text-sm text-gray-500">Explore insights and progress</p>
-                    </div>
-                    <button class=" bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">Edit ads</button>
-                </div>
-
-                <!-- Upper Section -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                    <p class="font-semibold mb-2">Upcoming ad</p>
-                    <div class="w-full h-16 bg-gray-300 rounded-md flex items-center justify-center text-gray-600">Review</div>
-                    </div>
-                    <div class="col-span-2  bg-green-100 rounded-lg flex flex-col items-center justify-center p-6">
-                    <div class="text-center">
-                        <div class=" bg-green-500 text-white rounded-full w-24 h-24 flex items-center justify-center text-2xl font-bold mx-auto">82%</div>
-                        <p class="mt-2 font-semibold">Track daily progress</p>
-                    </div>
-                    </div>
-                </div>
-
-                <!-- Tasks Section -->
-                <div class="mb-6">
-                    <h2 class="font-bold mb-2">March 2025 tasks</h2>
-                    <div class="flex gap-4">
-                    <div class="text-center"><p class="font-semibold">meta</p><p class="text-sm">2</p></div>
-                    <div class="text-center font-bold text-green-500"><p>googl</p><p class="text-sm">3</p></div>
-                    <div class="text-center"><p class="font-semibold">tiktok</p><p class="text-sm">4</p></div>
-                    <div class="text-center"><p class="font-semibold">snapch</p><p class="text-sm">5</p></div>
-                    <div class="text-center"><p class="font-semibold">audie</p><p class="text-sm">6</p></div>
-                    <div class="text-center"><p class="font-semibold">perfor</p><p class="text-sm">7</p></div>
-                    <div class="text-center"><p class="font-semibold">real-</p><p class="text-sm">8</p></div>
-                    </div>
-                </div>
-
-                <!-- Ad Performance Tracking -->
-                <div class="mb-8">
-                    <h2 class="font-bold mb-2">Ad performance tracking</h2>
-                    <div class="flex items-end gap-6 h-40">
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">met</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">goo</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-24 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">tikto</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">snap</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">audi</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-26 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">perf</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-green-300 w-6 h-28 rounded-t-md"></div>
-                        <p class="mt-1 text-sm">real</p>
-                    </div>
-                    </div>
-                </div>
-
-                <!-- Scheduled Ads -->
+        <div class="font-sans text-[#007DA9] p-6 m-10">
+            <h1 class="text-3xl font-bold text-center p-2 text-[#007DA9] mb-8">Welcome to Magneto's ADS Automation</h1>
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8 bg-[#E0F3FB] p-4 rounded-lg shadow-md">
                 <div>
-                    <h2 class="font-bold mb-4">Scheduled ads</h2>
-                    <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">05</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad For Google</span>
-                        <span class="text-sm text-gray-500">Ad for available jobs in el exito</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">14:00-14:45</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">06</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Facebook</span>
-                        <span class="text-sm text-gray-500">Ad for 5 available jobs in WOM</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">11:00-14:45</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">07</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Instagram</span>
-                        <span class="text-sm text-gray-500">Available jobs in claro</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">12:00-12:35</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">08</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Instagram</span>
-                        <span class="text-sm text-gray-500">Available jobs for software engineers in Alkosto</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">16:00-17:00</div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class=" bg-green-500 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">09</div>
-                        <div class="flex flex-col">
-                        <span class="font-semibold">Ad for Google</span>
-                        <span class="text-sm text-gray-500">Available jobs in alkomprar</span>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-600">16:00-16:30</div>
-                    </div>
+                    <h1 class="text-2xl font-bold text-[#007DA9]">Good morning, Magneto user</h1>
+                    <p class="text-sm text-[#00A7E1]">Explore insights and progress</p>
+                </div>
+                <button class="bg-[#0CBB4E] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#09C83B] transition-colors shadow-md">Edit ads</button>
+            </div>
+
+            <!-- Upper Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-[#E0F3FB] p-6 rounded-lg shadow-md">
+                    <p class="font-semibold mb-3 text-[#007DA9]">Upcoming ad</p>
+                    <div class="w-full h-20 bg-white rounded-md flex items-center justify-center text-[#00A7E1] border border-[#A3DAF2] font-medium">Review</div>
+                </div>
+                <div class="col-span-2 bg-[#CEF1DC] rounded-lg flex flex-col items-center justify-center p-8 shadow-md">
+                    <div class="text-center">
+                        <div class="bg-[#0CBB4E] text-white rounded-full w-28 h-28 flex items-center justify-center text-3xl font-bold mx-auto shadow-lg">82%</div>
+                        <p class="mt-4 font-semibold text-[#007DA9] text-lg">Track daily progress</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="mb-8 bg-white p-6 rounded-lg shadow-md border border-[#E0F3FB]">
+                <h2 class="font-bold mb-4 text-[#007DA9] text-xl">March 2025 tasks</h2>
+                <div class="flex gap-8 justify-around">
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">meta</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">2</p>
+                    </div>
+                    <div class="text-center font-bold text-[#0CBB4E] p-3 rounded-lg bg-[#CEF1DC] transition-colors cursor-pointer">
+                        <p>googl</p>
+                        <p class="text-sm bg-[#0CBB4E] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">3</p>
+                    </div>
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">tiktok</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">4</p>
+                    </div>
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">snapch</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">5</p>
+                    </div>
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">audie</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">6</p>
+                    </div>
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">perfor</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">7</p>
+                    </div>
+                    <div class="text-center p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors cursor-pointer">
+                        <p class="font-semibold text-[#007DA9]">real-</p>
+                        <p class="text-sm bg-[#00A7E1] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto mt-1">8</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 bg-white p-6 rounded-lg shadow-md border border-[#E0F3FB]">
+                <label for="platformFilter" class="block text-sm font-medium text-[#007DA9] mb-2">Filter by platform:</label>
+                <select id="platformFilter" class="block w-60 rounded-md border-[#A3DAF2] shadow-sm focus:ring-[#00A7E1] focus:border-[#00A7E1] sm:text-sm p-2 bg-white text-[#007DA9]">
+                    <option value="ALL">All Platforms</option>
+                    {% for platform in platforms %}
+                        <option value="{{ platform }}">{{ platform }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Real Ad Performance Dashboard -->
+            <div class="mb-8 bg-white p-6 rounded-lg shadow-md border border-[#E0F3FB]">
+                <h2 class="font-bold mb-6 text-[#007DA9] text-xl">Ad performance tracking (real data)</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {% for platform, metrics in platform_data.items %}
+                    <div class="bg-[#E0F3FB] shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <h3 class="font-bold text-lg text-center mb-4 text-[#007DA9]">{{ platform }}</h3>
+                        <div class="text-sm space-y-3">
+                            <p class="flex justify-between items-center">
+                                <span class="font-semibold text-[#007DA9]">Impressions:</span> 
+                                <span class="bg-[#CEF1DC] text-[#0CBB4E] px-3 py-1 rounded-full font-medium">{{ metrics.impressions }}</span>
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span class="font-semibold text-[#007DA9]">Clicks:</span> 
+                                <span class="bg-[#9EE4B8] text-[#0CBB4E] px-3 py-1 rounded-full font-medium">{{ metrics.clicks }}</span>
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span class="font-semibold text-[#007DA9]">Conversions:</span> 
+                                <span class="bg-[#6DD695] text-[#0CBB4E] px-3 py-1 rounded-full font-medium">{{ metrics.conversions }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8 border border-[#E0F3FB]">
+                <h2 class="text-xl font-semibold mb-4 text-[#007DA9]">Performance by Platform</h2>
+                <canvas id="interactionChart" height="100"></canvas>
+            </div>
+
+            <!-- Pie chart -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6 border border-[#E0F3FB] hover:shadow-lg transition-shadow">
+                    <h3 class="text-center font-semibold mb-4 text-[#007DA9]">Impressions</h3>
+                    <canvas id="impressionsPie"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 border border-[#E0F3FB] hover:shadow-lg transition-shadow">
+                    <h3 class="text-center font-semibold mb-4 text-[#007DA9]">Clicks</h3>
+                    <canvas id="clicksPie"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 border border-[#E0F3FB] hover:shadow-lg transition-shadow">
+                    <h3 class="text-center font-semibold mb-4 text-[#007DA9]">Conversions</h3>
+                    <canvas id="conversionsPie"></canvas>
+                </div>
+            </div>
+            
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                // Using Magneto brand colors
+                const brandColors = {
+                    green: ['#09C83B', '#0CBB4E', '#3DC971', '#6DD695', '#9EE4B8', '#CEF1DC'],
+                    lightBlue: ['#007DA9', '#00A7E1', '#66C1EA', '#A3DAF2', '#E0F3FB']
+                };
+                
+                // Create charts and save their references
+                const interactionChart = new Chart(document.getElementById('interactionChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: {{ platforms|safe }},
+                        datasets: [
+                            {
+                                label: 'Impressions',
+                                backgroundColor: brandColors.green[1],
+                                data: {{ impressions|safe }},
+                            },
+                            {
+                                label: 'Clicks',
+                                backgroundColor: brandColors.green[2],
+                                data: {{ clicks|safe }},
+                            },
+                            {
+                                label: 'Conversions',
+                                backgroundColor: brandColors.green[4],
+                                data: {{ conversions|safe }},
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { 
+                            legend: { position: 'top' },
+                            tooltip: {
+                                backgroundColor: brandColors.lightBlue[0],
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: brandColors.lightBlue[3],
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: brandColors.lightBlue[4]
+                                },
+                                ticks: {
+                                    color: brandColors.lightBlue[0]
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: brandColors.lightBlue[4]
+                                },
+                                ticks: {
+                                    color: brandColors.lightBlue[0]
+                                }
+                            }
+                        }
+                    },
+                });
+
+                const pieColors = [brandColors.green[1], brandColors.lightBlue[1], brandColors.green[4]];
+                
+                const pieCharts = {
+                    impressions: new Chart(document.getElementById('impressionsPie'), {
+                        type: 'pie',
+                        data: {
+                            labels: {{ platforms|safe }},
+                            datasets: [{
+                                data: {{ impressions|safe }},
+                                backgroundColor: pieColors
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    backgroundColor: brandColors.lightBlue[0],
+                                    titleColor: '#fff',
+                                    bodyColor: '#fff',
+                                    borderColor: brandColors.lightBlue[3],
+                                    borderWidth: 1
+                                }
+                            }
+                        }
+                    }),
+                    clicks: new Chart(document.getElementById('clicksPie'), {
+                        type: 'pie',
+                        data: {
+                            labels: {{ platforms|safe }},
+                            datasets: [{
+                                data: {{ clicks|safe }},
+                                backgroundColor: pieColors
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    backgroundColor: brandColors.lightBlue[0],
+                                    titleColor: '#fff',
+                                    bodyColor: '#fff',
+                                    borderColor: brandColors.lightBlue[3],
+                                    borderWidth: 1
+                                }
+                            }
+                        }
+                    }),
+                    conversions: new Chart(document.getElementById('conversionsPie'), {
+                        type: 'pie',
+                        data: {
+                            labels: {{ platforms|safe }},
+                            datasets: [{
+                                data: {{ conversions|safe }},
+                                backgroundColor: pieColors
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    backgroundColor: brandColors.lightBlue[0],
+                                    titleColor: '#fff',
+                                    bodyColor: '#fff',
+                                    borderColor: brandColors.lightBlue[3],
+                                    borderWidth: 1
+                                }
+                            }
+                        }
+                    })
+                };
+
+                // Filtro dinámico por plataforma
+                document.getElementById('platformFilter').addEventListener('change', function () {
+                    const selected = this.value;
+
+                    const allLabels = {{ platforms|safe }};
+                    const allImpressions = {{ impressions|safe }};
+                    const allClicks = {{ clicks|safe }};
+                    const allConversions = {{ conversions|safe }};
+
+                    const filterData = (labels, data) => {
+                        if (selected === "ALL") return data;
+                        const index = labels.indexOf(selected);
+                        return index !== -1 ? [data[index]] : [];
+                    };
+
+                    const filterLabels = selected === "ALL" ? allLabels : [selected];
+
+                    // Actualizar gráfico de barras
+                    interactionChart.data.labels = filterLabels;
+                    interactionChart.data.datasets[0].data = filterData(allLabels, allImpressions);
+                    interactionChart.data.datasets[1].data = filterData(allLabels, allClicks);
+                    interactionChart.data.datasets[2].data = filterData(allLabels, allConversions);
+                    interactionChart.update();
+
+                    // Actualizar gráficos de pastel
+                    pieCharts.impressions.data.labels = filterLabels;
+                    pieCharts.impressions.data.datasets[0].data = filterData(allLabels, allImpressions);
+                    pieCharts.impressions.update();
+
+                    pieCharts.clicks.data.labels = filterLabels;
+                    pieCharts.clicks.data.datasets[0].data = filterData(allLabels, allClicks);
+                    pieCharts.clicks.update();
+
+                    pieCharts.conversions.data.labels = filterLabels;
+                    pieCharts.conversions.data.datasets[0].data = filterData(allLabels, allConversions);
+                    pieCharts.conversions.update();
+                });
+
+                // Notification popup functionality
+                document.addEventListener('DOMContentLoaded', function() {
+                    const notificationButton = document.getElementById('notificationButton');
+                    const notificationPopup = document.getElementById('notificationPopup');
+                    const closeNotifications = document.getElementById('closeNotifications');
+                    const notificationContainer = document.getElementById('notificationContainer');
+                    
+                    // Toggle notification popup
+                    notificationButton.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        notificationPopup.classList.toggle('hidden');
+                    });
+                    
+                    // Close notification popup when clicking the close button
+                    closeNotifications.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        notificationPopup.classList.add('hidden');
+                    });
+                    
+                    // Close notification popup when clicking outside
+                    document.addEventListener('click', function(e) {
+                        if (!notificationContainer.contains(e.target)) {
+                            notificationPopup.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Prevent popup from closing when clicking inside it
+                    notificationPopup.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            </script>
+
+            <!-- Scheduled Ads -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-[#E0F3FB]">
+                <h2 class="font-bold mb-6 text-[#007DA9] text-xl">Scheduled ads</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors">
+                        <div class="bg-[#0CBB4E] text-white font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-md">05</div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-[#007DA9]">Ad For Google</span>
+                            <span class="text-sm text-[#00A7E1]">Ad for available jobs in el exito</span>
+                        </div>
+                        <div class="ml-auto text-sm text-[#007DA9] bg-[#E0F3FB] px-3 py-1 rounded-full">14:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors">
+                        <div class="bg-[#0CBB4E] text-white font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-md">06</div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-[#007DA9]">Ad for Facebook</span>
+                            <span class="text-sm text-[#00A7E1]">Ad for 5 available jobs in WOM</span>
+                        </div>
+                        <div class="ml-auto text-sm text-[#007DA9] bg-[#E0F3FB] px-3 py-1 rounded-full">11:00-14:45</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors">
+                        <div class="bg-[#0CBB4E] text-white font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-md">07</div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-[#007DA9]">Ad for Instagram</span>
+                            <span class="text-sm text-[#00A7E1]">Available jobs in claro</span>
+                        </div>
+                        <div class="ml-auto text-sm text-[#007DA9] bg-[#E0F3FB] px-3 py-1 rounded-full">12:00-12:35</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors">
+                        <div class="bg-[#0CBB4E] text-white font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-md">08</div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-[#007DA9]">Ad for Instagram</span>
+                            <span class="text-sm text-[#00A7E1]">Available jobs for software engineers in Alkosto</span>
+                        </div>
+                        <div class="ml-auto text-sm text-[#007DA9] bg-[#E0F3FB] px-3 py-1 rounded-full">16:00-17:00</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-[#E0F3FB] transition-colors">
+                        <div class="bg-[#0CBB4E] text-white font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-md">09</div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-[#007DA9]">Ad for Google</span>
+                            <span class="text-sm text-[#00A7E1]">Available jobs in alkomprar</span>
+                        </div>
+                        <div class="ml-auto text-sm text-[#007DA9] bg-[#E0F3FB] px-3 py-1 rounded-full">16:00-16:30</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
