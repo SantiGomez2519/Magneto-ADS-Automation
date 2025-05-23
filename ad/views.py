@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Campaign, AdMetrics, PlatformMetrics
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.core.exceptions import ValidationError
 import random
+from django.http import HttpResponse
+import csv
+from datetime import datetime
+import json
 
 
 # Create your views here.
@@ -262,8 +266,79 @@ def simulate_metrics_view(request, campaign_id):
     return redirect('campaign_list')
 
 def performance_metrics_view(request):
-    campaigns = Campaign.objects.all().select_related('metrics')
-    return render(request, 'performance_metrics.html', {'campaigns': campaigns})
+    # Filtros
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    campaign_id = request.GET.get('campaign')
+    platform = request.GET.get('platform')
+    export = request.GET.get('export')
+
+    # Query base
+    metrics_qs = PlatformMetrics.objects.select_related('campaign')
+    if start_date:
+        metrics_qs = metrics_qs.filter(created_at__date__gte=start_date)
+    if end_date:
+        metrics_qs = metrics_qs.filter(created_at__date__lte=end_date)
+    if campaign_id:
+        metrics_qs = metrics_qs.filter(campaign__id=campaign_id)
+    if platform:
+        metrics_qs = metrics_qs.filter(platform=platform)
+
+    # KPIs globales
+    summary = metrics_qs.aggregate(
+        total_impressions=Sum('impressions') or 0,
+        total_clicks=Sum('clicks') or 0,
+        total_conversions=Sum('conversions') or 0,
+        total_spend=Sum('spend') or 0
+    )
+    summary['ctr'] = (summary['total_clicks'] / summary['total_impressions'] * 100) if summary['total_impressions'] else 0
+    summary['conversion_rate'] = (summary['total_conversions'] / summary['total_clicks'] * 100) if summary['total_clicks'] else 0
+    summary['cpc'] = (summary['total_spend'] / summary['total_clicks']) if summary['total_clicks'] else 0
+    summary['cpa'] = (summary['total_spend'] / summary['total_conversions']) if summary['total_conversions'] else 0
+
+    # Exportar a CSV
+    if export == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="performance_metrics.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['Campaign', 'Platform', 'Impressions', 'Clicks', 'CTR', 'Conversions', 'Conversion Rate', 'CPC', 'CPA', 'Spend', 'Date'])
+        for m in metrics_qs:
+            writer.writerow([
+                m.campaign.name,
+                m.get_platform_display(),
+                m.impressions,
+                m.clicks,
+                f"{m.ctr:.2f}",
+                m.conversions,
+                f"{m.conversion_rate:.2f}",
+                f"{m.cpc:.2f}",
+                f"{m.cpa:.2f}",
+                f"{m.spend:.2f}",
+                m.created_at.strftime('%Y-%m-%d'),
+            ])
+        return response
+
+    # Para filtros
+    campaigns = Campaign.objects.all()
+    platforms = Campaign.PLATFORM_CHOICES
+
+    # Para gráfica de barras
+    chart_labels = ['Impressions', 'Clicks', 'Conversions']
+    chart_data = [summary['total_impressions'], summary['total_clicks'], summary['total_conversions']]
+
+    context = {
+        'metrics': metrics_qs,
+        'summary': summary,
+        'campaigns': campaigns,
+        'platforms': platforms,
+        'selected_campaign': int(campaign_id) if campaign_id else '',
+        'selected_platform': platform or '',
+        'start_date': start_date or '',
+        'end_date': end_date or '',
+        'chart_labels': json.dumps(chart_labels),
+        'chart_data': json.dumps(chart_data),
+    }
+    return render(request, 'performance_metrics.html', context)
 
 def simulate_platform_metrics(request, campaign_id, platform):
     campaign = get_object_or_404(Campaign, id=campaign_id)
