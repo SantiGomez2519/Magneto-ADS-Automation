@@ -1,106 +1,445 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="mb-6 flex items-center gap-2">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M3 12h4v8H3zM9 8h4v12H9zM15 4h4v16h-4zM4 20h16" />
-  </svg>
-  <h2 class="text-2xl font-bold text-gray-800">Detailed Performance Report</h2>
-  <a href="{% url 'home' %}" class="ml-auto bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded shadow flex items-center gap-1">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m0 0h4m-4 0H9" />
-  </svg>
-  Home
-</a>
+<div class="flex">
+    <!-- Side navbar with brand colors -->
+    <div class="relative flex min-h-screen w-full max-w-[20rem] flex-col rounded-lg bg-[#E0F3FB] bg-clip-border p-4 text-[#007DA9] shadow-xl shadow-blue-gray-900/5">
+        <!-- Nav Menu -->
+        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-[#007DA9]">
+            <!-- Logo container -->
+            <div class="flex items-center justify-center mb-6 mt-2">
+                <img src="{% static 'magneto_logo.png' %}" class="h-12 w-auto" alt="Magneto Logo" loading="lazy" />
+            </div>
+    
+            <!-- Dashboard button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path> <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path> <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path> </svg> 
+                </div>
+                <span class="font-medium">Dashboard</span>
+            </div>
+    
+            <a href="{% url 'add' %}" class="block">
+                <!-- Create AD button -->
+                <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                    <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path> <path d="M15 12h-6"></path> <path d="M12 9v6"></path> </svg> 
+                    </div>
+                    <span class="font-medium">Create AD</span>
+                </div>
+            </a>
+    
+            <hr class="my-2 border-[#A3DAF2]" />
+    
+            <!-- Title -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold text-[#007DA9]">Edit AD</h2>
+            </div>
+    
+            <!-- Audience button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path> <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path> <path d="M16 3.13a4 4 0 0 1 0 7.75"></path> <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path> </svg> 
+                </div>
+                <span class="font-medium">Audience</span>
+            </div>
+    
+            <!-- Performance button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M4 6l16 0"></path> <path d="M4 12l16 0"></path> <path d="M4 18l12 0"></path> </svg> 
+                </div>
+                <span class="font-medium">Performance</span>
+            </div>
+    
+            <!-- Real Time Insights button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M19.03 17.818a3 3 0 0 0 1.97 -2.818v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8c0 1.317 .85 2.436 2.03 2.84"></path> <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path> <path d="M8 21a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2"></path> </svg> 
+                </div>
+                <span class="font-medium">Real-time Insights</span>
+            </div>
+
+            <!-- Title Detailed Reports -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold text-[#007DA9]">Detailed Reports</h2>
+            </div>
+
+            <!-- Reports button -->
+            <a href="{% url 'report' %}" 
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start bg-[#66C1EA] text-white">
+                
+                <div class="grid mr-4 place-items-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bar" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 12h4v8h-4z" />
+                        <path d="M9 8h4v12h-4z" />
+                        <path d="M15 4h4v16h-4z" />
+                        <path d="M4 20h16" />
+                    </svg>
+                </div>
+                <span class="font-medium">Reports</span>
+            </a>
+
+            
+        <hr class="my-2 border-[#A3DAF2]" />
+    
+            <!-- Title -->
+            <div class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start">
+                <h2 class="text-xl font-bold text-[#007DA9]">Meta and Google</h2>
+            </div>
+    
+            <!-- Job Seekers button -->
+            <div role="button" class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-[#A3DAF2] hover:text-[#007DA9] focus:bg-[#A3DAF2] focus:text-[#007DA9] active:bg-[#66C1EA] active:text-[#007DA9]">
+                <div class="grid mr-4 place-items-center text-[#00A7E1]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path> <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path> <path d="M12 12l0 .01"></path> <path d="M3 13a20 20 0 0 0 18 0"></path> </svg> 
+                </div>
+                <span class="font-medium">Real-time Insights</span>
+            </div>
+      </nav>
+    </div>
+
+    <!-- Main content area -->
+    <div class="flex-1 flex flex-col">
+        <!-- Main navigation container -->
+        <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-[#E0F3FB] py-2 shadow-md lg:flex-wrap lg:justify-start lg:py-4">
+            <div class="flex w-full flex-wrap items-center justify-between px-3">
+                <!-- Hamburger button for mobile view -->
+                <button
+                    class="block border-0 bg-transparent px-2 text-[#007DA9] hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
+                    type="button"
+                    data-twe-collapse-init
+                    data-twe-target="#navbarSupportedContent1"
+                    aria-controls="navbarSupportedContent1"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <!-- Hamburger icon -->
+                    <span class="[&>svg]:w-7 [&>svg]:stroke-[#007DA9]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Collapsible navigation container -->
+                <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+                    id="navbarSupportedContent1"
+                    data-twe-collapse-item>
+                    <!-- Logo -->
+                    <a class="mb-4 me-5 ms-2 mt-3 flex items-center text-[#007DA9] hover:text-[#00A7E1] focus:text-[#00A7E1] lg:mb-0 lg:mt-0" href="#">
+                        <img src="{% static 'magneto_logo.png' %}" class="h-10 w-auto" alt="Magneto Logo" loading="lazy" />
+                    </a>
+                    
+                    <form class="flex items-left">   
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 start-0 flex ps-3 pointer-events-none">
+                            </div>
+                            <input type="text" id="simple-search" class="bg-white border border-[#A3DAF2] text-[#007DA9] text-sm rounded-lg focus:ring-[#00A7E1] focus:border-[#00A7E1] block w-full p-2.5 pr-20" placeholder="Search for job ADS..." required />
+                        </div>
+                        <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-[#0CBB4E] rounded-lg border border-[#09C83B] hover:bg-[#3DC971] focus:ring-4 focus:outline-none focus:ring-[#6DD695]">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right elements -->
+                <div class="relative flex items-center">
+                    <!-- Icon -->
+                    <a class="me-4 text-[#007DA9] hover:text-[#00A7E1]" href="#">
+                        <span class="[&>svg]:w-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                            </svg>
+                        </span>
+                    </a>
+
+                    <!-- Notification button and popup -->
+                    <div class="relative" id="notificationContainer">
+                        <!-- Notification button -->
+                        <button id="notificationButton" class="me-4 flex items-center text-[#007DA9] hover:text-[#00A7E1] focus:outline-none">
+                            <span class="[&>svg]:w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            <!-- Notification counter -->
+                            <span class="absolute -mt-4 ms-2.5 rounded-full bg-[#09C83B] px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-white">1</span>
+                        </button>
+                        
+                        <!-- Notification popup -->
+                        <div id="notificationPopup" class="absolute right-0 z-[1000] mt-2 w-80 rounded-lg border border-[#A3DAF2] bg-white shadow-lg hidden">
+                            <!-- Notification header -->
+                            <div class="px-4 py-3 font-semibold text-[#007DA9] border-b border-[#E0F3FB] flex justify-between items-center">
+                                <span>Notifications</span>
+                                <button id="closeNotifications" class="text-[#007DA9] hover:text-[#00A7E1] focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Notification items -->
+                            <div class="max-h-[300px] overflow-y-auto">
+                                <!-- Notification 1: good performance -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#CEF1DC] rounded-full p-2 mr-3 text-[#0CBB4E]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Campaign Success</p>
+                                        <p>Your Facebook campaign surpassed <span class="font-semibold">50,000 clicks</span>!</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">2 hours ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 2: low performance -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] border-b border-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#FFF3CD] rounded-full p-2 mr-3 text-[#FFC107]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Performance Alert</p>
+                                        <p>Instagram ads have <span class="font-semibold">low conversions</span>. Consider reviewing your CTA.</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">5 hours ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 3: recommendation -->
+                                <div class="px-4 py-3 text-sm text-[#007DA9] hover:bg-[#E0F3FB] flex items-start">
+                                    <div class="bg-[#E0F3FB] rounded-full p-2 mr-3 text-[#00A7E1]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Optimization Tip</p>
+                                        <p>Try running your campaign at peak hours (2-5 PM) for better engagement.</p>
+                                        <p class="text-xs text-[#00A7E1] mt-1">1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- View all link -->
+                            <div class="px-4 py-3 text-center border-t border-[#E0F3FB]">
+                                <a href="#" class="text-[#00A7E1] text-sm font-medium hover:underline">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second dropdown container -->
+                    <div class="relative" data-twe-dropdown-ref data-twe-dropdown-alignment="end">
+                        <!-- Second dropdown trigger -->
+                        <a class="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none" href="#" id="dropdownMenuButton2" role="button" data-twe-dropdown-toggle-ref aria-expanded="false">
+                            <!-- User avatar -->
+                            <img src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg" class="rounded-full" style="height: 25px; width: 25px" alt="" loading="lazy" />
+                        </a>
+                        <!-- Second dropdown menu -->
+                        <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block" aria-labelledby="dropdownMenuButton2" data-twe-dropdown-menu-ref>
+                            <!-- Second dropdown menu items -->
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="{% url 'logout' %}" data-twe-dropdown-item-ref>Logout</a>
+                            </li>
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="#" data-twe-dropdown-item-ref>Another action</a>
+                            </li>
+                            <li>
+                                <a class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-[#007DA9] hover:bg-[#E0F3FB] focus:bg-[#E0F3FB] focus:outline-none active:bg-[#E0F3FB] active:no-underline" href="#" data-twe-dropdown-item-ref>Something else here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Logout button -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">
+                        <button type="button" class="focus:outline-none text-white bg-[#0CBB4E] hover:bg-[#3DC971] focus:ring-4 focus:ring-[#6DD695] font-medium rounded-lg text-sm px-5 py-2.5 ml-3">Logout</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <!-- Right elements -->
+            </div>
+        </nav>
+
+        <!-- Report content -->
+        <div class="p-6 bg-gray-50 flex-1 overflow-y-auto">
+            <div class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00A7E1]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12h4v8H3zM9 8h4v12H9zM15 4h4v16h-4zM4 20h16" />
+                        </svg>
+                        <h2 class="text-2xl font-bold text-[#007DA9]">Detailed Performance Report</h2>
+                    </div>
+                </div>
+
+                <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-8 bg-[#E0F3FB] p-5 rounded-lg shadow-sm border border-[#A3DAF2]">
+                    <div>
+                        <label for="start_date" class="block mb-2 text-sm font-medium text-[#007DA9]">From:</label>
+                        <input type="date" name="start_date" value="{{ start_date }}" class="w-full border border-[#A3DAF2] p-2 rounded-md shadow-sm focus:ring-2 focus:ring-[#00A7E1] focus:border-[#00A7E1] outline-none">
+                    </div>
+                    <div>
+                        <label for="end_date" class="block mb-2 text-sm font-medium text-[#007DA9]">To:</label>
+                        <input type="date" name="end_date" value="{{ end_date }}" class="w-full border border-[#A3DAF2] p-2 rounded-md shadow-sm focus:ring-2 focus:ring-[#00A7E1] focus:border-[#00A7E1] outline-none">
+                    </div>
+                    <div>
+                        <label for="category" class="block mb-2 text-sm font-medium text-[#007DA9]">Campaign type:</label>
+                        <select name="category" class="w-full border border-[#A3DAF2] p-2 rounded-md shadow-sm focus:ring-2 focus:ring-[#00A7E1] focus:border-[#00A7E1] outline-none">
+                            <option value="">All</option>
+                            {% for c in categories %}
+                            <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="submit" class="bg-[#00A7E1] hover:bg-[#007DA9] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            Filter
+                        </button>
+                        {% if interactions %}
+                        <a href="?{% if start_date %}start_date={{ start_date }}&{% endif %}{% if end_date %}end_date={{ end_date }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}export=csv" class="bg-[#0CBB4E] hover:bg-[#09C83B] text-white px-4 py-2 rounded-md flex items-center gap-2 shadow-sm transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                            Export CSV
+                        </a>
+                        {% endif %}
+                    </div>
+                </form>
+
+                {% if summary.total_impressions %}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-[#E0F3FB] to-white p-6 rounded-lg shadow-sm border border-[#A3DAF2] text-center relative overflow-hidden">
+                        <div class="relative z-10">
+                            <p class="text-sm font-medium text-[#007DA9] mb-2">Total Impressions</p>
+                            <p class="text-3xl font-bold text-[#00A7E1]">{{ summary.total_impressions }}</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 absolute -bottom-6 -right-6 text-[#E0F3FB] opacity-30" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-gradient-to-br from-[#CEF1DC] to-white p-6 rounded-lg shadow-sm border border-[#9EE4B8] text-center relative overflow-hidden">
+                        <div class="relative z-10">
+                            <p class="text-sm font-medium text-[#09C83B] mb-2">Total Clicks</p>
+                            <p class="text-3xl font-bold text-[#0CBB4E]">{{ summary.total_clicks }}</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 absolute -bottom-6 -right-6 text-[#CEF1DC] opacity-30" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-gradient-to-br from-[#A3DAF2] to-white p-6 rounded-lg shadow-sm border border-[#66C1EA] text-center relative overflow-hidden">
+                        <div class="relative z-10">
+                            <p class="text-sm font-medium text-[#007DA9] mb-2">Total Conversions</p>
+                            <p class="text-3xl font-bold text-[#00A7E1]">{{ summary.total_conversions }}</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 absolute -bottom-6 -right-6 text-[#A3DAF2] opacity-30" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8 border border-[#E0F3FB]">
+                    <h3 class="text-lg font-semibold text-[#007DA9] mb-4">Performance Metrics</h3>
+                    <canvas id="metricsChart" height="100"></canvas>
+                </div>
+                {% else %}
+                <div class="text-center py-12 bg-[#E0F3FB] rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-[#66C1EA] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-lg text-[#007DA9] font-medium">No data found for the selected filters.</p>
+                    <p class="text-[#66C1EA]">Try adjusting your filter criteria.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-
-<form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-8 bg-gray-50 p-4 rounded shadow">
-  <div>
-    <label for="start_date" class="block mb-1 text-sm font-medium text-gray-700">From:</label>
-    <input type="date" name="start_date" value="{{ start_date }}" class="w-full border border-gray-300 p-2 rounded shadow-sm">
-  </div>
-  <div>
-    <label for="end_date" class="block mb-1 text-sm font-medium text-gray-700">To:</label>
-    <input type="date" name="end_date" value="{{ end_date }}" class="w-full border border-gray-300 p-2 rounded shadow-sm">
-  </div>
-  <div>
-    <label for="category" class="block mb-1 text-sm font-medium text-gray-700">Campaign type:</label>
-    <select name="category" class="w-full border border-gray-300 p-2 rounded shadow-sm">
-      <option value="">All</option>
-      {% for c in categories %}
-        <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="flex gap-2">
-    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-1 shadow">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7" /></svg>
-      Filter
-    </button>
-    {% if interactions %}
-      <a href="?{% if start_date %}start_date={{ start_date }}&{% endif %}{% if end_date %}end_date={{ end_date }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}export=csv" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-1 shadow">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 4v16m8-8H4" /></svg>
-        Export CSV
-      </a>
-    {% endif %}
-  </div>
-</form>
-
-{% if summary.total_impressions %}
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-blue-500">
-      <p class="text-sm text-gray-600">Total Impressions</p>
-      <p class="text-2xl font-bold text-blue-600">{{ summary.total_impressions }}</p>
-    </div>
-    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-green-500">
-      <p class="text-sm text-gray-600">Total Clicks</p>
-      <p class="text-2xl font-bold text-green-600">{{ summary.total_clicks }}</p>
-    </div>
-    <div class="bg-white p-6 rounded shadow text-center border-l-4 border-pink-500">
-      <p class="text-sm text-gray-600">Total Conversions</p>
-      <p class="text-2xl font-bold text-pink-600">{{ summary.total_conversions }}</p>
-    </div>
-  </div>
-
-  <div class="bg-white rounded shadow p-6 mb-8">
-    <canvas id="metricsChart" height="100"></canvas>
-  </div>
-{% else %}
-  <div class="text-center text-gray-600 italic">
-    No data found for the selected filters.
-  </div>
-{% endif %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const ctx = document.getElementById('metricsChart');
-  if (ctx) {
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Impressions', 'Clicks', 'Conversions'],
-        datasets: [{
-          label: 'Metrics',
-          data: [
-            {{ summary.total_impressions|default:0 }},
-            {{ summary.total_clicks|default:0 }},
-            {{ summary.total_conversions|default:0 }}
-          ],
-          backgroundColor: ['#3B82F6', '#10B981', '#EC4899']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+    const ctx = document.getElementById('metricsChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Impressions', 'Clicks', 'Conversions'],
+                datasets: [{
+                    label: 'Metrics',
+                    data: [
+                        {{ summary.total_impressions|default:0 }},
+                        {{ summary.total_clicks|default:0 }},
+                        {{ summary.total_conversions|default:0 }}
+                    ],
+                    backgroundColor: ['#00A7E1', '#0CBB4E', '#66C1EA']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#007DA9',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                        padding: 10,
+                        cornerRadius: 6
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#E0F3FB'
+                        },
+                        ticks: {
+                            color: '#007DA9'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#007DA9'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Notification popup functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationButton = document.getElementById('notificationButton');
+        const notificationPopup = document.getElementById('notificationPopup');
+        const closeNotifications = document.getElementById('closeNotifications');
+        
+        if (notificationButton && notificationPopup) {
+            notificationButton.addEventListener('click', function() {
+                notificationPopup.classList.toggle('hidden');
+            });
+            
+            if (closeNotifications) {
+                closeNotifications.addEventListener('click', function() {
+                    notificationPopup.classList.add('hidden');
+                });
+            }
+            
+            // Close popup when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInside = notificationButton.contains(event.target) || 
+                                    notificationPopup.contains(event.target);
+                
+                if (!isClickInside && !notificationPopup.classList.contains('hidden')) {
+                    notificationPopup.classList.add('hidden');
+                }
+            });
         }
-      }
     });
-  }
 </script>
 {% endblock %}
